@@ -1,0 +1,16 @@
+{
+  "required": true,
+  "package": "dev.foltz.mixin.client",
+  "compatibilityLevel": "JAVA_17",
+  "client": [
+    "Z7ClientPlayNetworkHandlerMixin",
+    "Z7CustomizeWorldScreenMixin",
+    "Z7FogModifierMixin",
+    "Z7MouseMixin",
+    "Z7StatusEffectDescriptionMixin",
+    "Z7WorldRendererFogMixin"
+  ],
+  "injectors": {
+    "defaultRequire": 1
+  }
+}

@@ -1,0 +1,45 @@
+{
+	"schemaVersion": 1,
+	"id": "zombie7",
+	"version": "${version}",
+	"name": "Zombie7",
+	"description": "This is an example description! Tell everyone what your mod is about!",
+	"authors": [
+		"Me!"
+	],
+	"contact": {
+		"homepage": "https://fabricmc.net/",
+		"sources": "https://github.com/FabricMC/fabric-example-mod"
+	},
+	"license": "CC0-1.0",
+	"icon": "assets/zombie7/icon.png",
+	"environment": "*",
+	"entrypoints": {
+        "fabric-datagen": [
+          "dev.foltz.datagen.DataGeneration"
+        ],
+		"main": [
+          "dev.foltz.Zombie7"
+		],
+		"client": [
+			"dev.foltz.Zombie7Client"
+		]
+	},
+    "accessWidener": "zombie7.accessWidener",
+	"mixins": [
+		"zombie7.mixins.json",
+		{
+			"config": "zombie7.client.mixins.json",
+			"environment": "client"
+		}
+	],
+	"depends": {
+		"fabricloader": ">=0.14.21",
+		"minecraft": "~1.19.4",
+		"java": ">=17",
+		"fabric-api": "*"
+	},
+	"suggests": {
+		"another-mod": "*"
+	}
+}

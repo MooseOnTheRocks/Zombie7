@@ -1,0 +1,39 @@
+{
+  "variants": {
+    "layers=1": {
+      "model": "zombie7:block/gore_block_0_height_2"
+    },
+    "layers=2": {
+      "model": "zombie7:block/gore_block_0_height_4"
+    },
+    "layers=3": {
+      "model": "zombie7:block/gore_block_0_height_6"
+    },
+    "layers=4": {
+      "model": "zombie7:block/gore_block_0_height_8"
+    },
+    "layers=5": {
+      "model": "zombie7:block/gore_block_0_height_10"
+    },
+    "layers=6": {
+      "model": "zombie7:block/gore_block_0_height_12"
+    },
+    "layers=7": {
+      "model": "zombie7:block/gore_block_0_height_14"
+    },
+    "layers=8": [
+      { "model": "zombie7:block/gore_block_0" },
+      { "model": "zombie7:block/gore_block_0", "y": 90 },
+      { "model": "zombie7:block/gore_block_0", "y": 180 },
+      { "model": "zombie7:block/gore_block_0", "y": 270 },
+      { "model": "zombie7:block/gore_block_1" },
+      { "model": "zombie7:block/gore_block_1", "y": 90 },
+      { "model": "zombie7:block/gore_block_1", "y": 180 },
+      { "model": "zombie7:block/gore_block_1", "y": 270 },
+      { "model": "zombie7:block/gore_block_2" },
+      { "model": "zombie7:block/gore_block_2", "y": 90 },
+      { "model": "zombie7:block/gore_block_2", "y": 180 },
+      { "model": "zombie7:block/gore_block_2", "y": 270 }
+    ]
+  }
+}

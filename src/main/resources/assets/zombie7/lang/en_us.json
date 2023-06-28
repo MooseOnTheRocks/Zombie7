@@ -1,0 +1,51 @@
+{
+  "block.zombie7.gore_block": "Gore Block",
+
+  "item.zombie7.plant_fiber": "Plant Fiber",
+  "item.zombie7.repair_kit": "Repair Kit",
+
+  "item.zombie7.bandage": "Bandage",
+  "item.zombie7.splint": "Splint",
+  "item.zombie7.antibiotics": "Antibiotics",
+  "item.zombie7.painkillers": "Painkillers",
+
+  "item.zombie7.part_axe_steel": "Steel Axe Part",
+
+  "item.zombie7.ammo_pistol": "Pistol Ammo",
+  "item.zombie7.ammo_shotgun": "Shotgun Ammo",
+
+  "item.zombie7.pistol_basic": "Basic Pistol",
+  "item.zombie7.pistol_flintlock": "Flintlock Pistol",
+  "item.zombie7.shotgun_basic": "Basic Shotgun",
+
+  "itemGroup.zombie7.parts": "Z7 Parts",
+  "itemGroup.zombie7.general": "Z7 General",
+  "itemGroup.zombie7.weapons": "Z7 Weapons",
+
+  "effect.zombie7.healing": "Healing",
+  "effect.zombie7.bleeding": "Bleeding",
+  "effect.zombie7.bleeding_long": "Deep Cut",
+  "effect.zombie7.infection": "Infection",
+  "effect.zombie7.concussion": "Concussion",
+  "effect.zombie7.concussion_long": "Concussion",
+  "effect.zombie7.broken_bone": "Broken Bone",
+
+  "tooltip.whenApplied": "When Applied:",
+
+  "generator.zombie7.zombie7_world": "Zombie World",
+
+  "createWorld.customize.zombie7.title": "Zombie World Generation",
+  "createWorld.customize.zombie7.biome": "Select biome:",
+
+  "death.attack.infection": "%1$s turned into something else",
+  "death.attack.infection.player": "%1$s has been zombified whilst fighting %2$s",
+  "death.attack.bleeding": "%1$s bled to death",
+  "death.attack.bleeding.player": "%1$s bled to death whilst fighting %2$s",
+  "death.attack.bleeding.item": "%1$s bled to death whilst fighting %2$s wielding %3$s",
+  "death.attack.bleeding_long": "%1$s couldn't heal their cuts in time",
+  "death.attack.bleeding_long.player": "%1$s couldn't heal their cuts in time whilst fighting %2$s",
+  "death.attack.bleeding_long.item": "%1$s couldn't heal their cuts in time whilst fighting %2$s wielding %3$s",
+
+
+  "item.zombie7.bonk_stick": "Bonk Stick"
+}

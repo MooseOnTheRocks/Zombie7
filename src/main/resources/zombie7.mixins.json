@@ -1,0 +1,14 @@
+{
+  "required": true,
+  "package": "dev.foltz.mixin",
+  "compatibilityLevel": "JAVA_17",
+  "mixins": [
+    "Z7AnvilScreenHandlerMixin",
+    "Z7EntityCreateGoreBlockMixin",
+    "Z7HarmEntityOnAttackMixin",
+    "Z7WorldGenMixin"
+  ],
+  "injectors": {
+    "defaultRequire": 1
+	}
+}

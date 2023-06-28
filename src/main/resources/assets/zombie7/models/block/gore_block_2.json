@@ -1,0 +1,6 @@
+{
+  "parent": "block/cube_all",
+  "textures": {
+    "all": "zombie7:block/gore_block_2"
+  }
+}

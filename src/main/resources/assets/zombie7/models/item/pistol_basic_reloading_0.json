@@ -1,0 +1,6 @@
+{
+  "parent": "zombie7:item/gun_parent",
+  "textures": {
+    "layer0": "zombie7:item/pistol_basic_reloading_0"
+  }
+}
