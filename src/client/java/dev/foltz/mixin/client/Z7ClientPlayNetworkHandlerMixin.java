@@ -1,14 +1,12 @@
 package dev.foltz.mixin.client;
 
 import dev.foltz.Zombie7;
-import dev.foltz.entity.Z7BulletEntity;
-import dev.foltz.entity.Z7GrenadeEntity;
+import dev.foltz.entity.*;
 import net.minecraft.client.network.ClientPlayNetworkHandler;
 import net.minecraft.client.world.ClientWorld;
 import net.minecraft.entity.Entity;
 import net.minecraft.entity.EntityType;
 import net.minecraft.network.packet.s2c.play.EntitySpawnS2CPacket;
-import net.minecraft.util.math.Vec3d;
 import org.spongepowered.asm.mixin.Mixin;
 import org.spongepowered.asm.mixin.Shadow;
 import org.spongepowered.asm.mixin.injection.At;
@@ -28,11 +26,17 @@ public class Z7ClientPlayNetworkHandlerMixin {
     ) // thank you parzivail
     private void onEntitySpawn(EntitySpawnS2CPacket packet, CallbackInfo ci, EntityType entityType) {
         Entity entity = null;
-        if (entityType == Zombie7.GRENADE_ENTITY) {
-            entity = new Z7GrenadeEntity(Zombie7.GRENADE_ENTITY, this.world);
+        if (entityType == Z7Entities.FRAG_GRENADE_ENTITY) {
+            entity = new Z7FragGrenadeEntity(Z7Entities.FRAG_GRENADE_ENTITY, this.world);
         }
-        else if (entityType == Zombie7.BULLET_ENTITY) {
-            entity = new Z7BulletEntity(Zombie7.BULLET_ENTITY, this.world);
+        else if (entityType == Z7Entities.MOLOTOV_GRENADE_ENTITY) {
+            entity = new Z7MolotovGrenadeEntity(Z7Entities.MOLOTOV_GRENADE_ENTITY, this.world);
+        }
+        else if (entityType == Z7Entities.BULLET_BRONZE_ENTITY) {
+            entity = new Z7BulletBronzeEntity(Z7Entities.BULLET_BRONZE_ENTITY, this.world);
+        }
+        else if (entityType == Z7Entities.BULLET_LEAD_ENTITY) {
+            entity = new Z7BulletLeadEntity(Z7Entities.BULLET_LEAD_ENTITY, this.world);
         }
 
         if (entity != null) {

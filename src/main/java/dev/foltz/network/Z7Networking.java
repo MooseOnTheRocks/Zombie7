@@ -2,7 +2,8 @@ package dev.foltz.network;
 
 import dev.foltz.block.Z7Blocks;
 import dev.foltz.block.Z7GoreBlock;
-import dev.foltz.item.Z7GunItem;
+import dev.foltz.item.gunlike.Z7GrenadeItem;
+import dev.foltz.item.gunlike.Z7GunlikeItem;
 import net.fabricmc.fabric.api.event.lifecycle.v1.ServerTickEvents;
 import net.fabricmc.fabric.api.event.player.PlayerBlockBreakEvents;
 import net.fabricmc.fabric.api.networking.v1.ServerPlayNetworking;
@@ -17,10 +18,13 @@ import net.minecraft.util.Identifier;
 import static dev.foltz.Zombie7.MODID;
 
 public class Z7Networking {
-    public static final Identifier BEGIN_SHOOT_PACKET_ID = new Identifier(MODID, "begin_shoot");
-    public static final Identifier END_SHOOT_PACKET_ID = new Identifier(MODID, "end_shoot");
-    public static final Identifier BEGIN_RELOAD_PACKET_ID = new Identifier(MODID, "begin_reload");
-    public static final Identifier END_RELOAD_PACKET_ID = new Identifier(MODID, "end_reload");
+    public static final Identifier SHOOT_PRESS_PACKET_ID = new Identifier(MODID, "shoot_press");
+    public static final Identifier SHOOT_RELEASE_PACKET_ID = new Identifier(MODID, "shoot_release");
+    public static final Identifier RELOAD_PRESS_PACKET_ID = new Identifier(MODID, "reload_press");
+    public static final Identifier RELOAD_RELEASE_PACKET_ID = new Identifier(MODID, "reload_release");
+
+    public static final Identifier ZOOM_PRESS_PACKET_ID = new Identifier(MODID, "zoom_press");
+    public static final Identifier ZOOM_RELEASE_PACKET_ID = new Identifier(MODID, "zoom_release");
 
 
     public static void registerAllEvents() {
@@ -62,7 +66,7 @@ public class Z7Networking {
                         var player = server.getPlayerManager().getPlayer(uuid);
                         if (player != null) {
                             var itemStack = player.getMainHandStack();
-                            if (itemStack.getItem() instanceof Z7GunItem gunItem) {
+                            if (itemStack.getItem() instanceof Z7GunlikeItem gunItem) {
                                 if (gunItem.isReloading(itemStack)) {
                                     ItemStack newStack = gunItem.tickReload(itemStack, player.world, player);
                                     player.setStackInHand(Hand.MAIN_HAND, newStack);
@@ -80,7 +84,7 @@ public class Z7Networking {
                         var player = server.getPlayerManager().getPlayer(uuid);
                         if (player != null) {
                             var itemStack = player.getMainHandStack();
-                            if (itemStack.getItem() instanceof Z7GunItem gunItem) {
+                            if (itemStack.getItem() instanceof Z7GunlikeItem gunItem) {
                                 ItemStack newStack = gunItem.tickShoot(itemStack, player.world, player);
                                 player.setStackInHand(Hand.MAIN_HAND, newStack);
                             }
@@ -90,7 +94,7 @@ public class Z7Networking {
                         var player = server.getPlayerManager().getPlayer(uuid);
                         if (player != null) {
                             var itemStack = player.getMainHandStack();
-                            if (itemStack.getItem() instanceof Z7GunItem gunItem) {
+                            if (itemStack.getItem() instanceof Z7GunlikeItem gunItem) {
                                 ItemStack newStack = gunItem.tickReload(itemStack, player.world, player);
                                 player.setStackInHand(Hand.MAIN_HAND, newStack);
                             }
@@ -100,20 +104,27 @@ public class Z7Networking {
             });
         });
 
-        ServerPlayNetworking.registerGlobalReceiver(BEGIN_SHOOT_PACKET_ID, (server, player, handler, buf, responseSender) -> {
+        ServerPlayNetworking.registerGlobalReceiver(SHOOT_PRESS_PACKET_ID, (server, player, handler, buf, responseSender) -> {
             server.execute(() -> {
                 ItemStack stack = player.getMainHandStack();
-                if (!(stack.getItem() instanceof Z7GunItem gun)) {
+                if (!(stack.getItem() instanceof Z7GunlikeItem gun)) {
                     return;
                 }
 
                 var playerState = Z7ServerState.getPlayerState(player);
 
-                if (playerState.isShooting || playerState.isReloading) {
+                if (playerState.isShooting) {
                     return;
                 }
 
+
                 var serverState = Z7ServerState.getServerState(server);
+
+                if (playerState.isReloading) {
+                    serverState.setShooting(player, true);
+                    System.out.println("Currently reloading, adding shoot.");
+                    return;
+                }
 
                 if (gun.isBroken(stack)) {
                     serverState.setShooting(player, false);
@@ -142,10 +153,10 @@ public class Z7Networking {
         });
 
 
-        ServerPlayNetworking.registerGlobalReceiver(END_SHOOT_PACKET_ID, (server, player, handler, buf, responseSender) -> {
+        ServerPlayNetworking.registerGlobalReceiver(SHOOT_RELEASE_PACKET_ID, (server, player, handler, buf, responseSender) -> {
             server.execute(() -> {
                 ItemStack stack = player.getMainHandStack();
-                if (!(stack.getItem() instanceof Z7GunItem gun)) {
+                if (!(stack.getItem() instanceof Z7GunlikeItem gun)) {
                     return;
                 }
 
@@ -170,28 +181,41 @@ public class Z7Networking {
             });
         });
 
-        ServerPlayNetworking.registerGlobalReceiver(BEGIN_RELOAD_PACKET_ID, (server, player, handler, buf, responseSender) -> {
+        ServerPlayNetworking.registerGlobalReceiver(RELOAD_PRESS_PACKET_ID, (server, player, handler, buf, responseSender) -> {
             server.execute(() -> {
                 ItemStack stack = player.getMainHandStack();
-                if (!(stack.getItem() instanceof Z7GunItem gun)) {
+                if (!(stack.getItem() instanceof Z7GunlikeItem gun)) {
                     return;
                 }
 
                 var serverState = Z7ServerState.getServerState(server);
                 var playerState = Z7ServerState.getPlayerState(player);
 
+//                System.out.println("At the reload!");
+
+                if (stack.getItem() instanceof Z7GrenadeItem grenade) {
+                    System.out.println("At the grenade!");
+                    if (grenade.cancelShoot(stack, player.world, player)) {
+                        System.out.println("Cancelling the shoot!");
+                        player.setStackInHand(Hand.MAIN_HAND, stack);
+                        serverState.setReloading(player, false);
+                        serverState.setShooting(player, false);
+                        player.world.playSound(null, player.getX(), player.getY(), player.getZ(), SoundEvents.BLOCK_DISPENSER_FAIL, SoundCategory.PLAYERS, 1.0f, 1.0f);
+                        return;
+                    }
+                }
+
                 if (playerState.isShooting || playerState.isReloading) {
                     return;
                 }
 
                 if (gun.isBroken(stack)) {
-                    serverState.setReloading(player, true);
-                    System.out.println("Gun broken: reload-click");
+                    serverState.setReloading(player, false);
+//                    System.out.println("Gun broken: reload-click");
                 }
                 else if (gun.canReload(stack, player)) {
                     serverState.setReloading(player, true);
                     player.setStackInHand(Hand.MAIN_HAND, gun.beginReload(stack, player.world, player));
-//                    System.out.println("beginReload [BEGIN RELOAD]");
                 }
                 else {
                     player.world.playSound(null, player.getX(), player.getY(), player.getZ(), SoundEvents.BLOCK_DISPENSER_FAIL, SoundCategory.PLAYERS, 1.0f, 1.0f);
@@ -200,15 +224,19 @@ public class Z7Networking {
         });
 
 
-        ServerPlayNetworking.registerGlobalReceiver(END_RELOAD_PACKET_ID, (server, player, handler, buf, responseSender) -> {
+        ServerPlayNetworking.registerGlobalReceiver(RELOAD_RELEASE_PACKET_ID, (server, player, handler, buf, responseSender) -> {
             server.execute(() -> {
                 ItemStack stack = player.getMainHandStack();
-                if (!(stack.getItem() instanceof Z7GunItem gun)) {
+                if (!(stack.getItem() instanceof Z7GunlikeItem gun)) {
                     return;
                 }
 
                 var serverState = Z7ServerState.getServerState(server);
                 var playerState = Z7ServerState.getPlayerState(player);
+
+                if (playerState.isShooting && playerState.isReloading) {
+                    return;
+                }
 
                 if (gun.isBroken(stack)) {
                     serverState.setReloading(player, false);

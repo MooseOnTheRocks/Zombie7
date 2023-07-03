@@ -1,6 +1,14 @@
 package dev.foltz.item;
 
 import dev.foltz.Zombie7;
+import dev.foltz.item.ammo.Z7AmmoBasicPistolItem;
+import dev.foltz.item.ammo.Z7AmmoBasicShotgunItem;
+import dev.foltz.item.ammo.Z7AmmoItem;
+import dev.foltz.item.consumable.Z7AntibioticsItem;
+import dev.foltz.item.consumable.Z7BandageItem;
+import dev.foltz.item.consumable.Z7PainkillersItem;
+import dev.foltz.item.consumable.Z7SplintItem;
+import dev.foltz.item.gunlike.*;
 import net.fabricmc.fabric.api.item.v1.FabricItemSettings;
 import net.fabricmc.fabric.api.itemgroup.v1.FabricItemGroup;
 import net.minecraft.block.Block;
@@ -13,49 +21,62 @@ import net.minecraft.registry.Registry;
 import net.minecraft.util.Identifier;
 
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 import java.util.function.Supplier;
 
-public class Z7Items {
+public abstract class Z7Items {
     private static final Map<String, Item> ALL_ITEMS = new HashMap<>();
     private static final Map<String, Item> ALL_ITEMS_GENERAL = new HashMap<>();
-    private static final Map<String, Item> ALL_ITEMS_PARTS = new HashMap<>();
-    private static final Map<String, Item> ALL_ITEMS_WEAPONS = new HashMap<>();
+    private static final Map<String, Item> ALL_ITEMS_MATERIALS = new HashMap<>();
+    private static final Map<String, Item> ALL_ITEMS_CONSUMABLES = new HashMap<>();
+    private static final Map<String, Item> ALL_ITEMS_GUNS = new HashMap<>();
+    private static final Map<String, Item> ALL_ITEMS_GRENADES = new HashMap<>();
+    private static final Map<String, Item> ALL_ITEMS_AMMO = new HashMap<>();
+    private static final Map<String, Item> ALL_ITEMS_MISC_WEAPONS = new HashMap<>();
+
 
 
     // Materials
-    public static final Item ITEM_PLANT_FIBER = registerItem("plant_fiber", new Item(new FabricItemSettings()));
-    public static final Item ITEM_CLOTH_FRAGMENT = registerItem("cloth_fragment", new Item(new FabricItemSettings()));
-    public static final Item ITEM_REPAIR_KIT = registerItem("repair_kit", new Item(new FabricItemSettings()));
-
-    // Healing
-    public static final Item ITEM_BANDAGE = registerItem("bandage", new Z7BandageItem());
-    public static final Item ITEM_ANTIBIOTICS = registerItem("antibiotics", new Z7AntibioticsItem());
-    public static final Item ITEM_PAINKILLERS = registerItem("painkillers", new Z7PainkillersItem());
-    public static final Item ITEM_SPLINT = registerItem("splint", new Z7SplintItem());
-
-    // Consumables
-    public static final Item ITEM_COFFEE = registerItem("coffee", new Item(new FabricItemSettings().maxCount(5)));
+    public static final Item ITEM_PLANT_FIBER = registerMaterialItem("plant_fiber", new Item(new FabricItemSettings()));
+    public static final Item ITEM_CLOTH_FRAGMENT = registerMaterialItem("cloth_fragment", new Item(new FabricItemSettings()));
+    public static final Item ITEM_REPAIR_KIT = registerMaterialItem("repair_kit", new Item(new FabricItemSettings()));
 
     // Parts
-    public static final Item ITEM_PART_STEEL_AXE = registerPartItem("part_axe_steel", new Z7PartItem());
+    public static final Item ITEM_PART_STEEL_AXE = registerMaterialItem("part_axe_steel", new Item(new FabricItemSettings()));
+
+
+    // Consumables
+    public static final Item ITEM_BANDAGE = registerConsumableItem("bandage", new Z7BandageItem());
+    public static final Item ITEM_ANTIBIOTICS = registerConsumableItem("antibiotics", new Z7AntibioticsItem());
+    public static final Item ITEM_PAINKILLERS = registerConsumableItem("painkillers", new Z7PainkillersItem());
+    public static final Item ITEM_SPLINT = registerConsumableItem("splint", new Z7SplintItem());
+
+    public static final Item ITEM_COFFEE = registerConsumableItem("coffee", new Item(new FabricItemSettings().maxCount(10)));
+
 
     // Weapons
-    public static final Item ITEM_GRENADE = registerWeaponItem("grenade", new Z7GrenadeItem());
-    public static final Item ITEM_PISTOL_BASIC = registerWeaponItem("pistol_basic", new Z7PistolItem());
-    public static final Item ITEM_PISTOL_FLINTLOCK = registerWeaponItem("pistol_flintlock", new Z7FlintlockPistolItem());
-    public static final Item ITEM_SHOTGUN_BASIC = registerWeaponItem("shotgun_basic", new Z7ShotgunItem());
+    public static final Item ITEM_FRAG_GRENADE = registerGrenadeItem("frag", new Z7FragGrenadeItem());
+    public static final Item ITEM_MOLOTOV_GRENADE = registerGrenadeItem("molotov", new Z7MolotovGrenadeItem());
+
+    public static final Item ITEM_PISTOL_BASIC = registerGunItem("pistol_basic", new Z7PistolItem());
+    public static final Item ITEM_PISTOL_FLINTLOCK = registerGunItem("pistol_flintlock", new Z7FlintlockPistolItem());
+    public static final Item ITEM_SHOTGUN_BASIC = registerGunItem("shotgun_basic", new Z7ShotgunItem());
+    public static final Item ITEM_RIFLE_AK = registerGunItem("rifle_ak", new Z7RifleAkItem());
+
 
     // Ammo
-    public static final Z7AmmoItem ITEM_AMMO_PISTOL = registerAmmoItem("ammo_pistol", new Z7AmmoBasicPistolItem());
-    public static final Z7AmmoItem ITEM_AMMO_SHOTGUN = registerAmmoItem("ammo_shotgun", new Z7AmmoBasicShotgunItem());
+    public static final Z7AmmoItem ITEM_AMMO_PISTOL = registerAmmoItem("pistol_basic", new Z7AmmoBasicPistolItem());
+    public static final Z7AmmoItem ITEM_AMMO_SHOTGUN = registerAmmoItem("shotgun_basic", new Z7AmmoBasicShotgunItem());
 
     public static final Item ITEM_BONK_STICK = registerItem("bonk_stick", new Z7BonkStick());
 
+
     // Item groups
-    public static final ItemGroup GROUP_GENERAL = registerItemGroup("general", ALL_ITEMS_GENERAL, () -> new ItemStack(ITEM_BANDAGE));
-    public static final ItemGroup GROUP_PARTS = registerItemGroup("parts", ALL_ITEMS_PARTS, () -> new ItemStack(ITEM_PART_STEEL_AXE));
-    public static final ItemGroup GROUP_WEAPONS = registerItemGroup("weapons", ALL_ITEMS_WEAPONS, () -> new ItemStack(ITEM_PISTOL_BASIC));
+    public static final ItemGroup GROUP_MATERIALS = registerItemGroup("materials", ALL_ITEMS_MATERIALS, () -> new ItemStack(ITEM_PLANT_FIBER));
+    public static final ItemGroup GROUP_CONSUMABLES = registerItemGroup("consumables", ALL_ITEMS_CONSUMABLES, () -> new ItemStack(ITEM_BANDAGE));
+    public static final ItemGroup GROUP_WEAPONS = registerItemGroup("weapons", List.of(ALL_ITEMS_GUNS, ALL_ITEMS_GRENADES, ALL_ITEMS_AMMO, ALL_ITEMS_MISC_WEAPONS), () -> new ItemStack(ITEM_SHOTGUN_BASIC));
+    public static final ItemGroup GROUP_GENERAL = registerItemGroup("general", ALL_ITEMS_GENERAL, () -> new ItemStack(ITEM_BONK_STICK));
 
 
     private static <T extends Item> T  registerItem(String name, T item) {
@@ -64,21 +85,44 @@ public class Z7Items {
         return item;
     }
 
-    private static <T extends Item> T  registerPartItem(String name, T item) {
+    private static <T extends Item> T registerMaterialItem(String name, T item) {
+        name = "material/" + name;
         ALL_ITEMS.put(name, item);
-        ALL_ITEMS_PARTS.put(name, item);
+        ALL_ITEMS_MATERIALS.put(name, item);
         return item;
     }
 
-    private static <T extends Item> T  registerWeaponItem(String name, T item) {
+    private static <T extends Item> T registerConsumableItem(String name, T item) {
+        name = "consumable/" + name;
         ALL_ITEMS.put(name, item);
-        ALL_ITEMS_WEAPONS.put(name, item);
+        ALL_ITEMS_CONSUMABLES.put(name, item);
+        return item;
+    }
+
+    private static <T extends Item> T registerWeaponItem(String name, T item) {
+        ALL_ITEMS.put(name, item);
+        ALL_ITEMS_MISC_WEAPONS.put(name, item);
+        return item;
+    }
+
+    private static <T extends Item> T registerGunItem(String name, T item) {
+        name = "gun/" + name + "/default";
+        ALL_ITEMS.put(name, item);
+        ALL_ITEMS_GUNS.put(name, item);
         return item;
     }
 
     private static <T extends Item> T registerAmmoItem(String name, T item) {
+        name = "ammo/" + name;
         ALL_ITEMS.put(name, item);
-        ALL_ITEMS_WEAPONS.put(name, item);
+        ALL_ITEMS_AMMO.put(name, item);
+        return item;
+    }
+
+    private static <T extends Item> T registerGrenadeItem(String name, T item) {
+        name = "grenade/" + name;
+        ALL_ITEMS.put(name, item);
+        ALL_ITEMS_GRENADES.put(name, item);
         return item;
     }
 
@@ -90,10 +134,14 @@ public class Z7Items {
     }
 
     protected static ItemGroup registerItemGroup(String name, Map<String, Item> group, Supplier<ItemStack> icon) {
+        return registerItemGroup(name, List.of(group), icon);
+    }
+
+    protected static ItemGroup registerItemGroup(String name, List<Map<String, Item>> groups, Supplier<ItemStack> icon) {
         return FabricItemGroup
             .builder(new Identifier(Zombie7.MODID, name))
             .icon(icon)
-            .entries((displayContext, entries) -> group.values().stream().map(ItemStack::new).forEach(entries::add))
+            .entries((displayContext, entries) -> groups.forEach(group -> group.values().stream().map(ItemStack::new).forEach(entries::add)))
             .build();
     }
 

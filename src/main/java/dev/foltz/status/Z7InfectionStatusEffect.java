@@ -1,5 +1,6 @@
 package dev.foltz.status;
 
+import dev.foltz.Z7Util;
 import dev.foltz.Zombie7;
 import net.minecraft.entity.LivingEntity;
 import net.minecraft.entity.attribute.AttributeContainer;
@@ -12,7 +13,7 @@ import net.minecraft.server.world.ServerWorld;
 import net.minecraft.text.Text;
 
 public class Z7InfectionStatusEffect extends Z7StatusEffect {
-    public static final int MAX_TICKS = 60 * 60 * 20;
+    public static final int MAX_TICKS = Z7Util.ticksFromMinutes(60);
 
     public Z7InfectionStatusEffect() {
         super(StatusEffectCategory.HARMFUL, 0x33BB22);

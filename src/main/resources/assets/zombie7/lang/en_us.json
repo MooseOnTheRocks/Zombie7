@@ -1,41 +1,52 @@
 {
   "block.zombie7.gore_block": "Gore Block",
 
-  "item.zombie7.plant_fiber": "Plant Fiber",
-  "item.zombie7.repair_kit": "Repair Kit",
 
-  "item.zombie7.bandage": "Bandage",
-  "item.zombie7.splint": "Splint",
-  "item.zombie7.antibiotics": "Antibiotics",
-  "item.zombie7.painkillers": "Painkillers",
 
-  "item.zombie7.part_axe_steel": "Steel Axe Part",
+  "item.zombie7.material.plant_fiber": "Plant Fiber",
+  "item.zombie7.material.cloth_fragment": "Cloth Fragment",
+  "item.zombie7.material.repair_kit": "Repair Kit",
+  "item.zombie7.material.part_axe_steel": "Steel Axe Part",
 
-  "item.zombie7.ammo_pistol": "Pistol Ammo",
-  "item.zombie7.ammo_shotgun": "Shotgun Ammo",
+  "item.zombie7.consumable.bandage": "Bandage",
+  "item.zombie7.consumable.splint": "Splint",
+  "item.zombie7.consumable.antibiotics": "Antibiotics",
+  "item.zombie7.consumable.painkillers": "Painkillers",
 
-  "item.zombie7.pistol_basic": "Basic Pistol",
-  "item.zombie7.pistol_flintlock": "Flintlock Pistol",
-  "item.zombie7.shotgun_basic": "Basic Shotgun",
+  "item.zombie7.ammo.pistol_basic": "Basic Pistol Ammo",
+  "item.zombie7.ammo.shotgun_basic": "Basic Shotgun Ammo",
 
-  "itemGroup.zombie7.parts": "Z7 Parts",
+  "item.zombie7.gun.pistol_basic": "Basic Pistol",
+  "item.zombie7.gun.pistol_flintlock": "Flintlock Pistol",
+  "item.zombie7.gun.shotgun_basic": "Basic Shotgun",
+  "item.zombie7.gun.rifle_ak": "AK",
+
+  "item.zombie7.grenade.frag": "Grenade",
+  "item.zombie7.grenade.molotov": "Molotov",
+
+
+
   "itemGroup.zombie7.general": "Z7 General",
+  "itemGroup.zombie7.materials": "Z7 Materials",
+  "itemGroup.zombie7.consumables": "Z7 Consumables",
   "itemGroup.zombie7.weapons": "Z7 Weapons",
+
+
+
+  "tooltip.whenApplied": "When Applied:",
+
+
 
   "effect.zombie7.healing": "Healing",
   "effect.zombie7.bleeding": "Bleeding",
   "effect.zombie7.bleeding_long": "Deep Cut",
   "effect.zombie7.infection": "Infection",
-  "effect.zombie7.concussion": "Concussion",
+  "effect.zombie7.concussion": "Sudden Concussion",
   "effect.zombie7.concussion_long": "Concussion",
   "effect.zombie7.broken_bone": "Broken Bone",
+  "effect.zombie7.twisted_ankle": "Twisted Ankle",
 
-  "tooltip.whenApplied": "When Applied:",
 
-  "generator.zombie7.zombie7_world": "Zombie World",
-
-  "createWorld.customize.zombie7.title": "Zombie World Generation",
-  "createWorld.customize.zombie7.biome": "Select biome:",
 
   "death.attack.infection": "%1$s turned into something else",
   "death.attack.infection.player": "%1$s has been zombified whilst fighting %2$s",
@@ -45,6 +56,13 @@
   "death.attack.bleeding_long": "%1$s couldn't heal their cuts in time",
   "death.attack.bleeding_long.player": "%1$s couldn't heal their cuts in time whilst fighting %2$s",
   "death.attack.bleeding_long.item": "%1$s couldn't heal their cuts in time whilst fighting %2$s wielding %3$s",
+
+
+
+  "generator.zombie7.zombie7_world": "Zombie World",
+  "createWorld.customize.zombie7.title": "Zombie World Generation",
+  "createWorld.customize.zombie7.biome": "Select biome:",
+
 
 
   "item.zombie7.bonk_stick": "Bonk Stick"

@@ -5,3 +5,5 @@ accessible class net/minecraft/client/render/BackgroundRenderer$StatusEffectFogM
 accessible class net/minecraft/client/render/BackgroundRenderer$FogData
 accessible field net/minecraft/screen/ForgingScreenHandler output Lnet/minecraft/inventory/CraftingResultInventory;
 accessible field net/minecraft/screen/ForgingScreenHandler input Lnet/minecraft/inventory/Inventory;
+accessible field net/minecraft/item/Item translationKey Ljava/lang/String;
+accessible field net/minecraft/entity/projectile/PersistentProjectileEntity inBlockState Lnet/minecraft/block/BlockState;

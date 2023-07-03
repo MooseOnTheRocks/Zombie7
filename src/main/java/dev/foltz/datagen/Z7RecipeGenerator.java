@@ -1,16 +1,11 @@
 package dev.foltz.datagen;
 
-import dev.foltz.item.Z7GunItem;
-import dev.foltz.item.Z7Items;
 import net.fabricmc.fabric.api.datagen.v1.FabricDataOutput;
 import net.fabricmc.fabric.api.datagen.v1.provider.FabricRecipeProvider;
-import net.minecraft.data.server.recipe.ComplexRecipeJsonBuilder;
 import net.minecraft.data.server.recipe.RecipeJsonProvider;
 import net.minecraft.data.server.recipe.ShapelessRecipeJsonBuilder;
-import net.minecraft.item.BlockItem;
 import net.minecraft.item.ItemStack;
 import net.minecraft.item.Items;
-import net.minecraft.recipe.RecipeSerializer;
 import net.minecraft.recipe.book.RecipeCategory;
 
 import java.util.function.Consumer;

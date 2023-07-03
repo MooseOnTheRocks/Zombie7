@@ -9,8 +9,9 @@ import net.minecraft.entity.effect.StatusEffectCategory;
 import net.minecraft.entity.effect.StatusEffectInstance;
 
 public class Z7BleedingStatusEffect extends Z7StatusEffect {
-    public static final int TICKS_PER_UPDATE = Z7Util.ticksFromSeconds(1.5f); // every 1.5 seconds
-    public static final int LONG_DURATION = Z7Util.ticksFromMinutes(10); // 10 minutes
+    public static final int TICKS_PER_UPDATE = Z7Util.ticksFromSeconds(1.5f);
+    public static final int LONG_DURATION = Z7Util.ticksFromMinutes(10);
+    public static final int SHORT_DURATION = Z7Util.ticksFromSeconds(15);
     public Z7BleedingStatusEffect() {
         super(StatusEffectCategory.HARMFUL, 0x660000);
     }

@@ -1,14 +1,9 @@
 package dev.foltz.mixin;
 
-import dev.foltz.item.Z7GunItem;
+import dev.foltz.item.gunlike.Z7GunItem;
 import dev.foltz.item.Z7Items;
-import net.minecraft.enchantment.Enchantment;
-import net.minecraft.enchantment.EnchantmentHelper;
 import net.minecraft.entity.player.PlayerEntity;
-import net.minecraft.inventory.CraftingResultInventory;
-import net.minecraft.item.EnchantedBookItem;
 import net.minecraft.item.ItemStack;
-import net.minecraft.item.Items;
 import net.minecraft.screen.AnvilScreenHandler;
 import net.minecraft.screen.Property;
 import net.minecraft.text.Text;
@@ -20,8 +15,6 @@ import org.spongepowered.asm.mixin.injection.At;
 import org.spongepowered.asm.mixin.injection.Inject;
 import org.spongepowered.asm.mixin.injection.callback.CallbackInfo;
 import org.spongepowered.asm.mixin.injection.callback.CallbackInfoReturnable;
-
-import java.util.Map;
 
 @Mixin(AnvilScreenHandler.class)
 public abstract class Z7AnvilScreenHandlerMixin {

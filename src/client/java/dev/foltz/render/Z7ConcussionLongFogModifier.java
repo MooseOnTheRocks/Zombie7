@@ -10,7 +10,7 @@ import net.minecraft.entity.effect.StatusEffectInstance;
 
 @Environment(value= EnvType.CLIENT)
 public  class Z7ConcussionLongFogModifier implements BackgroundRenderer.StatusEffectFogModifier {
-    public static final float FOG_DIST_FACTOR = 40f;
+    public static final float FOG_DIST_FACTOR = 50f;
     @Override
     public StatusEffect getStatusEffect() {
         return Z7StatusEffects.STATUS_EFFECT_CONCUSSION_LONG;
