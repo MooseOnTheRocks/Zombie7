@@ -65,14 +65,13 @@ public class Z7MolotovGrenadeEntity extends Z7GrenadeEntity {
 
     private void burstIntoFlames() {
         if (!this.world.isClient) {
-            System.out.println("Bursting!");
-//            float range = 8f;
             BlockPos start = getBlockPos();
-//            System.out.println("Start = " + start);
-//            System.out.println("Blocks=" + blocks);
+            for (int i = 0; i < 2 && !Z7Util.isAirWithFullFaceBelow(world, start); i++) {
+                start = start.down();
+            }
             int n = 4;
-            int range = 16;
-            int steps = 24;
+            int range = 12;
+            int steps = 16;
             var blocks = Z7Util.getBlocksAround(range, start, world);
             var paths = new ArrayList<List<BlockPos>>();
             for (int i = 0; i < n; i++) {
@@ -85,7 +84,7 @@ public class Z7MolotovGrenadeEntity extends Z7GrenadeEntity {
 
             for (var path : paths) {
                 for (BlockPos blockPos : path) {
-                    if (Z7Util.isAirWithFullFaceBelow(world, blockPos)) {
+                    if (Z7Util.isAirWithFullFaceBelow(world, blockPos) && world.random.nextFloat() > 0.15) {
                         this.world.setBlockState(blockPos, AbstractFireBlock.getState(this.world, blockPos));
                     }
                 }
@@ -134,15 +133,11 @@ public class Z7MolotovGrenadeEntity extends Z7GrenadeEntity {
     public void readCustomDataFromNbt(NbtCompound nbt) {
         super.readCustomDataFromNbt(nbt);
         setLit(nbt.getBoolean("Lit"));
-//        if (nbt.contains("GrenadeItem", NbtElement.COMPOUND_TYPE)) {
-//            this.grenadeStack = ItemStack.fromNbt(nbt.getCompound("GrenadeItem"));
-//        }
     }
 
     @Override
     public void writeCustomDataToNbt(NbtCompound nbt) {
         super.writeCustomDataToNbt(nbt);
         nbt.putBoolean("Lit", isLit());
-//        nbt.put("GrenadeItem", this.grenadeStack.writeNbt(new NbtCompound()));
     }
 }

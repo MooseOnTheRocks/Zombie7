@@ -3,7 +3,9 @@ package dev.foltz;
 import dev.foltz.entity.*;
 import dev.foltz.entity.model.Z7BulletBronzeEntityModel;
 import dev.foltz.entity.model.Z7BulletLeadEntityModel;
-import dev.foltz.item.gunlike.Z7GunlikeItem;
+import dev.foltz.item.Z7IShootable;
+import dev.foltz.item.grenade.Z7IGrenadelike;
+import dev.foltz.item.gun.Z7IGunlike;
 import dev.foltz.network.Z7Networking;
 import dev.foltz.render.Z7ConcussionFogModifier;
 import dev.foltz.render.Z7ConcussionLongFogModifier;
@@ -20,6 +22,7 @@ import net.fabricmc.fabric.api.networking.v1.PacketByteBufs;
 import net.minecraft.client.option.KeyBinding;
 import net.minecraft.client.render.entity.model.EntityModelLayer;
 import net.minecraft.client.util.InputUtil;
+import net.minecraft.item.Item;
 import net.minecraft.util.Identifier;
 import org.lwjgl.glfw.GLFW;
 
@@ -36,6 +39,7 @@ public class Zombie7Client implements ClientModInitializer {
     ));
 
     private boolean isPressingReload = false;
+    private boolean hasOpenScreen = false;
 
     public static final EntityModelLayer MODEL_BULLET_BRONZE_LAYER = new EntityModelLayer(new Identifier(Zombie7.MODID, "bullet_bronze"), "main");
     public static final EntityModelLayer MODEL_BULLET_LEAD_LAYER = new EntityModelLayer(new Identifier(Zombie7.MODID, "bullet_lead"), "main");
@@ -46,6 +50,7 @@ public class Zombie7Client implements ClientModInitializer {
 
         EntityRendererRegistry.register(Z7Entities.FRAG_GRENADE_ENTITY, Z7FragGrenadeEntityRenderer::new);
         EntityRendererRegistry.register(Z7Entities.MOLOTOV_GRENADE_ENTITY, Z7MolotovGrenadeEntityRenderer::new);
+        EntityRendererRegistry.register(Z7Entities.STICKY_GRENADE_ENTITY, Z7StickyGrenadeEntityRenderer::new);
 
         EntityRendererRegistry.register(Z7Entities.BULLET_BRONZE_ENTITY, Z7BulletBronzeEntityRenderer::new);
         EntityModelLayerRegistry.registerModelLayer(MODEL_BULLET_BRONZE_LAYER, Z7BulletBronzeEntityModel::getTexturedModelData);
@@ -55,7 +60,8 @@ public class Zombie7Client implements ClientModInitializer {
 
 
         ClientPreAttackCallback.EVENT.register((client, player, clickCount) -> {
-            if (player.getMainHandStack().getItem() instanceof Z7GunlikeItem) {
+            Item item = player.getMainHandStack().getItem();
+            if (item instanceof Z7IShootable) {
                 return true;
             }
             else {
@@ -64,6 +70,10 @@ public class Zombie7Client implements ClientModInitializer {
         });
 
         ClientTickEvents.START_CLIENT_TICK.register(client -> {
+            if (client.world == null) {
+                return;
+            }
+
             if (RELOAD_BIND.isPressed() && !isPressingReload) {
                 ClientPlayNetworking.send(Z7Networking.RELOAD_PRESS_PACKET_ID, PacketByteBufs.empty());
                 isPressingReload = true;
@@ -71,6 +81,19 @@ public class Zombie7Client implements ClientModInitializer {
             else if (!RELOAD_BIND.isPressed() && isPressingReload) {
                 ClientPlayNetworking.send(Z7Networking.RELOAD_RELEASE_PACKET_ID, PacketByteBufs.empty());
                 isPressingReload = false;
+            }
+
+            if (!hasOpenScreen && client.currentScreen != null) {
+//                System.out.println("Open screen");
+                hasOpenScreen = true;
+                ClientPlayNetworking.send(Z7Networking.RELOAD_RELEASE_PACKET_ID, PacketByteBufs.empty());
+                ClientPlayNetworking.send(Z7Networking.SHOOT_RELEASE_PACKET_ID, PacketByteBufs.empty());
+            }
+            else if (hasOpenScreen && client.currentScreen == null) {
+//                System.out.println("Closing screen.");
+                hasOpenScreen = false;
+//                ClientPlayNetworking.send(Z7Networking.RELOAD_RELEASE_PACKET_ID, PacketByteBufs.empty());
+//                ClientPlayNetworking.send(Z7Networking.SHOOT_RELEASE_PACKET_ID, PacketByteBufs.empty());
             }
         });
 	}

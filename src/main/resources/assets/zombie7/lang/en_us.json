@@ -12,6 +12,7 @@
   "item.zombie7.consumable.splint": "Splint",
   "item.zombie7.consumable.antibiotics": "Antibiotics",
   "item.zombie7.consumable.painkillers": "Painkillers",
+  "item.zombie7.consumable.coffee": "Coffee",
 
   "item.zombie7.ammo.pistol_basic": "Basic Pistol Ammo",
   "item.zombie7.ammo.shotgun_basic": "Basic Shotgun Ammo",
@@ -19,10 +20,12 @@
   "item.zombie7.gun.pistol_basic": "Basic Pistol",
   "item.zombie7.gun.pistol_flintlock": "Flintlock Pistol",
   "item.zombie7.gun.shotgun_basic": "Basic Shotgun",
-  "item.zombie7.gun.rifle_ak": "AK",
+  "item.zombie7.gun.shotgun_aa12": "AA-12",
+  "item.zombie7.gun.rifle_ak": "AK-47",
 
-  "item.zombie7.grenade.frag": "Grenade",
-  "item.zombie7.grenade.molotov": "Molotov",
+  "item.zombie7.grenade.frag": "Frag Grenade",
+  "item.zombie7.grenade.molotov": "Molotov Cocktail",
+  "item.zombie7.grenade.sticky": "Sticky Grenade",
 
 
 

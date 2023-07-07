@@ -4,7 +4,6 @@
     "layer0": "zombie7:item/gun/pistol_basic/default"
   },
   "overrides": [
-    { "predicate": { "usage_stage": 0.0 }, "model": "zombie7:item/gun/pistol_basic/default" },
     { "predicate": { "usage_stage": 0.33 }, "model": "zombie7:item/gun/pistol_basic/cocking_0" },
     { "predicate": { "usage_stage": 0.67 }, "model": "zombie7:item/gun/pistol_basic/cocking_1" },
     { "predicate": { "usage_stage": 1.0 }, "model": "zombie7:item/gun/pistol_basic/cocked" },

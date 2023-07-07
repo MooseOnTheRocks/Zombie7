@@ -3,8 +3,11 @@ package dev.foltz;
 import com.google.common.collect.Sets;
 import net.minecraft.block.BlockState;
 import net.minecraft.fluid.FluidState;
+import net.minecraft.item.ItemStack;
 import net.minecraft.util.Identifier;
+import net.minecraft.util.Util;
 import net.minecraft.util.math.BlockPos;
+import net.minecraft.util.math.MathHelper;
 import net.minecraft.world.World;
 
 import java.util.*;
@@ -130,5 +133,13 @@ public abstract class Z7Util {
             return Optional.empty();
         }
         return Optional.of(Math.max(blockState.getBlock().getBlastResistance(), fluidState.getBlastResistance()));
+    }
+
+    public static boolean detectFuncStep(float p0, float p1, float pMax, int maxSize) {
+//        int a = (int) Math.floor(maxSize * (Math.max(p0, 0) / (float) pMax));
+//        int b = (int) Math.floor(maxSize * (Math.max(p1, 0) / (float) pMax));
+        int a = (int) Math.ceil(MathHelper.map(Math.max(p0, 0), 0, pMax, 0, maxSize));
+        int b = (int) Math.ceil(MathHelper.map(Math.max(p1, 0), 0, pMax, 0, maxSize));
+        return a != b;
     }
 }

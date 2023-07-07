@@ -1,10 +1,8 @@
 package dev.foltz.item.ammo;
 
-import dev.foltz.Zombie7;
-import dev.foltz.entity.Z7BulletBronzeEntity;
 import dev.foltz.entity.Z7BulletLeadEntity;
 import dev.foltz.entity.Z7Entities;
-import dev.foltz.item.gunlike.Z7GunlikeItem;
+import dev.foltz.item.gun.Z7IGunlike;
 import net.fabricmc.fabric.api.item.v1.FabricItemSettings;
 import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.item.ItemStack;
@@ -19,7 +17,7 @@ public class Z7AmmoBasicShotgunItem extends Z7AmmoItem {
 
     @Override
     public float getBaseDamage(ItemStack itemStack) {
-        return 10f;
+        return 5f;
     }
 
     @Override
@@ -29,28 +27,75 @@ public class Z7AmmoBasicShotgunItem extends Z7AmmoItem {
 
     @Override
     public float getBaseRange(ItemStack itemStack) {
-        return 12f;
+        return 10f;
+    }
+
+    @Override
+    public float getBaseAccuracy(ItemStack itemStack) {
+        return 0.6f;
     }
 
     @Override
     public List<Z7BulletLeadEntity> createBulletEntities(PlayerEntity player, ItemStack gunStack, ItemStack ammoStack) {
         ArrayList<Z7BulletLeadEntity> bullets = new ArrayList<>();
-        int n = 5;
+        int n = player.world.random.nextFloat() > 0.75f ? 9 : 6;
         for (int i = 0; i < n; i++) {
             Z7BulletLeadEntity bullet = new Z7BulletLeadEntity(Z7Entities.BULLET_LEAD_ENTITY, player.world);
-            bullet.setPosition(player.getX(), player.getEyeY(), player.getZ());
+            bullet.setHitBoxExpansion(0.0f);
+            bullet.setPosition(player.getX(), player.getEyeY() - bullet.getHeight() / 2f, player.getZ());
             bullet.setOwner(player);
 
             float totalDamage = getBaseDamage(ammoStack);
             float totalSpeed = getBaseSpeed(ammoStack);
             float baseDistance = getBaseRange(ammoStack);
-            if (gunStack.getItem() instanceof Z7GunlikeItem gun) {
+            float totalAccuracy = getBaseAccuracy(ammoStack);
+            if (gunStack.getItem() instanceof Z7IGunlike gun) {
                 totalDamage = gun.getModifiedBulletDamage(gunStack, ammoStack, totalDamage);
                 totalSpeed = gun.getModifiedBulletSpeed(gunStack, ammoStack, totalSpeed);
                 baseDistance = gun.getModifiedBulletBaseRange(gunStack, ammoStack, baseDistance);
+                totalAccuracy = gun.getModifiedBulletAccuracy(gunStack, ammoStack, totalAccuracy);
             }
             bullet.setDamage(totalDamage);
-            bullet.setVelocity(player, player.getPitch(), player.getYaw(), 0f, totalSpeed, 10.0f);
+            float divergence;
+//            System.out.println("shotgun ammo totalAccuracy = " + totalAccuracy);
+            if (totalAccuracy >= 0.95f) {
+                divergence = 0f;
+            }
+            else if (totalAccuracy >= 0.9f) {
+                divergence = 0.25f;
+            }
+            else if (totalAccuracy >= 0.8f) {
+                divergence = 0.75f;
+            }
+            else if (totalAccuracy >= 0.7f) {
+                divergence = 1f;
+            }
+            else if (totalAccuracy >= 0.6f) {
+                divergence = 3f;
+            }
+            else if (totalAccuracy >= 0.5f) {
+                divergence = 6f;
+            }
+            else if (totalAccuracy >= 0.45f) {
+                divergence = 8f;
+            }
+            else if (totalAccuracy >= 0.4f) {
+                divergence = 10f;
+            }
+            else if (totalAccuracy >= 0.3f) {
+                divergence = 15f;
+            }
+            else if (totalAccuracy >= 0.2f) {
+                divergence = 20f;
+            }
+            else if (totalAccuracy >= 0.1f) {
+                divergence = 25f;
+            }
+            else {
+                divergence = 50f;
+            }
+//            System.out.println("divergence = " + divergence);
+            bullet.setVelocity(player, player.getPitch(), player.getYaw(), 0f, totalSpeed, divergence);
             bullet.setBaseDistance(baseDistance);
 
             bullets.add(bullet);

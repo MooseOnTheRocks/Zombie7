@@ -8,7 +8,6 @@ import net.minecraft.entity.damage.DamageSource;
 import net.minecraft.entity.damage.DamageTracker;
 import net.minecraft.entity.damage.DamageTypes;
 import net.minecraft.entity.effect.StatusEffectInstance;
-import net.minecraft.entity.effect.StatusEffects;
 import net.minecraft.registry.tag.ItemTags;
 import net.minecraft.util.math.MathHelper;
 import org.spongepowered.asm.mixin.Final;
@@ -24,7 +23,7 @@ public abstract class Z7HarmEntityOnAttackMixin {
     @Shadow @Final private LivingEntity entity;
 
     @Inject(method="onDamage", at=@At("TAIL"))
-    protected void chanceInfect(DamageSource damageSource, float originalHealth, float damage, CallbackInfo ci) {
+    protected void inflictHarm(DamageSource damageSource, float originalHealth, float damage, CallbackInfo ci) {
         var victim = this.entity;
         var attacker = damageSource.getAttacker();
 
@@ -39,18 +38,24 @@ public abstract class Z7HarmEntityOnAttackMixin {
                     victim.removeStatusEffect(Z7StatusEffects.STATUS_EFFECT_TWISTED_ANKLE);
                 }
                 int hurtTime = (int) MathHelper.lerp(Math.min(damage, 20) / 20f, Z7Util.ticksFromMinutes(5), Z7Util.ticksFromMinutes(30));
-                System.out.println("Damage = " + damage + ", hurtTime = " + hurtTime);
+//                System.out.println("Damage = " + damage + ", hurtTime = " + hurtTime);
                 victim.addStatusEffect(new StatusEffectInstance(Z7StatusEffects.STATUS_EFFECT_BROKEN_BONE, hurtTime));
             }
             else {
                 var effect = victim.getStatusEffect(Z7StatusEffects.STATUS_EFFECT_BROKEN_BONE);
                 if (effect == null) {
                     effect = victim.getStatusEffect(Z7StatusEffects.STATUS_EFFECT_TWISTED_ANKLE);
+                    int hurtTime = Z7Util.ticksFromMinutes(2.5f);
                     if (effect != null) {
+                        hurtTime += effect.getDuration();
                         victim.removeStatusEffect(Z7StatusEffects.STATUS_EFFECT_TWISTED_ANKLE);
                     }
-                    int hurtTime = Z7Util.ticksFromMinutes(2.5f);
-                    victim.addStatusEffect(new StatusEffectInstance(Z7StatusEffects.STATUS_EFFECT_TWISTED_ANKLE, hurtTime));
+                    if (hurtTime > Z7Util.ticksFromMinutes(7f)) {
+                        victim.addStatusEffect(new StatusEffectInstance(Z7StatusEffects.STATUS_EFFECT_BROKEN_BONE, hurtTime));
+                    }
+                    else {
+                        victim.addStatusEffect(new StatusEffectInstance(Z7StatusEffects.STATUS_EFFECT_TWISTED_ANKLE, hurtTime + Z7Util.ticksFromMinutes(1f)));
+                    }
                 }
             }
         }
@@ -70,7 +75,7 @@ public abstract class Z7HarmEntityOnAttackMixin {
         }
 
         roll = Math.random() > 0.5;
-        if (attacker instanceof LivingEntity && attacker != victim && attacker.isLiving() && roll) {
+        if (!damageSource.isOf(DamageTypes.MOB_PROJECTILE) && !damageSource.isOf(DamageTypes.ARROW) && attacker instanceof LivingEntity && attacker != victim && attacker.isLiving() && roll) {
             var effect = victim.getStatusEffect(Z7StatusEffects.STATUS_EFFECT_CONCUSSION);
             if (effect != null) {
                 victim.removeStatusEffect(Z7StatusEffects.STATUS_EFFECT_CONCUSSION);
@@ -85,7 +90,7 @@ public abstract class Z7HarmEntityOnAttackMixin {
         }
 
         roll = Math.random() > 0.4;
-        if (attacker != null) {
+        if (attacker != null && roll) {
             for (var handItem : attacker.getHandItems()) {
                 if (handItem.isIn(ItemTags.SWORDS) || handItem.isIn(ItemTags.AXES)) {
                     var effect = victim.getStatusEffect(Z7StatusEffects.STATUS_EFFECT_BLEEDING);

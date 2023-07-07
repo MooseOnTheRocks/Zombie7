@@ -32,6 +32,9 @@ public class Z7ClientPlayNetworkHandlerMixin {
         else if (entityType == Z7Entities.MOLOTOV_GRENADE_ENTITY) {
             entity = new Z7MolotovGrenadeEntity(Z7Entities.MOLOTOV_GRENADE_ENTITY, this.world);
         }
+        else if (entityType == Z7Entities.STICKY_GRENADE_ENTITY) {
+            entity = new Z7StickyGrenadeEntity(Z7Entities.STICKY_GRENADE_ENTITY, this.world);
+        }
         else if (entityType == Z7Entities.BULLET_BRONZE_ENTITY) {
             entity = new Z7BulletBronzeEntity(Z7Entities.BULLET_BRONZE_ENTITY, this.world);
         }

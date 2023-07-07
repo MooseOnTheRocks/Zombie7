@@ -1,6 +1,6 @@
 package dev.foltz.mixin;
 
-import dev.foltz.item.gunlike.Z7GunItem;
+import dev.foltz.item.gun.Z7GunItem;
 import dev.foltz.item.Z7Items;
 import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.item.ItemStack;

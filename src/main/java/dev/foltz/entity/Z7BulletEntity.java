@@ -5,8 +5,6 @@ import net.minecraft.block.AbstractBlock;
 import net.minecraft.entity.Entity;
 import net.minecraft.entity.EntityType;
 import net.minecraft.entity.LivingEntity;
-import net.minecraft.entity.damage.DamageSources;
-import net.minecraft.entity.damage.DamageTypes;
 import net.minecraft.entity.projectile.ProjectileEntity;
 import net.minecraft.entity.projectile.ProjectileUtil;
 import net.minecraft.network.packet.s2c.play.EntitySpawnS2CPacket;
@@ -20,9 +18,14 @@ import org.jetbrains.annotations.Nullable;
 public abstract class Z7BulletEntity extends ProjectileEntity {
     private float bulletDamage = 0.0f;
     private float baseDistance = 0.0f;
+    private float hitBoxExpansion = 0.0f;
 
     public Z7BulletEntity(EntityType<? extends ProjectileEntity> entityType, World world) {
         super(entityType, world);
+    }
+
+    public void setHitBoxExpansion(float scale) {
+        this.hitBoxExpansion = scale;
     }
 
     public void setDamage(float value) {
@@ -37,13 +40,13 @@ public abstract class Z7BulletEntity extends ProjectileEntity {
         float damage = bulletDamage;
         float p = travelled / baseDistance;
         if (p <= 0.15f) {
-            damage *= 2.5f;
-        }
-        else if (p <= 0.33f) {
             damage *= 2f;
         }
+        else if (p <= 0.33f) {
+            damage *= 1.5f;
+        }
         else if (p <= 0.5f) {
-            damage *= 1.5;
+            damage *= 1.2;
         }
         else if (p <= 1f) {
             damage *= 1;
@@ -51,10 +54,17 @@ public abstract class Z7BulletEntity extends ProjectileEntity {
         else if (p <= 2f) {
             damage *= 0.5f;
         }
-        else {
-            damage *= 0;
+        else if (p <= 3f) {
+            damage /= 6f;
         }
-        return damage;
+        else if (p <= 4f) {
+            damage /= 12f;
+        }
+        else {
+            damage = 0f;
+        }
+
+        return (float) Math.floor(2f * damage) / 2f;
     }
 
     @Override
@@ -76,7 +86,7 @@ public abstract class Z7BulletEntity extends ProjectileEntity {
         this.onCollision(hitResult);
 
         if (hitResult.getType() == HitResult.Type.MISS) {
-            var entities = this.world.getOtherEntities(this, this.getBoundingBox().expand(1f));
+            var entities = this.world.getOtherEntities(this, this.getBoundingBox().expand(hitBoxExpansion));
             boolean entityHit = false;
             if (!entities.isEmpty()) {
                 for (var entity : entities) {
@@ -149,10 +159,6 @@ public abstract class Z7BulletEntity extends ProjectileEntity {
             if (entityHitResult.getEntity().damage(this.getDamageSources().create(Zombie7.BULLET_DAMAGE_TYPE, this, this.getOwner() instanceof LivingEntity e ? e : null), damage)) {
                 System.out.println("Dealing ranged " + damage + " damage, baseDamage = " + bulletDamage + ", traveled = " + distanceTraveled);
             }
-//            var h = livingEntity.getHealth();
-//            System.out.println("Dealing ranged " + damage + " damage, baseDamage = " + bulletDamage + ", traveled = " + distanceTraveled + " :: " + livingEntity.getHealth() + " => " + (livingEntity.getHealth() - damage));
-//            livingEntity.getDamageTracker().onDamage(this.getDamageSources().mobProjectile(this, this.getOwner() instanceof LivingEntity e ? e : null), h, damage);
-//            livingEntity.setHealth(h - damage);
         }
     }
 

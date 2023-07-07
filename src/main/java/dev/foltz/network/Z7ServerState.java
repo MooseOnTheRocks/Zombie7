@@ -2,6 +2,7 @@ package dev.foltz.network;
 
 import dev.foltz.Zombie7;
 import net.minecraft.entity.LivingEntity;
+import net.minecraft.item.ItemStack;
 import net.minecraft.nbt.NbtCompound;
 import net.minecraft.server.MinecraftServer;
 import net.minecraft.world.PersistentState;
@@ -16,44 +17,46 @@ public class Z7ServerState extends PersistentState {
 
     @Override
     public NbtCompound writeNbt(NbtCompound nbt) {
-        NbtCompound playersNbt = new NbtCompound();
-        players.forEach((uuid, playerState) -> {
-            NbtCompound playerNbt = new NbtCompound();
-            playerNbt.putBoolean("isShooting", playerState.isShooting);
-            playerNbt.putBoolean("isReloading", playerState.isReloading);
-            playersNbt.put(uuid.toString(), playerNbt);
-        });
-        nbt.put("players", playersNbt);
+//        NbtCompound playersNbt = new NbtCompound();
+//        players.forEach((uuid, playerState) -> {
+//            NbtCompound playerNbt = playerState.writeNbt(new NbtCompound());
+//            playersNbt.put(uuid.toString(), playerNbt);
+//        });
+//        nbt.put("players", playersNbt);
         return nbt;
     }
 
     public static Z7ServerState createFromNbt(NbtCompound nbt) {
-        Z7ServerState serverState = new Z7ServerState();
-        NbtCompound playersNbt = nbt.getCompound("players");
-        playersNbt.getKeys().forEach(key -> {
-            Z7PlayerState playerState = new Z7PlayerState();
-            playerState.isShooting = playersNbt.getCompound(key).getBoolean("isShooting");
-            playerState.isShooting = playersNbt.getCompound(key).getBoolean("isReloading");
-            UUID uuid = UUID.fromString(key);
-            serverState.players.put(uuid, playerState);
-        });
-        return serverState;
+//        Z7ServerState serverState = new Z7ServerState();
+//        NbtCompound playersNbt = nbt.getCompound("players");
+//        playersNbt.getKeys().forEach(key -> {
+//            NbtCompound playerNbt = playersNbt.getCompound(key);
+//            Z7PlayerState playerState = new Z7PlayerState();
+//            UUID uuid = UUID.fromString(key);
+//            serverState.players.put(uuid, playerState);
+//        });
+//        return serverState;
+        return new Z7ServerState();
     }
 
     public static Z7ServerState getServerState(MinecraftServer server) {
         PersistentStateManager stateManager = server.getWorld(World.OVERWORLD).getPersistentStateManager();
-        Z7ServerState serverState = stateManager.getOrCreate(
-                Z7ServerState::createFromNbt,
-                Z7ServerState::new,
-                Zombie7.MODID
-        );
-        return serverState;
+        return stateManager.getOrCreate(Z7ServerState::createFromNbt, Z7ServerState::new, Zombie7.MODID);
     }
 
     public static Z7PlayerState getPlayerState(LivingEntity player) {
         Z7ServerState serverState = getServerState(player.world.getServer());
-        Z7PlayerState playerState = serverState.players.computeIfAbsent(player.getUuid(), uuid -> new Z7PlayerState());
-        return playerState;
+        return serverState.players.computeIfAbsent(player.getUuid(), uuid -> new Z7PlayerState(player));
+    }
+
+    public void setPressingShoot(LivingEntity player, boolean pressing) {
+        getPlayerState(player).isPressingShoot = pressing;
+        this.markDirty();
+    }
+
+    public void setPressingReload(LivingEntity player, boolean pressing) {
+        getPlayerState(player).isPressingReload = pressing;
+        this.markDirty();
     }
 
     public void setShooting(LivingEntity player, boolean shooting) {
@@ -63,6 +66,16 @@ public class Z7ServerState extends PersistentState {
 
     public void setReloading(LivingEntity player, boolean reloading) {
         getPlayerState(player).isReloading = reloading;
+        this.markDirty();
+    }
+
+    public void setAiming(LivingEntity player, boolean aiming) {
+        getPlayerState(player).isAiming = aiming;
+        this.markDirty();
+    }
+
+    public void setLastHeldStack(LivingEntity player, ItemStack stack) {
+        getPlayerState(player).lastHeldItemStack = stack;
         this.markDirty();
     }
 }

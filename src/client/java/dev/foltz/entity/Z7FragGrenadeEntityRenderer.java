@@ -12,8 +12,8 @@ import org.joml.Matrix3f;
 import org.joml.Matrix4f;
 
 public class Z7FragGrenadeEntityRenderer extends EntityRenderer<Z7FragGrenadeEntity> {
-    private static final Identifier TEXTURE_ACTIVE = new Identifier(Zombie7.MODID, "textures/entity/grenade/frag_active.png");
-    private static final Identifier TEXTURE_INACTIVE = new Identifier(Zombie7.MODID, "textures/entity/grenade/frag.png");
+    private static final Identifier TEXTURE_PRIMED = new Identifier(Zombie7.MODID, "textures/entity/grenade/frag/primed.png");
+    private static final Identifier TEXTURE_INACTIVE = new Identifier(Zombie7.MODID, "textures/entity/grenade/frag/default.png");
 
     public Z7FragGrenadeEntityRenderer(EntityRendererFactory.Context context) {
         super(context);
@@ -78,7 +78,7 @@ public class Z7FragGrenadeEntityRenderer extends EntityRenderer<Z7FragGrenadeEnt
     @Override
     public Identifier getTexture(Z7FragGrenadeEntity grenadeEntity) {
         if (grenadeEntity.isActive()) {
-            return TEXTURE_ACTIVE;
+            return TEXTURE_PRIMED;
         }
         return TEXTURE_INACTIVE;
     }

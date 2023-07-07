@@ -4,9 +4,7 @@
     "layer0": "zombie7:item/gun/shotgun_basic/default"
   },
   "overrides": [
-    { "predicate": { "usage_stage": 0.0 }, "model": "zombie7:item/gun/shotgun_basic/default" },
-    { "predicate": { "usage_stage": 0.5 }, "model": "zombie7:item/gun/shotgun_basic/pumping" },
-    { "predicate": { "usage_stage": 1.0 }, "model": "zombie7:item/gun/shotgun_basic/default" },
+    { "predicate": { "is_pumping_down": 1.0 }, "model": "zombie7:item/gun/shotgun_basic/pumping" },
 
     { "predicate": { "reload_stage": 0.0, "is_reloading": 1.0 }, "model": "zombie7:item/gun/shotgun_basic/reloading_0" },
     { "predicate": { "reload_stage": 0.075, "is_reloading": 1.0 }, "model": "zombie7:item/gun/shotgun_basic/reloading_1" },

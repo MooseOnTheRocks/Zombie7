@@ -1,6 +1,5 @@
 package dev.foltz.entity;
 
-import dev.foltz.Z7Util;
 import dev.foltz.Zombie7;
 import net.minecraft.client.render.OverlayTexture;
 import net.minecraft.client.render.RenderLayer;
@@ -10,14 +9,13 @@ import net.minecraft.client.render.entity.EntityRenderer;
 import net.minecraft.client.render.entity.EntityRendererFactory;
 import net.minecraft.client.util.math.MatrixStack;
 import net.minecraft.util.Identifier;
-import net.minecraft.util.math.MathHelper;
 import net.minecraft.util.math.RotationAxis;
 import org.joml.Matrix3f;
 import org.joml.Matrix4f;
 
 public class Z7MolotovGrenadeEntityRenderer extends EntityRenderer<Z7MolotovGrenadeEntity> {
-    private static final Identifier TEXTURE_ACTIVE = new Identifier(Zombie7.MODID, "textures/entity/grenade/molotov_lit.png");
-    private static final Identifier TEXTURE_INACTIVE = new Identifier(Zombie7.MODID, "textures/entity/grenade/molotov.png");
+    private static final Identifier TEXTURE_PRIMED = new Identifier(Zombie7.MODID, "textures/entity/grenade/molotov/lit.png");
+    private static final Identifier TEXTURE_INACTIVE = new Identifier(Zombie7.MODID, "textures/entity/grenade/molotov/default.png");
 
     public Z7MolotovGrenadeEntityRenderer(EntityRendererFactory.Context context) {
         super(context);
@@ -64,7 +62,7 @@ public class Z7MolotovGrenadeEntityRenderer extends EntityRenderer<Z7MolotovGren
     @Override
     public Identifier getTexture(Z7MolotovGrenadeEntity grenadeEntity) {
         if (grenadeEntity.isActive()) {
-            return TEXTURE_ACTIVE;
+            return TEXTURE_PRIMED;
         }
         return TEXTURE_INACTIVE;
     }
