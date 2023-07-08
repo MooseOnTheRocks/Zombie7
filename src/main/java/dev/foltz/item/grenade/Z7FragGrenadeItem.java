@@ -32,6 +32,9 @@ public class Z7FragGrenadeItem extends Z7GrenadeItem {
             int fuseTime = Math.max(1, getMaxUsageTicks(stack) - getUsageStage(stack));
             grenade.setFuseTime(fuseTime);
         }
+        else if (getGrenadeStage(stack) == STAGE_PRIME_ON_RELEASE) {
+            grenade.setFuseTime(Z7Util.ticksFromSeconds(7f));
+        }
         else {
             grenade.setFuseTime(-1);
         }
