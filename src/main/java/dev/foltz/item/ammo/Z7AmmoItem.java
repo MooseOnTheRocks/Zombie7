@@ -31,7 +31,7 @@ public abstract class Z7AmmoItem extends Item {
 
     public abstract float getBaseAccuracy(ItemStack itemStack);
 
-    public abstract <T extends Z7BulletEntity> List<T> createBulletEntities(PlayerEntity player, ItemStack gunStack, ItemStack ammoStack);
+    public abstract List<? extends Z7BulletEntity> createBulletEntities(PlayerEntity player, ItemStack gunStack, ItemStack ammoStack);
 
     public enum AmmoCategory {
         PISTOL_AMMO(AMMO_TYPE_PISTOL_TAG, () -> Z7Items.ITEM_AMMO_PISTOL),

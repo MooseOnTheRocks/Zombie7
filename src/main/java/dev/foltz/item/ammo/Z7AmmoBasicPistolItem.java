@@ -87,7 +87,6 @@ public class Z7AmmoBasicPistolItem extends Z7AmmoItem {
         else {
             divergence = 50f;
         }
-        System.out.println("divergence = " + divergence);
 
         bullet.setVelocity(player, player.getPitch(), player.getYaw(), 0f, totalSpeed, divergence);
         bullet.setBaseDistance(baseDistance);
