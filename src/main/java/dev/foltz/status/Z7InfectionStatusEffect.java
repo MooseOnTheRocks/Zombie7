@@ -26,12 +26,8 @@ public class Z7InfectionStatusEffect extends Z7StatusEffect {
         }
     }
 
-//    @Override
-//    public void onRemoved(LivingEntity entity, AttributeContainer attributes, int amplifier) {
-//    }
-
     @Override
     public boolean canApplyUpdateEffect(int duration, int amplifier) {
-        return duration == 1;
+        return duration <= 1;
     }
 }

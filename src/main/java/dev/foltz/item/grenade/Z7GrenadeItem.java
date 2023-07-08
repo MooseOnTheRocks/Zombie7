@@ -176,7 +176,7 @@ public abstract class Z7GrenadeItem extends Z7ComplexItem implements Z7IGrenadel
     @Override
     public void onStoppedUsing(ItemStack stack, World world, LivingEntity user, int remainingUseTicks) {
         int usedTime = getMaxUseTime(stack) - remainingUseTicks;
-        if (getGrenadeStage(stack) != GLOBAL_STAGE_PRIMED && usedTime < Z7Util.ticksFromSeconds(0.5f)) {
+        if (getGrenadeStage(stack) != GLOBAL_STAGE_PRIMED && usedTime < Z7Util.ticksFromSeconds(0.25f)) {
             return;
         }
 

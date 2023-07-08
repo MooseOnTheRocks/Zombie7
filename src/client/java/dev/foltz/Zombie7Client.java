@@ -51,6 +51,7 @@ public class Zombie7Client implements ClientModInitializer {
         EntityRendererRegistry.register(Z7Entities.FRAG_GRENADE_ENTITY, Z7FragGrenadeEntityRenderer::new);
         EntityRendererRegistry.register(Z7Entities.MOLOTOV_GRENADE_ENTITY, Z7MolotovGrenadeEntityRenderer::new);
         EntityRendererRegistry.register(Z7Entities.STICKY_GRENADE_ENTITY, Z7StickyGrenadeEntityRenderer::new);
+        EntityRendererRegistry.register(Z7Entities.BOWLING_BALL_GRENADE_ENTITY, Z7BowlingBallGrenadeEntityRenderer::new);
 
         EntityRendererRegistry.register(Z7Entities.BULLET_BRONZE_ENTITY, Z7BulletBronzeEntityRenderer::new);
         EntityModelLayerRegistry.registerModelLayer(MODEL_BULLET_BRONZE_LAYER, Z7BulletBronzeEntityModel::getTexturedModelData);

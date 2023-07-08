@@ -38,23 +38,22 @@ public abstract class Z7HarmEntityOnAttackMixin {
                     victim.removeStatusEffect(Z7StatusEffects.STATUS_EFFECT_TWISTED_ANKLE);
                 }
                 int hurtTime = (int) MathHelper.lerp(Math.min(damage, 20) / 20f, Z7Util.ticksFromMinutes(5), Z7Util.ticksFromMinutes(30));
-//                System.out.println("Damage = " + damage + ", hurtTime = " + hurtTime);
-                victim.addStatusEffect(new StatusEffectInstance(Z7StatusEffects.STATUS_EFFECT_BROKEN_BONE, hurtTime));
+                victim.addStatusEffect(Z7StatusEffects.STATUS_EFFECT_BROKEN_BONE.createEffectInstance(hurtTime));
             }
-            else {
+            else if (entity.world.random.nextFloat() > 2f/3f){
                 var effect = victim.getStatusEffect(Z7StatusEffects.STATUS_EFFECT_BROKEN_BONE);
                 if (effect == null) {
                     effect = victim.getStatusEffect(Z7StatusEffects.STATUS_EFFECT_TWISTED_ANKLE);
-                    int hurtTime = Z7Util.ticksFromMinutes(2.5f);
+                    int hurtTime = Z7Util.ticksFromMinutes(1.5f);
                     if (effect != null) {
                         hurtTime += effect.getDuration();
                         victim.removeStatusEffect(Z7StatusEffects.STATUS_EFFECT_TWISTED_ANKLE);
                     }
                     if (hurtTime > Z7Util.ticksFromMinutes(7f)) {
-                        victim.addStatusEffect(new StatusEffectInstance(Z7StatusEffects.STATUS_EFFECT_BROKEN_BONE, hurtTime));
+                        victim.addStatusEffect(Z7StatusEffects.STATUS_EFFECT_BROKEN_BONE.createEffectInstance(hurtTime));
                     }
                     else {
-                        victim.addStatusEffect(new StatusEffectInstance(Z7StatusEffects.STATUS_EFFECT_TWISTED_ANKLE, hurtTime + Z7Util.ticksFromMinutes(1f)));
+                        victim.addStatusEffect(Z7StatusEffects.STATUS_EFFECT_TWISTED_ANKLE.createEffectInstance(hurtTime + Z7Util.ticksFromMinutes(1f)));
                     }
                 }
             }
@@ -65,16 +64,16 @@ public abstract class Z7HarmEntityOnAttackMixin {
             var effect = victim.getStatusEffect(Z7StatusEffects.STATUS_EFFECT_INFECTION);
             if (effect != null) {
                 int nextTicks = effect.getDuration() - Z7Util.ticksFromMinutes(1f);
-                System.out.println("Next ticks = " + nextTicks);
+//                System.out.println("Next ticks = " + nextTicks);
                 victim.removeStatusEffect(Z7StatusEffects.STATUS_EFFECT_INFECTION);
-                victim.addStatusEffect(new StatusEffectInstance(Z7StatusEffects.STATUS_EFFECT_INFECTION, nextTicks));
+                victim.addStatusEffect(Z7StatusEffects.STATUS_EFFECT_INFECTION.createEffectInstance(nextTicks));
             }
             else if (roll) {
-                victim.addStatusEffect(new StatusEffectInstance(Z7StatusEffects.STATUS_EFFECT_INFECTION, Z7InfectionStatusEffect.MAX_TICKS));
+                victim.addStatusEffect(Z7StatusEffects.STATUS_EFFECT_INFECTION.createEffectInstance(Z7InfectionStatusEffect.MAX_TICKS));
             }
         }
 
-        roll = Math.random() > 0.5;
+        roll = Math.random() > 0.85;
         if (!damageSource.isOf(DamageTypes.MOB_PROJECTILE) && !damageSource.isOf(DamageTypes.ARROW) && attacker instanceof LivingEntity && attacker != victim && attacker.isLiving() && roll) {
             var effect = victim.getStatusEffect(Z7StatusEffects.STATUS_EFFECT_CONCUSSION);
             if (effect != null) {
@@ -86,7 +85,7 @@ public abstract class Z7HarmEntityOnAttackMixin {
                 victim.removeStatusEffect(Z7StatusEffects.STATUS_EFFECT_CONCUSSION_LONG);
             }
 
-            victim.addStatusEffect(new StatusEffectInstance(Z7StatusEffects.STATUS_EFFECT_CONCUSSION, Z7ConcussionStatusEffect.SHORT_DURATION));
+            victim.addStatusEffect(Z7StatusEffects.STATUS_EFFECT_CONCUSSION.createEffectInstance(Z7ConcussionStatusEffect.SHORT_DURATION));
         }
 
         roll = Math.random() > 0.4;
@@ -103,7 +102,7 @@ public abstract class Z7HarmEntityOnAttackMixin {
                         victim.removeStatusEffect(Z7StatusEffects.STATUS_EFFECT_BLEEDING_LONG);
                     }
 
-                    victim.addStatusEffect(new StatusEffectInstance(Z7StatusEffects.STATUS_EFFECT_BLEEDING, Z7BleedingStatusEffect.SHORT_DURATION));
+                    victim.addStatusEffect(Z7StatusEffects.STATUS_EFFECT_BLEEDING.createEffectInstance(Z7BleedingStatusEffect.SHORT_DURATION));
                 }
             }
         }

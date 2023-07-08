@@ -22,12 +22,6 @@ public class Z7ConcussionStatusEffect extends Z7StatusEffect {
 
     @Override
     public boolean canApplyUpdateEffect(int duration, int amplifier) {
-//        return duration % 30 == 0;
         return false;
-    }
-
-    @Override
-    public void applyUpdateEffect(LivingEntity entity, int amplifier) {
-//        entity.damage(entity.getDamageSources().create(Zombie7.BLEEDING_DAMAGE_TYPE), 0.5f);
     }
 }

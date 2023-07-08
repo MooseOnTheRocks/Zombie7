@@ -9,6 +9,7 @@ import dev.foltz.item.consumable.Z7AntibioticsItem;
 import dev.foltz.item.consumable.Z7BandageItem;
 import dev.foltz.item.consumable.Z7PainkillersItem;
 import dev.foltz.item.consumable.Z7SplintItem;
+import dev.foltz.item.grenade.Z7BowlingBallGrenadeItem;
 import dev.foltz.item.grenade.Z7FragGrenadeItem;
 import dev.foltz.item.grenade.Z7MolotovGrenadeItem;
 import dev.foltz.item.grenade.Z7StickyGrenadeItem;
@@ -69,6 +70,7 @@ public abstract class Z7Items {
     public static final Item ITEM_FRAG_GRENADE = registerGrenadeItem("frag", new Z7FragGrenadeItem());
     public static final Item ITEM_MOLOTOV_GRENADE = registerGrenadeItem("molotov", new Z7MolotovGrenadeItem());
     public static final Item ITEM_STICKY_GRENADE = registerGrenadeItem("sticky", new Z7StickyGrenadeItem());
+    public static final Item ITEM_BOWLING_BALL_GRENADE = registerGrenadeItem("bowling_ball", new Z7BowlingBallGrenadeItem());
 
     public static final Item ITEM_PISTOL_BASIC = registerGunItem("pistol_basic", new Z7BasicPistolItem());
     public static final Item ITEM_PISTOL_FLINTLOCK = registerGunItem("pistol_flintlock", new Z7FlintlockPistolItem());

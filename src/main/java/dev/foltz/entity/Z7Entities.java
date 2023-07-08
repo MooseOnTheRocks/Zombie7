@@ -29,6 +29,12 @@ public class Z7Entities {
         FabricEntityTypeBuilder.create().entityFactory(Z7StickyGrenadeEntity::new).dimensions(EntityDimensions.fixed(0.5f, 0.5f)).build()
     );
 
+    public static final EntityType<Z7BowlingBallGrenadeEntity> BOWLING_BALL_GRENADE_ENTITY = Registry.register(
+        Registries.ENTITY_TYPE,
+        new Identifier(MODID, "grenade_bowling_ball"),
+        FabricEntityTypeBuilder.create().entityFactory(Z7BowlingBallGrenadeEntity::new).dimensions(EntityDimensions.fixed(0.8f, 0.8f)).build()
+    );
+
     public static final EntityType<Z7BulletBronzeEntity> BULLET_BRONZE_ENTITY = Registry.register(
         Registries.ENTITY_TYPE,
         new Identifier(MODID, "bullet_bronze"),

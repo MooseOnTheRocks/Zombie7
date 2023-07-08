@@ -55,6 +55,7 @@ public class Z7ModelPredicates {
         registerItemWithPredicates(Z7Items.ITEM_FRAG_GRENADE, List.of(USAGE_STAGE, IS_ACTIVE, IS_PRIMED));
         registerItemWithPredicates(Z7Items.ITEM_MOLOTOV_GRENADE, List.of(USAGE_STAGE, IS_PRIMED));
         registerItemWithPredicates(Z7Items.ITEM_STICKY_GRENADE, List.of(USAGE_STAGE, IS_ACTIVE, IS_PRIMED));
+        registerItemWithPredicates(Z7Items.ITEM_BOWLING_BALL_GRENADE, List.of());
 
         // Guns
         registerItemsWithPredicates(
