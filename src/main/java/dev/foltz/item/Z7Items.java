@@ -1,23 +1,21 @@
 package dev.foltz.item;
 
-import dev.foltz.Z7Util;
 import dev.foltz.Zombie7;
 import dev.foltz.item.ammo.Z7AmmoBasicPistolItem;
 import dev.foltz.item.ammo.Z7AmmoBasicShotgunItem;
 import dev.foltz.item.ammo.Z7AmmoItem;
+import dev.foltz.item.ammo.Z7AmmoBasicMagnumItem;
 import dev.foltz.item.consumable.Z7AntibioticsItem;
 import dev.foltz.item.consumable.Z7BandageItem;
 import dev.foltz.item.consumable.Z7PainkillersItem;
 import dev.foltz.item.consumable.Z7SplintItem;
-import dev.foltz.item.grenade.Z7BowlingBallGrenadeItem;
-import dev.foltz.item.grenade.Z7FragGrenadeItem;
-import dev.foltz.item.grenade.Z7MolotovGrenadeItem;
-import dev.foltz.item.grenade.Z7StickyGrenadeItem;
-import dev.foltz.item.gun.pistol.Z7BasicPistolItem;
-import dev.foltz.item.gun.pistol.Z7FlintlockPistolItem;
-import dev.foltz.item.gun.rifle.Z7AkRifleItem;
-import dev.foltz.item.gun.shotgun.Z7Aa12Shotgun;
-import dev.foltz.item.gun.shotgun.Z7PumpShotgunItem;
+import dev.foltz.item.grenade.*;
+import dev.foltz.item.gun.pistol.BasicPistolItem;
+import dev.foltz.item.gun.pistol.DeaglePistolItem;
+import dev.foltz.item.gun.pistol.FlintlockPistolItem;
+import dev.foltz.item.gun.rifle.AkRifleItem;
+import dev.foltz.item.gun.shotgun.Aa12ShotgunItem;
+import dev.foltz.item.gun.shotgun.PumpShotgunItem;
 import net.fabricmc.fabric.api.item.v1.FabricItemSettings;
 import net.fabricmc.fabric.api.itemgroup.v1.FabricItemGroup;
 import net.minecraft.block.Block;
@@ -33,8 +31,6 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 import java.util.function.Supplier;
-
-import static dev.foltz.item.grenade.Z7FragGrenadeItem.GLOBAL_STAGE_PRIMED;
 
 public abstract class Z7Items {
     private static final Map<String, Item> ALL_ITEMS = new HashMap<>();
@@ -68,22 +64,29 @@ public abstract class Z7Items {
 
     // Weapons
     public static final Item ITEM_FRAG_GRENADE = registerGrenadeItem("frag", new Z7FragGrenadeItem());
+    public static final Item ITEM_CONTACT_GRENADE = registerGrenadeItem("contact", new Z7ContactGrenadeItem());
     public static final Item ITEM_MOLOTOV_GRENADE = registerGrenadeItem("molotov", new Z7MolotovGrenadeItem());
     public static final Item ITEM_STICKY_GRENADE = registerGrenadeItem("sticky", new Z7StickyGrenadeItem());
     public static final Item ITEM_BOWLING_BALL_GRENADE = registerGrenadeItem("bowling_ball", new Z7BowlingBallGrenadeItem());
 
-    public static final Item ITEM_PISTOL_BASIC = registerGunItem("pistol_basic", new Z7BasicPistolItem());
-    public static final Item ITEM_PISTOL_FLINTLOCK = registerGunItem("pistol_flintlock", new Z7FlintlockPistolItem());
-    public static final Item ITEM_SHOTGUN_BASIC = registerGunItem("shotgun_basic", new Z7PumpShotgunItem());
-    public static final Item ITEM_SHOTGUN_AA12 = registerGunItem("shotgun_aa12", new Z7Aa12Shotgun());
-    public static final Item ITEM_RIFLE_AK = registerGunItem("rifle_ak", new Z7AkRifleItem());
+    public static final Item ITEM_PISTOL_FLINTLOCK = registerGunItem("pistol_flintlock", new FlintlockPistolItem());
+    public static final Item ITEM_PISTOL_BASIC = registerGunItem("pistol_basic", new BasicPistolItem());
+    public static final Item ITEM_PISTOL_DEAGLE = registerGunItem("pistol_deagle", new DeaglePistolItem());
+    public static final Item ITEM_SHOTGUN_BASIC = registerGunItem("shotgun_basic", new PumpShotgunItem());
+    public static final Item ITEM_SHOTGUN_AA12 = registerGunItem("shotgun_aa12", new Aa12ShotgunItem());
+    public static final Item ITEM_RIFLE_AK = registerGunItem("rifle_ak", new AkRifleItem());
+
+//    public static final Item ITEM_STAGED_GUN = registerGunItem("staged_gun", new StagedGunItem(100, Z7AmmoItem.AmmoCategory.PISTOL_AMMO, 1));
 
 
     // Ammo
     public static final Z7AmmoItem ITEM_AMMO_PISTOL = registerAmmoItem("pistol_basic", new Z7AmmoBasicPistolItem());
+    public static final Z7AmmoItem ITEM_AMMO_MAGNUM = registerAmmoItem("magnum_basic", new Z7AmmoBasicMagnumItem());
     public static final Z7AmmoItem ITEM_AMMO_SHOTGUN = registerAmmoItem("shotgun_basic", new Z7AmmoBasicShotgunItem());
 
+    // Misc
     public static final Item ITEM_BONK_STICK = registerItem("bonk_stick", new Z7BonkStick());
+    public static final Item ITEM_BONK_STICK_16 = registerItem("bonk_stick16", new Z7BonkStick());
 
 
     // Item groups
@@ -93,7 +96,7 @@ public abstract class Z7Items {
     public static final ItemGroup GROUP_GENERAL = registerItemGroup("general", ALL_ITEMS_GENERAL, () -> new ItemStack(ITEM_BONK_STICK));
 
 
-    private static <T extends Item> T  registerItem(String name, T item) {
+    private static <T extends Item> T registerItem(String name, T item) {
         ALL_ITEMS.put(name, item);
         ALL_ITEMS_GENERAL.put(name, item);
         return item;

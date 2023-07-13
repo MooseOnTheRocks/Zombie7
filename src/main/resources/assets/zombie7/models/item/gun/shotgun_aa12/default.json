@@ -4,15 +4,15 @@
     "layer0": "zombie7:item/gun/shotgun_aa12/default"
   },
   "overrides": [
-    { "predicate": { "reload_stage": 0.0, "is_reloading": 1.0 }, "model": "zombie7:item/gun/shotgun_aa12/default"},
-    { "predicate": { "reload_stage": 0.1, "is_reloading": 1.0 }, "model": "zombie7:item/gun/shotgun_aa12/reloading_0"},
-    { "predicate": { "reload_stage": 0.3, "is_reloading": 1.0 }, "model": "zombie7:item/gun/shotgun_aa12/reloading_1"},
-    { "predicate": { "reload_stage": 0.8, "is_reloading": 1.0 }, "model": "zombie7:item/gun/shotgun_aa12/reloading_0"},
+    { "predicate": { "usage_stage": 0.0, "is_reloading": 1.0 }, "model": "zombie7:item/gun/shotgun_aa12/default"},
+    { "predicate": { "usage_stage": 0.1, "is_reloading": 1.0 }, "model": "zombie7:item/gun/shotgun_aa12/reloading_0"},
+    { "predicate": { "usage_stage": 0.3, "is_reloading": 1.0 }, "model": "zombie7:item/gun/shotgun_aa12/reloading_1"},
+    { "predicate": { "usage_stage": 0.8, "is_reloading": 1.0 }, "model": "zombie7:item/gun/shotgun_aa12/reloading_0"},
 
     { "predicate": { "is_ready_to_fire": 1.0}, "model": "zombie7:item/gun/shotgun_aa12/default" },
 
-    { "predicate": { "firing_stage": 0.0, "is_firing": 1.0 }, "model": "zombie7:item/gun/shotgun_aa12/firing_0" },
-    { "predicate": { "firing_stage": 0.5, "is_firing": 1.0 }, "model": "zombie7:item/gun/shotgun_aa12/firing_1" },
+    { "predicate": { "usage_stage": 0.0, "is_firing": 1.0 }, "model": "zombie7:item/gun/shotgun_aa12/firing_0" },
+    { "predicate": { "usage_stage": 0.5, "is_firing": 1.0 }, "model": "zombie7:item/gun/shotgun_aa12/firing_1" },
 
     { "predicate": { "is_broken": 1.0 }, "model": "zombie7:item/gun/shotgun_aa12/broken" }
 

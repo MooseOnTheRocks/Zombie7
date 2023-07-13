@@ -15,6 +15,10 @@ import java.util.function.Predicate;
 
 public abstract class Z7Util {
     public static final int TICKS_PER_SECOND = 20;
+    public static final int GREEN = MathHelper.hsvToRgb(0.33f, 1, 1);
+    public static final int YELLOW = MathHelper.hsvToRgb(1.0f, 1, 1);
+    public static final int ORANGE = MathHelper.hsvToRgb(0.1f, 1, 1);
+    public static final int RED = MathHelper.hsvToRgb(0.0f, 1, 1);
 
     public static int ticksFromSeconds(float seconds) {
         return (int) (seconds * TICKS_PER_SECOND);

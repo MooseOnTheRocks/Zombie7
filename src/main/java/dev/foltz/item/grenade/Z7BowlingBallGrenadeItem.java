@@ -7,6 +7,7 @@ import dev.foltz.entity.Z7GrenadeEntity;
 import dev.foltz.entity.Z7MolotovGrenadeEntity;
 import net.minecraft.entity.Entity;
 import net.minecraft.entity.LivingEntity;
+import net.minecraft.entity.effect.StatusEffects;
 import net.minecraft.item.ItemStack;
 import net.minecraft.util.math.MathHelper;
 import net.minecraft.world.World;
@@ -31,9 +32,11 @@ public class Z7BowlingBallGrenadeItem extends Z7GrenadeItem {
             return;
         }
 
-        final int fullThrowTime = Z7Util.ticksFromSeconds(4f);
-        float throwSpeed = MathHelper.map(Math.min(usedTime, fullThrowTime), 0, fullThrowTime, 0.1f, 0.8f);
-
+        final int fullThrowTime = Z7Util.ticksFromSeconds(3f);
+        float throwSpeed = MathHelper.map(Math.min(usedTime, fullThrowTime), 0, fullThrowTime, 0.1f, 1.0f);
+        if (user.getStatusEffect(StatusEffects.STRENGTH) != null) {
+            throwSpeed *= 1 + (0.5 * user.getStatusEffect(StatusEffects.STRENGTH).getAmplifier());
+        }
         throwGrenade(stack, world, user, throwSpeed);
     }
 

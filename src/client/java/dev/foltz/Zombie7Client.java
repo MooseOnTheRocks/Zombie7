@@ -3,9 +3,9 @@ package dev.foltz;
 import dev.foltz.entity.*;
 import dev.foltz.entity.model.Z7BulletBronzeEntityModel;
 import dev.foltz.entity.model.Z7BulletLeadEntityModel;
+import dev.foltz.item.StagedGunItem;
 import dev.foltz.item.Z7IShootable;
-import dev.foltz.item.grenade.Z7IGrenadelike;
-import dev.foltz.item.gun.Z7IGunlike;
+import dev.foltz.item.stage.StagedItem;
 import dev.foltz.network.Z7Networking;
 import dev.foltz.render.Z7ConcussionFogModifier;
 import dev.foltz.render.Z7ConcussionLongFogModifier;
@@ -49,6 +49,7 @@ public class Zombie7Client implements ClientModInitializer {
         Z7ModelPredicates.registerAllModelPredicates();
 
         EntityRendererRegistry.register(Z7Entities.FRAG_GRENADE_ENTITY, Z7FragGrenadeEntityRenderer::new);
+        EntityRendererRegistry.register(Z7Entities.CONTACT_GRENADE_ENTITY, Z7ContactGrenadeEntityRenderer::new);
         EntityRendererRegistry.register(Z7Entities.MOLOTOV_GRENADE_ENTITY, Z7MolotovGrenadeEntityRenderer::new);
         EntityRendererRegistry.register(Z7Entities.STICKY_GRENADE_ENTITY, Z7StickyGrenadeEntityRenderer::new);
         EntityRendererRegistry.register(Z7Entities.BOWLING_BALL_GRENADE_ENTITY, Z7BowlingBallGrenadeEntityRenderer::new);
@@ -62,7 +63,7 @@ public class Zombie7Client implements ClientModInitializer {
 
         ClientPreAttackCallback.EVENT.register((client, player, clickCount) -> {
             Item item = player.getMainHandStack().getItem();
-            if (item instanceof Z7IShootable) {
+            if (item instanceof StagedItem) {
                 return true;
             }
             else {

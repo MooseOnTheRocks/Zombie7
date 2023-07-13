@@ -22,8 +22,10 @@
   "item.zombie7.gun.shotgun_basic": "Basic Shotgun",
   "item.zombie7.gun.shotgun_aa12": "AA-12",
   "item.zombie7.gun.rifle_ak": "AK-47",
+  "item.zombie7.gun.pistol_deagle": "Deagle",
 
   "item.zombie7.grenade.frag": "Frag Grenade",
+  "item.zombie7.grenade.contact": "Contact Grenade",
   "item.zombie7.grenade.molotov": "Molotov Cocktail",
   "item.zombie7.grenade.sticky": "Sticky Grenade",
   "item.zombie7.grenade.bowling_ball": "Bowling Ball",
@@ -69,5 +71,6 @@
 
 
 
-  "item.zombie7.bonk_stick": "Bonk Stick"
+  "item.zombie7.bonk_stick": "Bonk Stick",
+  "item.zombie7.bonk_stick16": "Bonk Stick 16x16"
 }

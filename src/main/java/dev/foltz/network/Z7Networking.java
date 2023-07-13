@@ -66,9 +66,11 @@ public class Z7Networking {
                     }
 
                     if (!ItemStack.areItemsEqual(player.getMainHandStack(), playerState.getLastHeldItemStack())) {
+//                        Z7PlayerStateEventHandler.onHeldItemChange(player);
                         Z7PlayerStateEventHandler.onHeldItemChange(player);
                     }
                     else {
+//                        Z7PlayerStateEventHandler.onTick(player);
                         Z7PlayerStateEventHandler.onTick(player);
                     }
                 });
@@ -98,5 +100,29 @@ public class Z7Networking {
 
         ServerPlayNetworking.registerGlobalReceiver(AIM_RELEASE_PACKET_ID, (server, player, handler, buf, responseSender) ->
             server.execute(() -> Z7PlayerStateEventHandler.onAimRelease(player)));
+
+//        ServerPlayConnectionEvents.INIT.register((handler, server) ->
+//            server.execute(() -> Z7PlayerStateEventHandler.onHeldItemChange(handler.getPlayer())));
+//
+//
+//        ServerPlayNetworking.registerGlobalReceiver(SHOOT_PRESS_PACKET_ID, (server, player, handler, buf, responseSender) ->
+//            server.execute(() -> Z7PlayerStateEventHandler.onShootPress(player)));
+//
+//        ServerPlayNetworking.registerGlobalReceiver(SHOOT_RELEASE_PACKET_ID, (server, player, handler, buf, responseSender) ->
+//            server.execute(() -> Z7PlayerStateEventHandler.onShootRelease(player)));
+//
+//
+//        ServerPlayNetworking.registerGlobalReceiver(RELOAD_PRESS_PACKET_ID, (server, player, handler, buf, responseSender) ->
+//            server.execute(() -> Z7PlayerStateEventHandler.onReloadPress(player)));
+//
+//        ServerPlayNetworking.registerGlobalReceiver(RELOAD_RELEASE_PACKET_ID, (server, player, handler, buf, responseSender) ->
+//            server.execute(() -> Z7PlayerStateEventHandler.onReloadRelease(player)));
+
+
+//        ServerPlayNetworking.registerGlobalReceiver(AIM_PRESS_PACKET_ID, (server, player, handler, buf, responseSender) ->
+//                server.execute(() -> Z7PlayerStateEventHandler.onAimPress(player)));
+//
+//        ServerPlayNetworking.registerGlobalReceiver(AIM_RELEASE_PACKET_ID, (server, player, handler, buf, responseSender) ->
+//                server.execute(() -> Z7PlayerStateEventHandler.onAimRelease(player)));
     }
 }

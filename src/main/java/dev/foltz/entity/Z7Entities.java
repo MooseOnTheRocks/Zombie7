@@ -17,6 +17,12 @@ public class Z7Entities {
         FabricEntityTypeBuilder.create().entityFactory(Z7FragGrenadeEntity::new).dimensions(EntityDimensions.fixed(0.5f, 0.5f)).build()
     );
 
+    public static final EntityType<Z7ContactGrenadeEntity> CONTACT_GRENADE_ENTITY = Registry.register(
+            Registries.ENTITY_TYPE,
+            new Identifier(MODID, "grenade_contact"),
+            FabricEntityTypeBuilder.create().entityFactory(Z7ContactGrenadeEntity::new).dimensions(EntityDimensions.fixed(0.5f, 0.5f)).build()
+    );
+
     public static final EntityType<Z7MolotovGrenadeEntity> MOLOTOV_GRENADE_ENTITY = Registry.register(
         Registries.ENTITY_TYPE,
         new Identifier(MODID, "grenade_molotov"),

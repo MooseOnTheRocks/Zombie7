@@ -1,0 +1,11 @@
+{
+  "parent": "item/generated",
+  "textures": {
+    "layer0": "zombie7:item/grenade/contact/default"
+  },
+  "overrides": [
+    { "predicate": { "is_primed": 0.0, "is_active": 0.0 }, "model": "zombie7:item/grenade/contact/default" },
+    { "predicate": { "is_active": 1.0 }, "model": "zombie7:item/grenade/contact/active" },
+    { "predicate": { "is_primed": 1.0 }, "model": "zombie7:item/grenade/contact/primed" }
+  ]
+}

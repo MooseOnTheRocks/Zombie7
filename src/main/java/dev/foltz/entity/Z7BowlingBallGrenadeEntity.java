@@ -12,6 +12,8 @@ import net.minecraft.entity.data.TrackedDataHandlerRegistry;
 import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.nbt.NbtCompound;
 import net.minecraft.particle.ParticleTypes;
+import net.minecraft.sound.SoundCategory;
+import net.minecraft.sound.SoundEvents;
 import net.minecraft.util.hit.BlockHitResult;
 import net.minecraft.util.hit.EntityHitResult;
 import net.minecraft.util.hit.HitResult;
@@ -22,6 +24,8 @@ import net.minecraft.util.shape.VoxelShape;
 import net.minecraft.world.RaycastContext;
 import net.minecraft.world.World;
 import net.minecraft.world.event.GameEvent;
+
+import java.util.List;
 
 public class Z7BowlingBallGrenadeEntity extends Z7GrenadeEntity {
     public Z7BowlingBallGrenadeEntity(EntityType<? extends Z7GrenadeEntity> entityType, World world) {
@@ -38,7 +42,7 @@ public class Z7BowlingBallGrenadeEntity extends Z7GrenadeEntity {
         VoxelShape voxelShape;
         BlockPos blockPos;
         BlockState blockState;
-        super.tick();
+//        super.tick();
         boolean bl = this.isNoClip();
         Vec3d vec3d = this.getVelocity();
 
@@ -49,6 +53,27 @@ public class Z7BowlingBallGrenadeEntity extends Z7GrenadeEntity {
             vec3d2 = hitResult.getPos();
         }
         EntityHitResult entityHitResult = this.getEntityCollision(vec3d3, vec3d2);
+
+        var box = getBoundingBox();
+        var minX = box.minX;
+        var minY = box.minY;
+        var minZ = box.minZ;
+        var maxX = box.maxX;
+        var maxY = box.maxY;
+        var maxZ = box.maxZ;
+        for (int i = 0; i < 8; i++) {
+            var x = i % 2 < 1 ? minX : maxX;
+            var y = i % 4 < 2 ? minY : maxY;
+            var z = i % 8 < 4 ? minZ : maxZ;
+            if (entityHitResult != null) {
+                break;
+            }
+            var point = new Vec3d(x, y, z);
+            var nextPoint = point.add(this.getVelocity());
+//            System.out.println(point + " -> " + nextPoint);
+            entityHitResult = getEntityCollision(point, nextPoint);
+        }
+
         if (entityHitResult != null) {
             hitResult = entityHitResult;
         }
@@ -60,20 +85,33 @@ public class Z7BowlingBallGrenadeEntity extends Z7GrenadeEntity {
 
         this.move(MovementType.SELF, this.getVelocity());
         if (!this.onGround) {
-            this.setVelocity(this.getVelocity().subtract(0, 0.04, 0));
+            this.setVelocity(this.getVelocity().subtract(0, 0.1, 0));
         }
         else {
             this.setVelocity(this.getVelocity().multiply(0.98));
             if (this.getVelocity().length() < 0.05 && this.onGround) {
 //                System.out.println("Allowed to pickup");
-                this.pickupType = PickupPermission.ALLOWED;
+                if (this.getOwner() != null && this.getOwner() instanceof PlayerEntity player && player.getAbilities().creativeMode) {
+                    this.pickupType = PickupPermission.CREATIVE_ONLY;
+                }
+                else {
+                    this.pickupType = PickupPermission.ALLOWED;
+                }
             }
             else {
                 this.pickupType = PickupPermission.DISALLOWED;
             }
         }
 
+        this.checkBlockCollision();
+
+
         this.distanceTraveled += getPos().subtract(prevPos).length();
+    }
+
+    @Override
+    protected boolean canHit(Entity entity) {
+        return super.canHit(entity) || entity instanceof Z7BowlingBallGrenadeEntity;
     }
 
     @Override
@@ -103,19 +141,26 @@ public class Z7BowlingBallGrenadeEntity extends Z7GrenadeEntity {
     @Override
     protected void onEntityHit(EntityHitResult entityHitResult) {
         if (!world.isClient) {
-            if (entityHitResult.getEntity() instanceof LivingEntity livingEntity) {
-                var entities = world.getOtherEntities(this, livingEntity.getBoundingBox().expand(4d),
+            this.setVelocity(this.getVelocity().multiply(0.90));
+            if (entityHitResult.getEntity() instanceof Z7BowlingBallGrenadeEntity other) {
+                var diff = this.getPos().subtract(other.getPos()).normalize();
+//                this.addVelocity(diff.normalize().multiply(0.3).multiply(other.getVelocity()));
+//                other.addVelocity(diff.normalize().multiply(-0.1).multiply(this.getVelocity()));
+//                this.addVelocity(diff.multiply(other.getVelocity().rotateY((float) (Math.random() * Math.PI * 2)).multiply(0.3)));
+            }
+            else if (entityHitResult.getEntity() instanceof LivingEntity livingEntity) {
+                var entities = world.getOtherEntities(this, this.getBoundingBox().expand(1d),
                         e -> e.isLiving() && !e.getUuid().equals(this.getOwner() != null ? this.getOwner().getUuid() : null));
 
-                if (entities.size() > 0) {
-                    System.out.println("Hit some entities: " + entities.size());
-                }
+//                if (entities.size() > 0) {
+//                    System.out.println("Hit some entities: " + entities.size());
+//                }
 
                 for (var entity : entities) {
 //                double d = Math.max(0.1, 1.0 - ((LivingEntity) entity).getAttributeValue(EntityAttributes.GENERIC_KNOCKBACK_RESISTANCE));
-                    Vec3d vec3d = this.getVelocity().multiply(1.0, 0.0, 1.0).normalize().multiply(2f);
+                    Vec3d vec3d = this.getVelocity().multiply(1.0, 0.0, 1.0).normalize().multiply(MathHelper.map(getVelocity().length(), 0, 0.8, 1, 4));
                     if (vec3d.lengthSquared() > 0.0) {
-                        ((LivingEntity) entity).addVelocity(vec3d.x, -0.8, vec3d.z);
+                        ((LivingEntity) entity).addVelocity(vec3d.x, -1, vec3d.z);
                     }
                 }
             }
@@ -127,6 +172,7 @@ public class Z7BowlingBallGrenadeEntity extends Z7GrenadeEntity {
             int pcount = (int) MathHelper.map(Math.min(1, vec3d.length()), 0, 1, 2, 10);
             for (int i = 0; i < pcount; ++i) {
                 this.world.addParticle(ParticleTypes.CRIT, this.getX() + e * (double) i / 4.0, this.getY() + f * (double) i / 4.0, this.getZ() + g * (double) i / 4.0, -e, -f + 0.2, -g);
+                this.world.playSound(null, this.getX(), this.getY(), this.getZ(), SoundEvents.ITEM_SHIELD_BLOCK, SoundCategory.NEUTRAL, 0.5f, -4.0f);
             }
         }
     }

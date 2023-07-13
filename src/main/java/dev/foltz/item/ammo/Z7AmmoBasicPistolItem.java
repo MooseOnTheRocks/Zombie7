@@ -2,6 +2,7 @@ package dev.foltz.item.ammo;
 
 import dev.foltz.entity.Z7BulletBronzeEntity;
 import dev.foltz.entity.Z7Entities;
+import dev.foltz.item.StagedGunItem;
 import dev.foltz.item.gun.Z7IGunlike;
 import net.fabricmc.fabric.api.item.v1.FabricItemSettings;
 import net.minecraft.entity.player.PlayerEntity;
@@ -38,7 +39,7 @@ public class Z7AmmoBasicPistolItem extends Z7AmmoItem {
     @Override
     public List<Z7BulletBronzeEntity> createBulletEntities(PlayerEntity player, ItemStack gunStack, ItemStack ammoStack) {
         Z7BulletBronzeEntity bullet = new Z7BulletBronzeEntity(Z7Entities.BULLET_BRONZE_ENTITY, player.world);
-        bullet.setHitBoxExpansion(1.0f);
+        bullet.setHitBoxExpansion(0.5f);
         bullet.setPosition(player.getX(), player.getEyeY() - bullet.getHeight() / 2f, player.getZ());
         bullet.setOwner(player);
 
@@ -46,7 +47,7 @@ public class Z7AmmoBasicPistolItem extends Z7AmmoItem {
         float totalSpeed = getBaseSpeed(ammoStack);
         float baseDistance = getBaseRange(ammoStack);
         float totalAccuracy = getBaseAccuracy(ammoStack);
-        if (gunStack.getItem() instanceof Z7IGunlike gun) {
+        if (gunStack.getItem() instanceof StagedGunItem gun) {
             totalDamage = gun.getModifiedBulletDamage(gunStack, ammoStack, totalDamage);
             totalSpeed = gun.getModifiedBulletSpeed(gunStack, ammoStack, totalSpeed);
             baseDistance = gun.getModifiedBulletBaseRange(gunStack, ammoStack, baseDistance);
