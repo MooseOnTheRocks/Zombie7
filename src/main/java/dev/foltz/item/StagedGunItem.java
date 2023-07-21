@@ -423,37 +423,10 @@ public class StagedGunItem extends StagedItem {
         else {
             return Math.round(13f * p);
         }
-//        float p;
-//        if (getStageName(stack).equals(STAGE_RELOADING)) {
-//            p = (float) getStageTicks(stack) / (float) getMaxStageTicks(stack);
-//        }
-//        else {
-//            p = (float) getAmmoInGun(stack).size() / (float) getMaxAmmoCapacity(stack);
-//            if (getAmmoInGun(stack).size() == 1 && p < 1f/13f) {
-//                p = 1f/13f;
-//            }
-//        }
-
-//        return isBroken(stack) ? 13 : Math.round(13f * p);
     }
 
     @Override
     public int getItemBarColor(ItemStack stack) {
-//        final float red = 0.0f;
-//        final float green = 0.33f;
-//        final float yellow = 1.0f;
-//        final float orange = 0.1f;
-//
-//        String stage = getStageName(stack);
-//        float h = switch (stage) {
-//            case STAGE_RELOADING -> yellow;
-//            case STAGE_COCKED -> orange;
-//            case STAGE_FIRING -> red;
-//            default -> green;
-//        };
-//
-//        return MathHelper.hsvToRgb(h, 1, 1);
-
         return getStage(stack).barColor(stack);
     }
 

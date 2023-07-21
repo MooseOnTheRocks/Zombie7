@@ -65,7 +65,8 @@ public class Z7Networking {
                         return;
                     }
 
-                    if (!ItemStack.areItemsEqual(player.getMainHandStack(), playerState.getLastHeldItemStack())) {
+//                    if (!ItemStack.areItemsEqual(player.getMainHandStack(), playerState.getLastHeldItemStack())) {
+                    if (player.getMainHandStack() != playerState.getLastHeldItemStack()) {
 //                        Z7PlayerStateEventHandler.onHeldItemChange(player);
                         Z7PlayerStateEventHandler.onHeldItemChange(player);
                     }

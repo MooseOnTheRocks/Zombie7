@@ -35,9 +35,18 @@ public abstract class Z7AmmoItem extends Item {
     public abstract List<? extends Z7BulletEntity> createBulletEntities(PlayerEntity player, ItemStack gunStack, ItemStack ammoStack);
 
     public enum AmmoCategory {
-        PISTOL_AMMO(AMMO_TYPE_PISTOL_TAG, () -> Z7Items.ITEM_AMMO_PISTOL),
-        MAGNUM_AMMO(AMMO_TYPE_MAGNUM_TAG, () -> Z7Items.ITEM_AMMO_MAGNUM),
-        SHOTGUN_AMMO(AMMO_TYPE_SHOTGUN_TAG, () -> Z7Items.ITEM_AMMO_SHOTGUN);
+        PISTOL_AMMO(AMMO_TYPE_PISTOL_TAG, () -> {
+            System.out.println(Z7Items.ITEM_AMMO_PISTOL);
+            return Z7Items.ITEM_AMMO_PISTOL;
+        }),
+        MAGNUM_AMMO(AMMO_TYPE_MAGNUM_TAG, () -> {
+            System.out.println(Z7Items.ITEM_AMMO_MAGNUM);
+            return Z7Items.ITEM_AMMO_MAGNUM;
+        }),
+        SHOTGUN_AMMO(AMMO_TYPE_SHOTGUN_TAG, () -> {
+            System.out.println(Z7Items.ITEM_AMMO_SHOTGUN);
+            return Z7Items.ITEM_AMMO_SHOTGUN;
+        });
 
         public final TagKey<Item> tag;
         public final Supplier<Z7AmmoItem> defaultItem;

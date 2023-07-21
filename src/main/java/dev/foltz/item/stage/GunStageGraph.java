@@ -10,6 +10,9 @@ public class GunStageGraph {
     public GunStageGraph(List<String> nameOrder, Map<String, GunStage> gunStages) {
         this.nameOrder = List.copyOf(nameOrder);
         this.gunStages = Map.copyOf(gunStages);
+        System.out.println("Making new GunStageGraph:");
+        System.out.println("  - " + nameOrder);
+        System.out.println("  - " + gunStages);
     }
 
     public GunStage stageFromId(int id) {
@@ -21,10 +24,14 @@ public class GunStageGraph {
     }
 
     public int idFromName(String name) {
-        return nameOrder.indexOf(name);
+        var index = nameOrder.indexOf(name);
+//        System.out.println("name " + name + " = " + index);
+        return index;
     }
 
     public String nameFromId(int id) {
-        return id < 0 || id >= nameOrder.size() ? "default" : nameOrder.get(id);
+        var newid = id < 0 || id >= nameOrder.size() ? "default" : nameOrder.get(id);
+//        System.out.println("id " + id + " = " + newid);
+        return newid;
     }
 }

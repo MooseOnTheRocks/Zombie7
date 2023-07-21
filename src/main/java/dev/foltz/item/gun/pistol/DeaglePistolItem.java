@@ -10,6 +10,7 @@ import java.util.Map;
 import static dev.foltz.Z7Util.*;
 
 public class DeaglePistolItem extends StagedGunItem {
+    public static final int FIRE_WAIT_TICKS = ticksFromSeconds(0.15f);
     public static final String STAGE_DEFAULT = "default";
     public static final String STAGE_BROKEN = "broken";
     public static final String STAGE_RELOADING = "reloading";
@@ -54,7 +55,12 @@ public class DeaglePistolItem extends StagedGunItem {
                     view.playerState.setPressingShoot(false);
                     return doFire().handleEvent(view);
                 })
-                .onPressShoot(tryFireReset(STAGE_FIRING))
+                .onPressShoot(view -> {
+                    if (view.gun.getStageTicks(view.stack) < FIRE_WAIT_TICKS) {
+                        return view.stageId;
+                    }
+                    return tryFireReset(STAGE_FIRING).handleEvent(view);
+                })
                 .onLastTick(view -> view.gun.isBroken(view.stack) ? STAGE_BROKEN : STAGE_READY),
 
             STAGE_BROKEN, new GunStageBuilder()

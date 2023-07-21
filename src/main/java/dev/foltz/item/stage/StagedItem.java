@@ -22,7 +22,9 @@ public class StagedItem extends Z7ComplexItem {
     @Override
     public ItemStack getDefaultStack() {
         var stack = super.getDefaultStack();
-        setStageId(stack, stagesGraph.idFromName("default"));
+        var id = stagesGraph.idFromName("default");
+        System.out.println("getDefaultStack 'default' = " + id);
+        setStageId(stack, id);
         resetStageTicks(stack);
         return stack;
     }
@@ -33,9 +35,9 @@ public class StagedItem extends Z7ComplexItem {
             setStageId(view.stack, stagesGraph.idFromName(newStage));
             setStageTicks(view.stack, 0);
             handleInit(new GunStageView(
-                    newStage, view.gun.getStageTicks(view.stack), view.gun.getMaxStageTicks(view.stack),
-                    view.playerState,
-                    view.gun, view.stack, view.entity, view.world
+                newStage, view.gun.getStageTicks(view.stack), view.gun.getMaxStageTicks(view.stack),
+                view.playerState,
+                view.gun, view.stack, view.entity, view.world
             ));
         }
     }

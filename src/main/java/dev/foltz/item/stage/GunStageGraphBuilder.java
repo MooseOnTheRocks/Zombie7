@@ -42,16 +42,18 @@ public class GunStageGraphBuilder {
 
     public GunStageGraph build() {
         Map<String, GunStage> builtStages = new HashMap<>();
-
-        // "default" stage is required and set as 0th stage.
-        int defaultIndex = stageNames.indexOf("default");
-        builtStages.put("default", stageBuilders.get(defaultIndex).build());
-        stageNames.remove(defaultIndex);
-        stageBuilders.remove(defaultIndex);
-
-        for (int i = 0; i < stageBuilders.size(); i++) {
-            builtStages.put(stageNames.get(i), stageBuilders.get(i).build());
+        for (int i = 0; i < stageNames.size(); i++) {
+            var name = stageNames.get(i);
+            builtStages.put(name, stageBuilders.get(i).build());
         }
-        return new GunStageGraph(stageNames, builtStages);
+
+        // Maintain name ordering (prevent Map implementation from changing name string -> int mapping/order),
+        // and enforce "default" as 0th stage.
+        List<String> orderedNames = new ArrayList<>(stageNames);
+        orderedNames.remove("default");
+        orderedNames.sort(String::compareTo);
+        orderedNames.add(0, "default");
+
+        return new GunStageGraph(orderedNames, builtStages);
     }
 }
