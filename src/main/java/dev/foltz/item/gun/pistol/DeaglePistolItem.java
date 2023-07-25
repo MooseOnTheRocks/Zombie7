@@ -1,15 +1,15 @@
 package dev.foltz.item.gun.pistol;
 
-import dev.foltz.item.StagedGunItem;
+import dev.foltz.item.gun.GunStagedItem;
 import dev.foltz.item.ammo.Z7AmmoItem;
-import dev.foltz.item.stage.GunStageBuilder;
+import dev.foltz.item.gun.GunStageBuilder;
 import net.minecraft.item.ItemStack;
 
 import java.util.Map;
 
 import static dev.foltz.Z7Util.*;
 
-public class DeaglePistolItem extends StagedGunItem {
+public class DeaglePistolItem extends GunStagedItem {
     public static final int FIRE_WAIT_TICKS = ticksFromSeconds(0.15f);
     public static final String STAGE_DEFAULT = "default";
     public static final String STAGE_BROKEN = "broken";
@@ -27,8 +27,8 @@ public class DeaglePistolItem extends StagedGunItem {
 
             STAGE_RELOADING, new GunStageBuilder(ticksFromSeconds(2f))
                 .barColor(stack -> YELLOW)
-                .barProgress(stack -> ((StagedGunItem) stack.getItem()).getStageTicks(stack) / (float) ((StagedGunItem) stack.getItem()).getMaxStageTicks(stack))
-                .onInitDo(view -> view.gun.playSoundReloadBegin(view.stack, view.entity))
+                .barProgress(stack -> ((GunStagedItem) stack.getItem()).getStageTicks(stack) / (float) ((GunStagedItem) stack.getItem()).getMaxStageTicks(stack))
+                .onInitDo(view -> view.item.playSoundReloadBegin(view.stack, view.entity))
                 .onReleaseReload(view -> STAGE_DEFAULT)
                 .onReleaseShoot(view -> STAGE_DEFAULT)
                 .onLastTick(tryReloadWholeClip(STAGE_DEFAULT))
@@ -50,18 +50,18 @@ public class DeaglePistolItem extends StagedGunItem {
 
             STAGE_FIRING, new GunStageBuilder(ticksFromSeconds(0.5f)).tickWhileUnselected()
                 .barColor(stack -> RED)
-                .barProgress(stack -> stack.getItem() instanceof StagedGunItem gun ? (gun.getAmmoInGun(stack).size() + (1 - gun.getStageTicks(stack) / (float) (gun.getMaxStageTicks(stack) == 0 ? 1f : gun.getMaxStageTicks(stack)))) / (float) gun.getMaxAmmoCapacity(stack) : 0f)
+                .barProgress(stack -> stack.getItem() instanceof GunStagedItem gun ? (gun.getAmmoInGun(stack).size() + (1 - gun.getStageTicks(stack) / (float) (gun.getMaxStageTicks(stack) == 0 ? 1f : gun.getMaxStageTicks(stack)))) / (float) gun.getMaxAmmoCapacity(stack) : 0f)
                 .onInit(view -> {
                     view.playerState.setPressingShoot(false);
                     return doFire().handleEvent(view);
                 })
                 .onPressShoot(view -> {
-                    if (view.gun.getStageTicks(view.stack) < FIRE_WAIT_TICKS) {
+                    if (view.item.getStageTicks(view.stack) < FIRE_WAIT_TICKS) {
                         return view.stageId;
                     }
                     return tryFireReset(STAGE_FIRING).handleEvent(view);
                 })
-                .onLastTick(view -> view.gun.isBroken(view.stack) ? STAGE_BROKEN : STAGE_READY),
+                .onLastTick(view -> view.item.isBroken(view.stack) ? STAGE_BROKEN : STAGE_READY),
 
             STAGE_BROKEN, new GunStageBuilder()
                 .barColor(stack -> RED)

@@ -1,6 +1,5 @@
 package dev.foltz.item.stage;
 
-import dev.foltz.item.StagedGunItem;
 import dev.foltz.item.Z7ComplexItem;
 import dev.foltz.network.Z7ServerState;
 import net.minecraft.entity.Entity;
@@ -9,12 +8,12 @@ import net.minecraft.item.ItemStack;
 import net.minecraft.nbt.NbtCompound;
 import net.minecraft.world.World;
 
-public class StagedItem extends Z7ComplexItem {
+public class StagedItem<T extends StagedItem<?>> extends Z7ComplexItem {
     public static final String STAGE_ID = "StageId";
     public static final String STAGE_TICKS = "StageTicks";
-    public final GunStageGraph stagesGraph;
+    public final StagedItemGraph<T> stagesGraph;
 
-    public StagedItem(Settings settings, GunStageGraph graph) {
+    public StagedItem(Settings settings, StagedItemGraph<T> graph) {
         super(settings);
         this.stagesGraph = graph;
     }
@@ -23,61 +22,61 @@ public class StagedItem extends Z7ComplexItem {
     public ItemStack getDefaultStack() {
         var stack = super.getDefaultStack();
         var id = stagesGraph.idFromName("default");
-        System.out.println("getDefaultStack 'default' = " + id);
+//        System.out.println("getDefaultStack 'default' = " + id);
         setStageId(stack, id);
         resetStageTicks(stack);
         return stack;
     }
 
-    public void updateStageGraph(String newStage, GunStageView view) {
+    public void updateStageGraph(String newStage, StagedItemView<T> view) {
         if (!newStage.equals(view.stageId)) {
             System.out.println(view.stageId + " -> " + newStage);
             setStageId(view.stack, stagesGraph.idFromName(newStage));
             setStageTicks(view.stack, 0);
-            handleInit(new GunStageView(
-                newStage, view.gun.getStageTicks(view.stack), view.gun.getMaxStageTicks(view.stack),
+            handleInit(new StagedItemView<>(
+                newStage, view.item.getStageTicks(view.stack), view.item.getMaxStageTicks(view.stack),
                 view.playerState,
-                view.gun, view.stack, view.entity, view.world
+                view.item, view.stack, view.entity, view.world
             ));
         }
     }
 
-    public void handleInit(GunStageView view) {
+    public void handleInit(StagedItemView<T> view) {
         System.out.println("init: " + view.stageId + " :: " + view.stageTicks + " / " + view.maxStageTicks);
         String newStage = stagesGraph.gunStages.get(view.stageId).handleInit(view);
         updateStageGraph(newStage, view);
     }
 
-    public void handlePressShoot(GunStageView view) {
+    public void handlePressShoot(StagedItemView<T> view) {
         System.out.println("pressShoot: " + view.stageId + " :: " + view.stageTicks + " / " + view.maxStageTicks);
         String newStage = stagesGraph.gunStages.get(view.stageId).handlePressShoot(view);
         updateStageGraph(newStage, view);
     }
 
-    public void handleReleaseShoot(GunStageView view) {
+    public void handleReleaseShoot(StagedItemView<T> view) {
         System.out.println("releaseShoot: " + view.stageId + " :: " + view.stageTicks + " / " + view.maxStageTicks);
         String newStage = stagesGraph.gunStages.get(view.stageId).handleReleaseShoot(view);
         updateStageGraph(newStage, view);
     }
 
-    public void handlePressReload(GunStageView view) {
+    public void handlePressReload(StagedItemView<T> view) {
         System.out.println("pressReload: " + view.stageId + " :: " + view.stageTicks + " / " + view.maxStageTicks);
         String newStage = stagesGraph.gunStages.get(view.stageId).handlePressReload(view);
         updateStageGraph(newStage, view);
     }
 
-    public void handleReleaseReload(GunStageView view) {
+    public void handleReleaseReload(StagedItemView<T> view) {
         System.out.println("releaseReload: " + view.stageId + " :: " + view.stageTicks + " / " + view.maxStageTicks);
         String newStage = stagesGraph.gunStages.get(view.stageId).handleReleaseReload(view);
         updateStageGraph(newStage, view);
     }
 
-    public void handleTickInventory(GunStageView view) {
+    public void handleTickInventory(StagedItemView<T> view) {
         System.out.println("handleTickInventory: " + view.stageId + " :: " + view.stageTicks + " / " + view.maxStageTicks);
         handleTick(view);
     }
 
-    public void handleTick(GunStageView view) {
+    public void handleTick(StagedItemView<T> view) {
         if (view.maxStageTicks > 0) {
             System.out.println("handleTick: " + view.stageId + " :: " + view.stageTicks + " / " + view.maxStageTicks);
         }
@@ -98,23 +97,24 @@ public class StagedItem extends Z7ComplexItem {
         }
     }
 
-    public void handleLastTick(GunStageView view) {
+    public void handleLastTick(StagedItemView<T> view) {
         System.out.println("handleLastTick: " + view.stageId + " :: " + view.stageTicks + " / " + view.maxStageTicks);
         String newStage = stagesGraph.gunStages.get(view.stageId).handleLastTick(view);
         updateStageGraph(newStage, view);
     }
 
-    public void handleUnselected(GunStageView view) {
+    public void handleUnselected(StagedItemView<T> view) {
         System.out.println("unselected: " + view.stageId + " :: " + view.stageTicks + " / " + view.maxStageTicks);
         String newStage = stagesGraph.gunStages.get(view.stageId).handleUnselected(view);
         updateStageGraph(newStage, view);
     }
 
     public int getMaxStageTicks(ItemStack stack) {
-        return getStage(stack).maxStageTicks;
+        var stage = getStage(stack);
+        return stage == null ? 0 : stage.maxStageTicks;
     }
 
-    public GunStage getStage(ItemStack stack) {
+    public Stage<T> getStage(ItemStack stack) {
         return stagesGraph.stageFromId(getStageId(stack));
     }
 
@@ -153,10 +153,10 @@ public class StagedItem extends Z7ComplexItem {
 
     @Override
     public void inventoryTick(ItemStack stack, World world, Entity entity, int slot, boolean selected) {
-        if (!selected && !world.isClient && getStage(stack).tickWhileUnselected && entity instanceof PlayerEntity player) {
+        if (!selected && !world.isClient && getStage(stack) != null && getStage(stack).tickWhileUnselected && entity instanceof PlayerEntity player) {
             var playerState = Z7ServerState.getPlayerState(player);
-            StagedGunItem gun = (StagedGunItem) stack.getItem();
-            handleTickInventory(new GunStageView(
+            T gun = (T) stack.getItem();
+            handleTickInventory(new StagedItemView<>(
                     getStageName(stack), gun.getStageTicks(stack), gun.getMaxStageTicks(stack),
                     playerState,
                     gun, stack, entity, world

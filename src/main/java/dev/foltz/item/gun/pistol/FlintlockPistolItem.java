@@ -1,17 +1,16 @@
 package dev.foltz.item.gun.pistol;
 
-import dev.foltz.item.StagedGunItem;
+import dev.foltz.item.gun.GunStagedItem;
 import dev.foltz.item.ammo.Z7AmmoItem;
-import dev.foltz.item.stage.GunStageBuilder;
+import dev.foltz.item.gun.GunStageBuilder;
 import net.minecraft.item.ItemStack;
 import net.minecraft.util.math.MathHelper;
 
-import java.util.List;
 import java.util.Map;
 
 import static dev.foltz.Z7Util.*;
 
-public class FlintlockPistolItem extends StagedGunItem {
+public class FlintlockPistolItem extends GunStagedItem {
     public static final String STAGE_DEFAULT = "default";
     public static final String STAGE_BROKEN = "broken";
     public static final String STAGE_RELOADING = "reloading";
@@ -28,11 +27,11 @@ public class FlintlockPistolItem extends StagedGunItem {
 
             STAGE_RELOADING, new GunStageBuilder(ticksFromSeconds(1.5f))
                 .barColor(stack -> YELLOW)
-                .barProgress(stack -> ((StagedGunItem) stack.getItem()).getStageTicks(stack) / (float) ((StagedGunItem) stack.getItem()).getMaxStageTicks(stack))
+                .barProgress(stack -> ((GunStagedItem) stack.getItem()).getStageTicks(stack) / (float) ((GunStagedItem) stack.getItem()).getMaxStageTicks(stack))
                 .onInitDo(view -> {
-                    view.gun.playSoundReloadBegin(view.stack, view.entity);
-                    int usageStage = (int) MathHelper.map(view.gun.getAmmoInGun(view.stack).size(), 0, view.gun.getMaxAmmoCapacity(view.stack), 0, view.gun.getMaxStageTicks(view.stack));
-                    view.gun.setStageTicks(view.stack, usageStage);
+                    view.item.playSoundReloadBegin(view.stack, view.entity);
+                    int usageStage = (int) MathHelper.map(view.item.getAmmoInGun(view.stack).size(), 0, view.item.getMaxAmmoCapacity(view.stack), 0, view.item.getMaxStageTicks(view.stack));
+                    view.item.setStageTicks(view.stack, usageStage);
                 })
                 .onReleaseReload(view -> STAGE_DEFAULT)
                 .onReleaseShoot(view -> STAGE_DEFAULT)
@@ -41,7 +40,7 @@ public class FlintlockPistolItem extends StagedGunItem {
 
             STAGE_COCKING, new GunStageBuilder(ticksFromSeconds(1.0f))
                 .barColor(stack -> GREEN)
-                .onInitDo(view -> view.gun.playSoundPreFireStep(view.stack, view.entity))
+                .onInitDo(view -> view.item.playSoundPreFireStep(view.stack, view.entity))
                 .onReleaseShoot(doCancel(STAGE_DEFAULT))
                 .onPressReload(doCancel(STAGE_DEFAULT))
                 .onLastTick(doReady(STAGE_COCKED))
@@ -54,9 +53,9 @@ public class FlintlockPistolItem extends StagedGunItem {
 
             STAGE_FIRING, new GunStageBuilder(ticksFromSeconds(0.5f)).tickWhileUnselected()
                 .barColor(stack -> RED)
-                .barProgress(stack -> stack.getItem() instanceof StagedGunItem gun ? (gun.getAmmoInGun(stack).size() + (1 - gun.getStageTicks(stack) / (float) (gun.getMaxStageTicks(stack) == 0 ? 1f : gun.getMaxStageTicks(stack)))) / (float) gun.getMaxAmmoCapacity(stack) : 0f)
+                .barProgress(stack -> stack.getItem() instanceof GunStagedItem gun ? (gun.getAmmoInGun(stack).size() + (1 - gun.getStageTicks(stack) / (float) (gun.getMaxStageTicks(stack) == 0 ? 1f : gun.getMaxStageTicks(stack)))) / (float) gun.getMaxAmmoCapacity(stack) : 0f)
                 .onInit(doFire())
-                .onLastTick(view -> view.gun.isBroken(view.stack) ? STAGE_BROKEN : STAGE_DEFAULT),
+                .onLastTick(view -> view.item.isBroken(view.stack) ? STAGE_BROKEN : STAGE_DEFAULT),
 
             STAGE_BROKEN, new GunStageBuilder()
                 .barColor(stack -> RED)

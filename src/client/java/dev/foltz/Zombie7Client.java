@@ -3,8 +3,6 @@ package dev.foltz;
 import dev.foltz.entity.*;
 import dev.foltz.entity.model.Z7BulletBronzeEntityModel;
 import dev.foltz.entity.model.Z7BulletLeadEntityModel;
-import dev.foltz.item.StagedGunItem;
-import dev.foltz.item.Z7IShootable;
 import dev.foltz.item.stage.StagedItem;
 import dev.foltz.network.Z7Networking;
 import dev.foltz.render.Z7ConcussionFogModifier;

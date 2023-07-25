@@ -1,6 +1,6 @@
 package dev.foltz.mixin;
 
-import dev.foltz.item.gun.Z7GunItem;
+import dev.foltz.item.gun.GunStagedItem;
 import dev.foltz.item.Z7Items;
 import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.item.ItemStack;
@@ -32,7 +32,7 @@ public abstract class Z7AnvilScreenHandlerMixin {
         ItemStack stackTool = input.getStack(0);
         ItemStack stackRepair = input.getStack(1);
 
-        if ((stackTool.getItem() instanceof Z7GunItem gunItem) && (stackRepair.getItem() == Z7Items.ITEM_REPAIR_KIT)) {
+        if ((stackTool.getItem() instanceof GunStagedItem gunItem) && (stackRepair.getItem() == Z7Items.ITEM_REPAIR_KIT)) {
 //            System.out.println("Something...");
             cir.setReturnValue(stackTool.getDamage() != 0);
         }
@@ -50,7 +50,7 @@ public abstract class Z7AnvilScreenHandlerMixin {
 //        System.out.println("Tool: " + stackTool);
 //        System.out.println("Repair: " + stackRepair);
 
-        if (!(stackTool.getItem() instanceof Z7GunItem gunItem)) {
+        if (!(stackTool.getItem() instanceof GunStagedItem gunItem)) {
             return;
         }
 

@@ -1,7 +1,7 @@
 package dev.foltz;
 
-import dev.foltz.item.StagedGunItem;
-import dev.foltz.item.stage.GunStageView;
+import dev.foltz.item.stage.StagedItem;
+import dev.foltz.item.stage.StagedItemView;
 import dev.foltz.network.Z7PlayerState;
 import dev.foltz.network.Z7ServerState;
 import net.minecraft.entity.player.PlayerEntity;
@@ -16,9 +16,9 @@ public class Z7PlayerStateEventHandler {
         playerState.setPressingShoot(true);
 //        playerState.setShooting(true);
 
-        if (item instanceof StagedGunItem gun) {
+        if (item instanceof StagedItem gun) {
             int stageId = gun.getStageId(stack);
-            gun.handlePressShoot(new GunStageView(
+            gun.handlePressShoot(new StagedItemView<>(
                 gun.stagesGraph.nameFromId(stageId), gun.getStageTicks(stack), gun.getMaxStageTicks(stack),
                 playerState,
                     gun, stack, player, world
@@ -35,9 +35,9 @@ public class Z7PlayerStateEventHandler {
         playerState.setPressingShoot(false);
 //        playerState.setShooting(false);
 
-        if (item instanceof StagedGunItem gun) {
+        if (item instanceof StagedItem gun) {
             int stageId = gun.getStageId(stack);
-            gun.handleReleaseShoot(new GunStageView(
+            gun.handleReleaseShoot(new StagedItemView<>(
                 gun.stagesGraph.nameFromId(stageId), gun.getStageTicks(stack), gun.getMaxStageTicks(stack),
                 playerState,
                     gun, stack, player, world
@@ -56,9 +56,9 @@ public class Z7PlayerStateEventHandler {
         playerState.setPressingReload(true);
 //        playerState.setReloading(true);
 
-        if (item instanceof StagedGunItem gun) {
+        if (item instanceof StagedItem gun) {
             int stageId = gun.getStageId(stack);
-            gun.handlePressReload(new GunStageView(
+            gun.handlePressReload(new StagedItemView<>(
                 gun.stagesGraph.nameFromId(stageId), gun.getStageTicks(stack), gun.getMaxStageTicks(stack),
                 playerState,
                     gun, stack, player, world
@@ -77,9 +77,9 @@ public class Z7PlayerStateEventHandler {
         playerState.setPressingReload(false);
 //        playerState.setReloading(false);
 
-        if (item instanceof StagedGunItem gun) {
+        if (item instanceof StagedItem gun) {
             int stageId = gun.getStageId(stack);
-            gun.handleReleaseReload(new GunStageView(
+            gun.handleReleaseReload(new StagedItemView<>(
                 gun.stagesGraph.nameFromId(stageId), gun.getStageTicks(stack), gun.getMaxStageTicks(stack),
                 playerState,
                     gun, stack, player, world
@@ -114,9 +114,9 @@ public class Z7PlayerStateEventHandler {
 //        var serverState = Z7ServerState.getServerState(server);
 //        var playerState = Z7ServerState.getPlayerState(player);
 
-        if (item instanceof StagedGunItem gun) {
+        if (item instanceof StagedItem gun) {
             int stageId = gun.getStageId(stack);
-            gun.handleUnselected(new GunStageView(
+            gun.handleUnselected(new StagedItemView<>(
                 gun.stagesGraph.nameFromId(stageId), gun.getStageTicks(stack), gun.getMaxStageTicks(stack),
                 playerState,
                     gun, stack, player, world
@@ -130,9 +130,12 @@ public class Z7PlayerStateEventHandler {
         var item = stack.getItem();
         var world = player.world;
 
-        if (item instanceof StagedGunItem gun) {
+        if (item instanceof StagedItem gun) {
+            System.out.println("About to tick a StagedItem:");
+            System.out.println("item = " + item);
             int stageId = gun.getStageId(stack);
-            gun.handleTick(new GunStageView(
+            System.out.println("stageId = " + stageId);
+            gun.handleTick(new StagedItemView<>(
                 gun.stagesGraph.nameFromId(stageId), gun.getStageTicks(stack), gun.getMaxStageTicks(stack),
                 playerState,
                     gun, stack, player, world

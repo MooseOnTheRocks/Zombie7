@@ -2,12 +2,10 @@ package dev.foltz.item.ammo;
 
 import dev.foltz.entity.Z7BulletBronzeEntity;
 import dev.foltz.entity.Z7Entities;
-import dev.foltz.item.StagedGunItem;
-import dev.foltz.item.gun.Z7IGunlike;
+import dev.foltz.item.gun.GunStagedItem;
 import net.fabricmc.fabric.api.item.v1.FabricItemSettings;
 import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.item.ItemStack;
-import net.minecraft.util.math.MathHelper;
 
 import java.util.List;
 
@@ -47,7 +45,7 @@ public class Z7AmmoBasicPistolItem extends Z7AmmoItem {
         float totalSpeed = getBaseSpeed(ammoStack);
         float baseDistance = getBaseRange(ammoStack);
         float totalAccuracy = getBaseAccuracy(ammoStack);
-        if (gunStack.getItem() instanceof StagedGunItem gun) {
+        if (gunStack.getItem() instanceof GunStagedItem gun) {
             totalDamage = gun.getModifiedBulletDamage(gunStack, ammoStack, totalDamage);
             totalSpeed = gun.getModifiedBulletSpeed(gunStack, ammoStack, totalSpeed);
             baseDistance = gun.getModifiedBulletBaseRange(gunStack, ammoStack, baseDistance);

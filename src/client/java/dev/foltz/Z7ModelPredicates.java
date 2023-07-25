@@ -1,9 +1,8 @@
 package dev.foltz;
 
 import com.mojang.datafixers.util.Function4;
-import dev.foltz.item.StagedGunItem;
-import dev.foltz.item.grenade.Z7GrenadeItem;
-import dev.foltz.item.gun.Z7GunItem;
+import dev.foltz.item.gun.GunStagedItem;
+import dev.foltz.item.grenade.FragGrenadeItem;
 import dev.foltz.item.Z7Items;
 import dev.foltz.item.gun.pistol.DeaglePistolItem;
 import dev.foltz.item.gun.pistol.FlintlockPistolItem;
@@ -29,10 +28,8 @@ public class Z7ModelPredicates {
 //    });
 
     public static final Consumer<Item> STACK_COUNT = makePredicate("stack_count", (item, stack, livingEntity, world) -> stack.getCount() / (float) stack.getMaxCount());
-    public static final Consumer<Z7GrenadeItem> IS_PRIMED = booleanPredicate("is_primed", (grenade, stack, livingEntity, world) -> grenade.isPrimed(stack));
-    public static final Consumer<Z7GrenadeItem> IS_ACTIVE = booleanPredicate("is_active", (grenade, stack, livingEntity, world) -> grenade.isActive(stack));
 
-    public static final Consumer<StagedGunItem> TEST_USAGE_TICKS = makePredicate("usage_stage", (gun, stack, livingEntity, world) -> {
+    public static final Consumer<GunStagedItem> USAGE_TICKS = makePredicate("usage_stage", (gun, stack, livingEntity, world) -> {
         int maxUse = gun.getMaxStageTicks(stack);
         return maxUse == 0 ? 0.0f : gun.getStageTicks(stack) / (float) maxUse;
     });
@@ -66,6 +63,14 @@ public class Z7ModelPredicates {
 //        registerItemWithPredicates(Z7Items.ITEM_STICKY_GRENADE, List.of(USAGE_STAGE, IS_ACTIVE, IS_PRIMED));
 //        registerItemWithPredicates(Z7Items.ITEM_BOWLING_BALL_GRENADE, List.of());
 
+        // == Grenades
+        registerItemWithPredicates(
+            Z7Items.ITEM_FRAG_GRENADE,
+            List.of(
+                stagePredicate("is_priming", FragGrenadeItem.STAGE_PRIMING),
+                stagePredicate("is_primed", FragGrenadeItem.STAGE_PRIMED),
+                USAGE_TICKS));
+
         // == Guns
         // -- Pistols
         registerItemsWithPredicates(
@@ -76,7 +81,7 @@ public class Z7ModelPredicates {
                 stagePredicate("is_ready_to_fire", FlintlockPistolItem.STAGE_COCKED),
                 stagePredicate("is_firing", FlintlockPistolItem.STAGE_FIRING),
                 stagePredicate("is_broken", FlintlockPistolItem.STAGE_BROKEN),
-                TEST_USAGE_TICKS));
+                USAGE_TICKS));
 
         // -- Magnums
         registerItemWithPredicates(
@@ -87,7 +92,7 @@ public class Z7ModelPredicates {
                 stagePredicate("is_firing", DeaglePistolItem.STAGE_FIRING),
                 stagePredicate("is_broken", DeaglePistolItem.STAGE_BROKEN),
                 stagePredicate("is_readying", DeaglePistolItem.STAGE_READYING),
-                TEST_USAGE_TICKS));
+                USAGE_TICKS));
 
         // -- Shotguns
         registerItemWithPredicates(
@@ -98,7 +103,7 @@ public class Z7ModelPredicates {
                 stagePredicate("is_ready_to_fire", PumpShotgunItem.STAGE_PUMPED),
                 stagePredicate("is_firing", PumpShotgunItem.STAGE_FIRING),
                 stagePredicate("is_broken", PumpShotgunItem.STAGE_BROKEN),
-                TEST_USAGE_TICKS));
+                USAGE_TICKS));
 
         registerItemWithPredicates(
             Z7Items.ITEM_SHOTGUN_AA12,
@@ -107,7 +112,7 @@ public class Z7ModelPredicates {
                 stagePredicate("is_ready_to_fire", Aa12ShotgunItem.STAGE_DEFAULT),
                 stagePredicate("is_firing", Aa12ShotgunItem.STAGE_FIRING),
                 stagePredicate("is_broken", Aa12ShotgunItem.STAGE_BROKEN),
-                TEST_USAGE_TICKS));
+                USAGE_TICKS));
 
         // -- Rifles
         registerItemWithPredicates(
@@ -118,7 +123,7 @@ public class Z7ModelPredicates {
                     stagePredicate("is_ready_to_fire", AkRifleItem.STAGE_COCKED),
                     stagePredicate("is_firing", AkRifleItem.STAGE_FIRING),
                     stagePredicate("is_broken", AkRifleItem.STAGE_BROKEN),
-                    TEST_USAGE_TICKS));
+                    USAGE_TICKS));
 
         // "Numerous" items
         registerItemsWithPredicates(

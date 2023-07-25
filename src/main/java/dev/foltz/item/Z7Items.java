@@ -16,6 +16,7 @@ import dev.foltz.item.gun.pistol.FlintlockPistolItem;
 import dev.foltz.item.gun.rifle.AkRifleItem;
 import dev.foltz.item.gun.shotgun.Aa12ShotgunItem;
 import dev.foltz.item.gun.shotgun.PumpShotgunItem;
+import dev.foltz.item.misc.BowlingBallItem;
 import net.fabricmc.fabric.api.item.v1.FabricItemSettings;
 import net.fabricmc.fabric.api.itemgroup.v1.FabricItemGroup;
 import net.minecraft.block.Block;
@@ -63,11 +64,11 @@ public abstract class Z7Items {
 
 
     // Weapons
-    public static final Item ITEM_FRAG_GRENADE = registerGrenadeItem("frag", new Z7FragGrenadeItem());
-    public static final Item ITEM_CONTACT_GRENADE = registerGrenadeItem("contact", new Z7ContactGrenadeItem());
-    public static final Item ITEM_MOLOTOV_GRENADE = registerGrenadeItem("molotov", new Z7MolotovGrenadeItem());
-    public static final Item ITEM_STICKY_GRENADE = registerGrenadeItem("sticky", new Z7StickyGrenadeItem());
-    public static final Item ITEM_BOWLING_BALL_GRENADE = registerGrenadeItem("bowling_ball", new Z7BowlingBallGrenadeItem());
+    public static final Item ITEM_FRAG_GRENADE = registerGrenadeItem("frag", new FragGrenadeItem());
+//    public static final Item ITEM_CONTACT_GRENADE = registerGrenadeItem("contact", new Z7ContactGrenadeItem());
+//    public static final Item ITEM_MOLOTOV_GRENADE = registerGrenadeItem("molotov", new Z7MolotovGrenadeItem());
+//    public static final Item ITEM_STICKY_GRENADE = registerGrenadeItem("sticky", new Z7StickyGrenadeItem());
+    public static final Item ITEM_BOWLING_BALL = registerGrenadeItem("bowling_ball", new BowlingBallItem());
 
     public static final Item ITEM_PISTOL_FLINTLOCK = registerGunItem("pistol_flintlock", new FlintlockPistolItem());
     public static final Item ITEM_PISTOL_BASIC = registerGunItem("pistol_basic", new BasicPistolItem());
@@ -75,8 +76,6 @@ public abstract class Z7Items {
     public static final Item ITEM_SHOTGUN_BASIC = registerGunItem("shotgun_basic", new PumpShotgunItem());
     public static final Item ITEM_SHOTGUN_AA12 = registerGunItem("shotgun_aa12", new Aa12ShotgunItem());
     public static final Item ITEM_RIFLE_AK = registerGunItem("rifle_ak", new AkRifleItem());
-
-//    public static final Item ITEM_STAGED_GUN = registerGunItem("staged_gun", new StagedGunItem(100, Z7AmmoItem.AmmoCategory.PISTOL_AMMO, 1));
 
 
     // Ammo
@@ -96,6 +95,10 @@ public abstract class Z7Items {
     public static final ItemGroup GROUP_GENERAL = registerItemGroup("general", ALL_ITEMS_GENERAL, () -> new ItemStack(ITEM_BONK_STICK));
 
 
+    private static <T extends Item > String properName(String name, T item) {
+        return name + (item instanceof Z7ComplexItem ? "/default" : "");
+    }
+
     private static <T extends Item> T registerItem(String name, T item) {
         ALL_ITEMS.put(name, item);
         ALL_ITEMS_GENERAL.put(name, item);
@@ -103,41 +106,42 @@ public abstract class Z7Items {
     }
 
     private static <T extends Item> T registerMaterialItem(String name, T item) {
-        name = "material/" + name;
+        name = "material/" + properName(name, item);
         ALL_ITEMS.put(name, item);
         ALL_ITEMS_MATERIALS.put(name, item);
         return item;
     }
 
     private static <T extends Item> T registerConsumableItem(String name, T item) {
-        name = "consumable/" + name;
+        name = "consumable/" + properName(name, item);
         ALL_ITEMS.put(name, item);
         ALL_ITEMS_CONSUMABLES.put(name, item);
         return item;
     }
 
-    private static <T extends Item> T registerWeaponItem(String name, T item) {
+    private static <T extends Item> T registerMiscWeaponItem(String name, T item) {
+        name = "misc/" + properName(name, item);
         ALL_ITEMS.put(name, item);
         ALL_ITEMS_MISC_WEAPONS.put(name, item);
         return item;
     }
 
     private static <T extends Item> T registerGunItem(String name, T item) {
-        name = "gun/" + name + "/default";
+        name = "gun/" + properName(name, item);
         ALL_ITEMS.put(name, item);
         ALL_ITEMS_GUNS.put(name, item);
         return item;
     }
 
     private static <T extends Item> T registerAmmoItem(String name, T item) {
-        name = "ammo/" + name;
+        name = "ammo/" + properName(name, item);
         ALL_ITEMS.put(name, item);
         ALL_ITEMS_AMMO.put(name, item);
         return item;
     }
 
     private static <T extends Item> T registerGrenadeItem(String name, T item) {
-        name = "grenade/" + name + "/default";
+        name = "grenade/" + properName(name, item);
         ALL_ITEMS.put(name, item);
         ALL_ITEMS_GRENADES.put(name, item);
         return item;

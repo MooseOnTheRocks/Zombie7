@@ -1,6 +1,5 @@
 package dev.foltz.entity;
 
-import dev.foltz.item.grenade.Z7StickyGrenadeItem;
 import net.fabricmc.fabric.api.object.builder.v1.entity.FabricEntityTypeBuilder;
 import net.minecraft.entity.EntityDimensions;
 import net.minecraft.entity.EntityType;
