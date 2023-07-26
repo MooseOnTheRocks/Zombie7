@@ -46,11 +46,11 @@ public class GrenadeRecipeGenerator extends FabricRecipeProvider {
 //            .criterion(hasItem(Items.TNT), conditionsFromItem(Items.TNT))
 //            .offerTo(exporter);
 //
-//        ShapelessRecipeJsonBuilder.create(RecipeCategory.COMBAT, Z7Items.ITEM_MOLOTOV_GRENADE)
-//            .input(ItemTags.WOOL)
-//            .input(Items.GLASS_BOTTLE)
-//            .input(Items.STRING)
-//            .criterion(hasItem(Items.GLASS_BOTTLE), conditionsFromItem(Items.GLASS_BOTTLE))
-//            .offerTo(exporter);
+        ShapelessRecipeJsonBuilder.create(RecipeCategory.COMBAT, Z7Items.ITEM_MOLOTOV_GRENADE)
+            .input(ItemTags.WOOL)
+            .input(Items.GLASS_BOTTLE)
+            .input(Items.STRING)
+            .criterion(hasItem(Items.GLASS_BOTTLE), conditionsFromItem(Items.GLASS_BOTTLE))
+            .offerTo(exporter);
     }
 }

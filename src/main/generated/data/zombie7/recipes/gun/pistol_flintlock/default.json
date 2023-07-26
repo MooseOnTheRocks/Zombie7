@@ -1,0 +1,27 @@
+{
+  "type": "minecraft:crafting_shaped",
+  "category": "equipment",
+  "key": {
+    "#": {
+      "item": "minecraft:iron_ingot"
+    },
+    ".": {
+      "item": "minecraft:iron_nugget"
+    },
+    "X": {
+      "item": "minecraft:flint_and_steel"
+    },
+    "|": {
+      "item": "minecraft:stick"
+    }
+  },
+  "pattern": [
+    "   ",
+    "##X",
+    " .|"
+  ],
+  "result": {
+    "item": "zombie7:gun/pistol_flintlock/default"
+  },
+  "show_notification": true
+}

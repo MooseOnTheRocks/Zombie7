@@ -1,6 +1,7 @@
 package dev.foltz;
 
 import com.mojang.datafixers.util.Function4;
+import dev.foltz.item.grenade.MolotovGrenadeItem;
 import dev.foltz.item.gun.GunStagedItem;
 import dev.foltz.item.grenade.FragGrenadeItem;
 import dev.foltz.item.Z7Items;
@@ -70,6 +71,10 @@ public class Z7ModelPredicates {
                 stagePredicate("is_priming", FragGrenadeItem.STAGE_PRIMING),
                 stagePredicate("is_primed", FragGrenadeItem.STAGE_PRIMED),
                 USAGE_TICKS));
+        registerItemWithPredicates(
+                Z7Items.ITEM_MOLOTOV_GRENADE,
+                List.of(
+                        stagePredicate("is_lit", MolotovGrenadeItem.STAGE_LIT)));
 
         // == Guns
         // -- Pistols

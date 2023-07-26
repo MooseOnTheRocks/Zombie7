@@ -66,7 +66,7 @@ public abstract class Z7Items {
     // Weapons
     public static final Item ITEM_FRAG_GRENADE = registerGrenadeItem("frag", new FragGrenadeItem());
 //    public static final Item ITEM_CONTACT_GRENADE = registerGrenadeItem("contact", new Z7ContactGrenadeItem());
-//    public static final Item ITEM_MOLOTOV_GRENADE = registerGrenadeItem("molotov", new Z7MolotovGrenadeItem());
+    public static final Item ITEM_MOLOTOV_GRENADE = registerGrenadeItem("molotov", new MolotovGrenadeItem());
 //    public static final Item ITEM_STICKY_GRENADE = registerGrenadeItem("sticky", new Z7StickyGrenadeItem());
     public static final Item ITEM_BOWLING_BALL = registerGrenadeItem("bowling_ball", new BowlingBallItem());
 
