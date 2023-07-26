@@ -1,5 +1,5 @@
 {
-  "parent": "zombie7:item/gun/gun_flat_parent",
+  "parent": "zombie7:item/gun/gun_flat_parent_mirrored",
   "textures": {
     "layer0": "zombie7:item/gun/pistol_basic/cocked"
   }

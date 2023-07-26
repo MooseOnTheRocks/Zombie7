@@ -20,13 +20,13 @@ public class BasicPistolItem extends GunStagedItem {
     public static final String STAGE_FIRING = "firing";
 
     public BasicPistolItem() {
-        super(80, Z7AmmoItem.AmmoCategory.PISTOL_AMMO, 4, Map.of(
+        super(80, Z7AmmoItem.AmmoCategory.PISTOL_AMMO, 6, Map.of(
             STAGE_DEFAULT, new StageBuilder<GunStagedItem>()
                 .onInit(tryShootOrReloadInit(STAGE_COCKING, STAGE_RELOADING))
                 .onPressShoot(tryShootOrReload(STAGE_COCKING, STAGE_RELOADING))
                 .onPressReload(tryReload(STAGE_RELOADING)),
 
-            STAGE_RELOADING, new GunStageBuilder(ticksFromSeconds(2.5f))
+            STAGE_RELOADING, new GunStageBuilder(ticksFromSeconds(3.5f))
                 .barColor(stack -> YELLOW)
                 .barProgress(stack -> ((GunStagedItem) stack.getItem()).getStageTicks(stack) / (float) ((GunStagedItem) stack.getItem()).getMaxStageTicks(stack))
                 .onInitDo(view -> {
@@ -39,7 +39,7 @@ public class BasicPistolItem extends GunStagedItem {
                 .onTick(tryReloadOneBullet(STAGE_DEFAULT))
                 .onUnselected(view -> STAGE_DEFAULT),
 
-            STAGE_COCKING, new GunStageBuilder(ticksFromSeconds(0.55f))
+            STAGE_COCKING, new GunStageBuilder(ticksFromSeconds(0.45f))
                 .onReleaseShoot(doCancel(STAGE_DEFAULT))
                 .onPressReload(doCancel(STAGE_DEFAULT))
                 .onLastTick(doReady(STAGE_COCKED))

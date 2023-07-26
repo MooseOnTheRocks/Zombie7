@@ -1,5 +1,5 @@
 {
-  "parent": "zombie7:item/gun/gun_flat_parent",
+  "parent": "zombie7:item/gun/gun_flat_parent_mirrored",
   "textures": {
     "layer0": "zombie7:item/gun/pistol_basic/default"
   },
@@ -9,18 +9,31 @@
     { "predicate": { "usage_stage": 1.0, "is_readying": 1.0 }, "model": "zombie7:item/gun/pistol_basic/cocked" },
 
     { "predicate": { "usage_stage": 0.0, "is_reloading": 1.0 }, "model": "zombie7:item/gun/pistol_basic/reloading_0" },
-    { "predicate": { "usage_stage": 0.075, "is_reloading": 1.0 }, "model": "zombie7:item/gun/pistol_basic/reloading_1" },
-    { "predicate": { "usage_stage": 0.175, "is_reloading": 1.0 }, "model": "zombie7:item/gun/pistol_basic/reloading_2" },
-    { "predicate": { "usage_stage": 0.25, "is_reloading": 1.0 }, "model": "zombie7:item/gun/pistol_basic/reloading_0" },
-    { "predicate": { "usage_stage": 0.325, "is_reloading": 1.0 }, "model": "zombie7:item/gun/pistol_basic/reloading_1" },
-    { "predicate": { "usage_stage": 0.425, "is_reloading": 1.0 }, "model": "zombie7:item/gun/pistol_basic/reloading_2" },
-    { "predicate": { "usage_stage": 0.5, "is_reloading": 1.0 }, "model": "zombie7:item/gun/pistol_basic/reloading_0" },
-    { "predicate": { "usage_stage": 0.575, "is_reloading": 1.0 }, "model": "zombie7:item/gun/pistol_basic/reloading_1" },
-    { "predicate": { "usage_stage": 0.675, "is_reloading": 1.0 }, "model": "zombie7:item/gun/pistol_basic/reloading_2" },
-    { "predicate": { "usage_stage": 0.75, "is_reloading": 1.0 }, "model": "zombie7:item/gun/pistol_basic/reloading_0" },
-    { "predicate": { "usage_stage": 0.825, "is_reloading": 1.0 }, "model": "zombie7:item/gun/pistol_basic/reloading_1" },
-    { "predicate": { "usage_stage": 0.925, "is_reloading": 1.0 }, "model": "zombie7:item/gun/pistol_basic/reloading_2" },
-    { "predicate": { "usage_stage": 1.0, "is_reloading": 1.0 }, "model": "zombie7:item/gun/pistol_basic/reloading_0" },
+    { "predicate": { "usage_stage": 0.032, "is_reloading": 1.0 }, "model": "zombie7:item/gun/pistol_basic/reloading_1" },
+    { "predicate": { "usage_stage": 0.076, "is_reloading": 1.0 }, "model": "zombie7:item/gun/pistol_basic/reloading_2" },
+    { "predicate": { "usage_stage": 0.12, "is_reloading": 1.0 }, "model": "zombie7:item/gun/pistol_basic/reloading_3" },
+    { "predicate": { "usage_stage": 0.162, "is_reloading": 1.0 }, "model": "zombie7:item/gun/pistol_basic/reloading_4" },
+    { "predicate": { "usage_stage": 0.208, "is_reloading": 1.0 }, "model": "zombie7:item/gun/pistol_basic/reloading_5" },
+    { "predicate": { "usage_stage": 0.252, "is_reloading": 1.0 }, "model": "zombie7:item/gun/pistol_basic/reloading_6" },
+    { "predicate": { "usage_stage": 0.296, "is_reloading": 1.0 }, "model": "zombie7:item/gun/pistol_basic/reloading_7" },
+    { "predicate": { "usage_stage": 0.34, "is_reloading": 1.0 }, "model": "zombie7:item/gun/pistol_basic/reloading_8" },
+    { "predicate": { "usage_stage": 0.384, "is_reloading": 1.0 }, "model": "zombie7:item/gun/pistol_basic/reloading_9" },
+    { "predicate": { "usage_stage": 0.428, "is_reloading": 1.0 }, "model": "zombie7:item/gun/pistol_basic/reloading_10" },
+    { "predicate": { "usage_stage": 0.472, "is_reloading": 1.0 }, "model": "zombie7:item/gun/pistol_basic/reloading_11" },
+    { "predicate": { "usage_stage": 0.516, "is_reloading": 1.0 }, "model": "zombie7:item/gun/pistol_basic/reloading_12" },
+    { "predicate": { "usage_stage": 0.56, "is_reloading": 1.0 }, "model": "zombie7:item/gun/pistol_basic/reloading_13" },
+    { "predicate": { "usage_stage": 0.604, "is_reloading": 1.0 }, "model": "zombie7:item/gun/pistol_basic/reloading_14" },
+    { "predicate": { "usage_stage": 0.648, "is_reloading": 1.0 }, "model": "zombie7:item/gun/pistol_basic/reloading_15" },
+    { "predicate": { "usage_stage": 0.692, "is_reloading": 1.0 }, "model": "zombie7:item/gun/pistol_basic/reloading_16" },
+    { "predicate": { "usage_stage": 0.736, "is_reloading": 1.0 }, "model": "zombie7:item/gun/pistol_basic/reloading_17" },
+    { "predicate": { "usage_stage": 0.78, "is_reloading": 1.0 }, "model": "zombie7:item/gun/pistol_basic/reloading_18" },
+    { "predicate": { "usage_stage": 0.824, "is_reloading": 1.0 }, "model": "zombie7:item/gun/pistol_basic/reloading_19" },
+    { "predicate": { "usage_stage": 0.868, "is_reloading": 1.0 }, "model": "zombie7:item/gun/pistol_basic/reloading_20" },
+    { "predicate": { "usage_stage": 0.912, "is_reloading": 1.0 }, "model": "zombie7:item/gun/pistol_basic/reloading_21" },
+    { "predicate": { "usage_stage": 0.956, "is_reloading": 1.0 }, "model": "zombie7:item/gun/pistol_basic/reloading_22" },
+    { "predicate": { "usage_stage": 1.0, "is_reloading": 1.0 }, "model": "zombie7:item/gun/pistol_basic/reloading_23" },
+
+
 
     { "predicate": { "is_ready_to_fire": 1.0}, "model": "zombie7:item/gun/pistol_basic/cocked" },
 
