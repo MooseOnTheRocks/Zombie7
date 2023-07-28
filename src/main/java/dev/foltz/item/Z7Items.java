@@ -13,6 +13,7 @@ import dev.foltz.item.gun.pistol.FlintlockPistolItem;
 import dev.foltz.item.gun.rifle.AkRifleItem;
 import dev.foltz.item.gun.shotgun.Aa12ShotgunItem;
 import dev.foltz.item.gun.shotgun.PumpShotgunItem;
+import dev.foltz.item.gun.shotgun.dblbrlShotgunItem;
 import dev.foltz.item.misc.BonkStick;
 import dev.foltz.item.misc.BowlingBallItem;
 import net.fabricmc.fabric.api.item.v1.FabricItemSettings;
@@ -72,6 +73,7 @@ public abstract class Z7Items {
     public static final Item ITEM_PISTOL_DEAGLE = registerGunItem("pistol_deagle", new DeaglePistolItem());
     public static final Item ITEM_SHOTGUN_BASIC = registerGunItem("shotgun_basic", new PumpShotgunItem());
     public static final Item ITEM_SHOTGUN_AA12 = registerGunItem("shotgun_aa12", new Aa12ShotgunItem());
+    public static final Item ITEM_SHOTGUN_DBLBRL = registerGunItem("shotgun_dblbrl", new dblbrlShotgunItem());
     public static final Item ITEM_RIFLE_AK = registerGunItem("rifle_ak", new AkRifleItem());
 
     public static final Item ITEM_BOWLING_BALL = registerMiscWeaponItem("bowling_ball", new BowlingBallItem());

@@ -1,9 +1,8 @@
-package dev.foltz.item.gun.pistol;
+package dev.foltz.item.gun.shotgun;
 
-import dev.foltz.item.gun.GunStagedItem;
 import dev.foltz.item.ammo.AmmoItem;
 import dev.foltz.item.gun.GunStageBuilder;
-import dev.foltz.item.stage.StageBuilder;
+import dev.foltz.item.gun.GunStagedItem;
 import net.minecraft.item.ItemStack;
 import net.minecraft.util.math.MathHelper;
 
@@ -11,19 +10,18 @@ import java.util.Map;
 
 import static dev.foltz.Z7Util.*;
 
-public class BasicPistolItem extends GunStagedItem {
+public class dblbrlShotgunItem extends GunStagedItem {
     public static final String STAGE_DEFAULT = "default";
     public static final String STAGE_BROKEN = "broken";
     public static final String STAGE_RELOADING = "reloading";
-    public static final String STAGE_COCKING = "cocking";
-    public static final String STAGE_COCKED = "cocked";
     public static final String STAGE_FIRING = "firing";
 
-    public BasicPistolItem() {
-        super(80, AmmoItem.AmmoCategory.PISTOL_AMMO, 6, Map.of(
-            STAGE_DEFAULT, new StageBuilder<GunStagedItem>()
-                .onInit(tryShootOrReloadInit(STAGE_COCKING, STAGE_RELOADING))
-                .onPressShoot(tryShootOrReload(STAGE_COCKING, STAGE_RELOADING))
+    public dblbrlShotgunItem() {
+        super(360, AmmoItem.AmmoCategory.SHOTGUN_AMMO, 2, Map.of(
+            STAGE_DEFAULT, new GunStageBuilder()
+                .barColor(stack -> ORANGE)
+                .onInit(tryShootOrReloadInit(STAGE_FIRING, STAGE_RELOADING))
+                .onPressShoot(tryShootOrReload(STAGE_FIRING, STAGE_RELOADING))
                 .onPressReload(tryReload(STAGE_RELOADING)),
 
             STAGE_RELOADING, new GunStageBuilder(ticksFromSeconds(2.5f))
@@ -39,18 +37,7 @@ public class BasicPistolItem extends GunStagedItem {
                 .onTick(tryReloadOneBullet(STAGE_DEFAULT))
                 .onUnselected(view -> STAGE_DEFAULT),
 
-            STAGE_COCKING, new GunStageBuilder(ticksFromSeconds(0.55f))
-                .onReleaseShoot(doCancel(STAGE_DEFAULT))
-                .onPressReload(doCancel(STAGE_DEFAULT))
-                .onLastTick(doReady(STAGE_COCKED))
-                .onUnselected(view -> STAGE_DEFAULT),
-
-            STAGE_COCKED, new GunStageBuilder()
-                .barColor(stack -> ORANGE)
-                .onPressShoot(view -> STAGE_FIRING)
-                .onPressReload(doCancel(STAGE_DEFAULT)),
-
-            STAGE_FIRING, new GunStageBuilder(ticksFromSeconds(0.33f)).tickWhileUnselected()
+            STAGE_FIRING, new GunStageBuilder(ticksFromSeconds(0.45f)).tickWhileUnselected()
                 .barColor(stack -> RED)
                 .barProgress(stack -> stack.getItem() instanceof GunStagedItem gun ? (gun.getAmmoInGun(stack).size() + (1 - gun.getStageTicks(stack) / (float) (gun.getMaxStageTicks(stack) == 0 ? 1f : gun.getMaxStageTicks(stack)))) / (float) gun.getMaxAmmoCapacity(stack) : 0f)
                 .onInit(doFire())

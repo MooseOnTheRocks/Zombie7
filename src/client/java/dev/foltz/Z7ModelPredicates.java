@@ -11,6 +11,7 @@ import dev.foltz.item.gun.pistol.FlintlockPistolItem;
 import dev.foltz.item.gun.rifle.AkRifleItem;
 import dev.foltz.item.gun.shotgun.Aa12ShotgunItem;
 import dev.foltz.item.gun.shotgun.PumpShotgunItem;
+import dev.foltz.item.gun.shotgun.dblbrlShotgunItem;
 import dev.foltz.item.stage.StagedItem;
 import net.minecraft.client.item.ModelPredicateProviderRegistry;
 import net.minecraft.entity.LivingEntity;
@@ -119,6 +120,15 @@ public abstract class Z7ModelPredicates {
                 stagePredicate("is_ready_to_fire", Aa12ShotgunItem.STAGE_DEFAULT),
                 stagePredicate("is_firing", Aa12ShotgunItem.STAGE_FIRING),
                 stagePredicate("is_broken", Aa12ShotgunItem.STAGE_BROKEN),
+                USAGE_TICKS));
+
+        registerItemWithPredicates(
+            Z7Items.ITEM_SHOTGUN_DBLBRL,
+            List.of(
+                stagePredicate("is_reloading", dblbrlShotgunItem.STAGE_RELOADING),
+                stagePredicate("is_ready_to_fire", dblbrlShotgunItem.STAGE_DEFAULT),
+                stagePredicate("is_firing", dblbrlShotgunItem.STAGE_FIRING),
+                stagePredicate("is_broken", dblbrlShotgunItem.STAGE_BROKEN),
                 USAGE_TICKS));
 
         // -- Rifles

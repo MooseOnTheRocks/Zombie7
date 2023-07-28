@@ -1,0 +1,23 @@
+{
+  "parent": "zombie7:item/gun/gun_flat_doublebrl_parent",
+  "textures": {
+    "layer0": "zombie7:item/gun/shotgun_dblbrl/default"
+  },
+  "overrides": [
+    { "predicate": { "usage_stage": 0.0, "is_reloading": 1.0 }, "model": "zombie7:item/gun/shotgun_dblbrl/default"},
+    { "predicate": { "usage_stage": 0.15, "is_reloading": 1.0 }, "model": "zombie7:item/gun/shotgun_dblbrl/reloading_0"},
+    { "predicate": { "usage_stage": 0.3, "is_reloading": 1.0 }, "model": "zombie7:item/gun/shotgun_dblbrl/reloading_1"},
+    { "predicate": { "usage_stage": 0.45, "is_reloading": 1.0 }, "model": "zombie7:item/gun/shotgun_dblbrl/reloading_2"},
+    { "predicate": { "usage_stage": 0.6, "is_reloading": 1.0 }, "model": "zombie7:item/gun/shotgun_dblbrl/reloading_0"},
+    { "predicate": { "usage_stage": 0.75, "is_reloading": 1.0 }, "model": "zombie7:item/gun/shotgun_dblbrl/reloading_1"},
+    { "predicate": { "usage_stage": 0.9, "is_reloading": 1.0 }, "model": "zombie7:item/gun/shotgun_dblbrl/reloading_2"},
+    { "predicate": { "usage_stage": 1, "is_reloading": 1.0 }, "model": "zombie7:item/gun/shotgun_dblbrl/reloading_0"},
+
+    { "predicate": { "is_ready_to_fire": 1.0}, "model": "zombie7:item/gun/shotgun_dblbrl/default" },
+
+    { "predicate": { "usage_stage": 0.0, "is_firing": 1.0 }, "model": "zombie7:item/gun/shotgun_dblbrl/firing_0" },
+
+    { "predicate": { "is_broken": 1.0 }, "model": "zombie7:item/gun/shotgun_aa12/broken" }
+
+  ]
+}

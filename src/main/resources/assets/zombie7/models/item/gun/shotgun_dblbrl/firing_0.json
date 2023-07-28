@@ -1,0 +1,6 @@
+{
+  "parent": "zombie7:item/gun/gun_flat_doublebrl_parent",
+  "textures": {
+    "layer0": "zombie7:item/gun/shotgun_dblbrl/firing_0"
+  }
+}
