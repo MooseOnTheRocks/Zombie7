@@ -1,7 +1,7 @@
 {
-  "parent": "zombie7:item/gun/gun_rifle_parent",
+  "parent": "zombie7:item/gun/32x_gun_flat_parent",
   "textures": {
-    "layer0": "zombie7:item/gun/rifle_ak/default"
+    "layer0": "zombie7:item/gun/rifle_ak/default32x"
   },
   "overrides": [
     { "predicate": { "usage_stage": 0.0, "is_readying": 1.0 }, "model": "zombie7:item/gun/rifle_ak/default" },
@@ -12,9 +12,9 @@
     { "predicate": { "usage_stage": 0.9, "is_readying": 1.0 }, "model": "zombie7:item/gun/rifle_ak/cocking_4" },
 
     { "predicate": { "usage_stage": 0.0, "is_reloading": 1.0 }, "model": "zombie7:item/gun/rifle_ak/default"},
-    { "predicate": { "usage_stage": 0.1, "is_reloading": 1.0 }, "model": "zombie7:item/gun/rifle_ak/reloading_0"},
-    { "predicate": { "usage_stage": 0.3, "is_reloading": 1.0 }, "model": "zombie7:item/gun/rifle_ak/reloading_1"},
-    { "predicate": { "usage_stage": 0.8, "is_reloading": 1.0 }, "model": "zombie7:item/gun/rifle_ak/reloading_0"},
+    { "predicate": { "usage_stage": 0.25, "is_reloading": 1.0 }, "model": "zombie7:item/gun/rifle_ak/reloading_0"},
+    { "predicate": { "usage_stage": 0.5, "is_reloading": 1.0 }, "model": "zombie7:item/gun/rifle_ak/reloading_2"},
+    { "predicate": { "usage_stage": 0.75, "is_reloading": 1.0 }, "model": "zombie7:item/gun/rifle_ak/reloading_0"},
 
     { "predicate": { "usage_stage": 0.0, "is_firing": 1.0 }, "model": "zombie7:item/gun/rifle_ak/firing_0" },
     { "predicate": { "usage_stage": 0.5, "is_firing": 1.0 }, "model": "zombie7:item/gun/rifle_ak/firing_1" },

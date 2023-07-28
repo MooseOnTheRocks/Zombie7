@@ -17,7 +17,7 @@
 
     { "predicate": { "usage_stage": 0.0, "is_firing": 1.0 }, "model": "zombie7:item/gun/shotgun_dblbrl/firing_0" },
 
-    { "predicate": { "is_broken": 1.0 }, "model": "zombie7:item/gun/shotgun_aa12/broken" }
+    { "predicate": { "is_broken": 1.0 }, "model": "zombie7:item/gun/shotgun_dblbrl/broken" }
 
   ]
 }

@@ -24,7 +24,7 @@ public class AkRifleItem extends GunStagedItem {
                 .onPressShoot(tryShootOrReload(STAGE_COCKING, STAGE_RELOADING))
                 .onPressReload(tryReload(STAGE_RELOADING)),
 
-            STAGE_RELOADING, new GunStageBuilder(ticksFromSeconds(2.0f))
+            STAGE_RELOADING, new GunStageBuilder(ticksFromSeconds(2.5f))
                 .barColor(stack -> YELLOW)
                 .barProgress(stack -> ((GunStagedItem) stack.getItem()).getStageTicks(stack) / (float) ((GunStagedItem) stack.getItem()).getMaxStageTicks(stack))
                 .onInitDo(view -> view.item.playSoundReloadBegin(view.stack, view.entity))
