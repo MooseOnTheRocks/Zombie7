@@ -2,6 +2,7 @@ package dev.foltz;
 
 import com.mojang.datafixers.util.Function4;
 import dev.foltz.item.grenade.MolotovGrenadeItem;
+import dev.foltz.item.grenade.StickyGrenadeItem;
 import dev.foltz.item.gun.GunStagedItem;
 import dev.foltz.item.grenade.FragGrenadeItem;
 import dev.foltz.item.Z7Items;
@@ -65,16 +66,17 @@ public class Z7ModelPredicates {
 //        registerItemWithPredicates(Z7Items.ITEM_BOWLING_BALL_GRENADE, List.of());
 
         // == Grenades
-        registerItemWithPredicates(
-            Z7Items.ITEM_FRAG_GRENADE,
+        registerItemsWithPredicates(
+            List.of(Z7Items.ITEM_FRAG_GRENADE, Z7Items.ITEM_CONTACT_GRENADE, Z7Items.ITEM_STICKY_GRENADE),
             List.of(
                 stagePredicate("is_priming", FragGrenadeItem.STAGE_PRIMING),
                 stagePredicate("is_primed", FragGrenadeItem.STAGE_PRIMED),
                 USAGE_TICKS));
+
         registerItemWithPredicates(
-                Z7Items.ITEM_MOLOTOV_GRENADE,
-                List.of(
-                        stagePredicate("is_lit", MolotovGrenadeItem.STAGE_LIT)));
+            Z7Items.ITEM_MOLOTOV_GRENADE,
+            List.of(
+                stagePredicate("is_lit", MolotovGrenadeItem.STAGE_LIT)));
 
         // == Guns
         // -- Pistols
@@ -121,14 +123,14 @@ public class Z7ModelPredicates {
 
         // -- Rifles
         registerItemWithPredicates(
-                Z7Items.ITEM_RIFLE_AK,
-                List.of(
-                    stagePredicate("is_readying", AkRifleItem.STAGE_COCKING),
-                    stagePredicate("is_reloading", AkRifleItem.STAGE_RELOADING),
-                    stagePredicate("is_ready_to_fire", AkRifleItem.STAGE_COCKED),
-                    stagePredicate("is_firing", AkRifleItem.STAGE_FIRING),
-                    stagePredicate("is_broken", AkRifleItem.STAGE_BROKEN),
-                    USAGE_TICKS));
+            Z7Items.ITEM_RIFLE_AK,
+            List.of(
+                stagePredicate("is_readying", AkRifleItem.STAGE_COCKING),
+                stagePredicate("is_reloading", AkRifleItem.STAGE_RELOADING),
+                stagePredicate("is_ready_to_fire", AkRifleItem.STAGE_COCKED),
+                stagePredicate("is_firing", AkRifleItem.STAGE_FIRING),
+                stagePredicate("is_broken", AkRifleItem.STAGE_BROKEN),
+                USAGE_TICKS));
 
         // "Numerous" items
         registerItemsWithPredicates(

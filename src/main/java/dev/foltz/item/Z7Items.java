@@ -65,10 +65,9 @@ public abstract class Z7Items {
 
     // Weapons
     public static final Item ITEM_FRAG_GRENADE = registerGrenadeItem("frag", new FragGrenadeItem());
-//    public static final Item ITEM_CONTACT_GRENADE = registerGrenadeItem("contact", new Z7ContactGrenadeItem());
+    public static final Item ITEM_CONTACT_GRENADE = registerGrenadeItem("contact", new ContactGrenadeItem());
     public static final Item ITEM_MOLOTOV_GRENADE = registerGrenadeItem("molotov", new MolotovGrenadeItem());
-//    public static final Item ITEM_STICKY_GRENADE = registerGrenadeItem("sticky", new Z7StickyGrenadeItem());
-    public static final Item ITEM_BOWLING_BALL = registerGrenadeItem("bowling_ball", new BowlingBallItem());
+    public static final Item ITEM_STICKY_GRENADE = registerGrenadeItem("sticky", new StickyGrenadeItem());
 
     public static final Item ITEM_PISTOL_FLINTLOCK = registerGunItem("pistol_flintlock", new FlintlockPistolItem());
     public static final Item ITEM_PISTOL_BASIC = registerGunItem("pistol_basic", new BasicPistolItem());
@@ -76,6 +75,8 @@ public abstract class Z7Items {
     public static final Item ITEM_SHOTGUN_BASIC = registerGunItem("shotgun_basic", new PumpShotgunItem());
     public static final Item ITEM_SHOTGUN_AA12 = registerGunItem("shotgun_aa12", new Aa12ShotgunItem());
     public static final Item ITEM_RIFLE_AK = registerGunItem("rifle_ak", new AkRifleItem());
+
+    public static final Item ITEM_BOWLING_BALL = registerMiscWeaponItem("bowling_ball", new BowlingBallItem());
 
 
     // Ammo

@@ -16,7 +16,7 @@ import org.joml.Matrix3f;
 import org.joml.Matrix4f;
 
 public class Z7BowlingBallGrenadeEntityRenderer extends EntityRenderer<Z7BowlingBallGrenadeEntity> {
-    private static final Identifier TEXTURE = new Identifier(Zombie7.MODID, "textures/entity/grenade/bowling_ball/default.png");
+    private static final Identifier TEXTURE = new Identifier(Zombie7.MODID, "textures/entity/misc/bowling_ball/bowling_ball.png");
 
     private static final Identifier[] BOWLING_TEXTURES = generateBowlingTextures();
 
@@ -26,9 +26,9 @@ public class Z7BowlingBallGrenadeEntityRenderer extends EntityRenderer<Z7Bowling
 
     private static Identifier[] generateBowlingTextures() {
         Identifier[] array = new Identifier[22];
-        array[array.length - 1] = new Identifier(Zombie7.MODID, "textures/entity/grenade/bowling_ball/backside.png");
+        array[array.length - 1] = new Identifier(Zombie7.MODID, "textures/entity/misc/bowling_ball/backside.png");
         for (int i = 0; i <= 20; i++) {
-            array[i] = new Identifier(Zombie7.MODID, "textures/entity/grenade/bowling_ball/" + i + ".png");
+            array[i] = new Identifier(Zombie7.MODID, "textures/entity/misc/bowling_ball/" + i + ".png");
         }
         return array;
     }

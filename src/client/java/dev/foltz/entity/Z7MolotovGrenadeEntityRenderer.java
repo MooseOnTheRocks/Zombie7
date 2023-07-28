@@ -15,7 +15,7 @@ import org.joml.Matrix4f;
 
 public class Z7MolotovGrenadeEntityRenderer extends EntityRenderer<Z7MolotovGrenadeEntity> {
     private static final Identifier TEXTURE_PRIMED = new Identifier(Zombie7.MODID, "textures/entity/grenade/molotov/lit.png");
-    private static final Identifier TEXTURE_INACTIVE = new Identifier(Zombie7.MODID, "textures/entity/grenade/molotov/default.png");
+    private static final Identifier TEXTURE_INACTIVE = new Identifier(Zombie7.MODID, "textures/entity/grenade/molotov/bowling_ball.png");
 
     public Z7MolotovGrenadeEntityRenderer(EntityRendererFactory.Context context) {
         super(context);

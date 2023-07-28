@@ -13,7 +13,7 @@ import org.joml.Matrix4f;
 
 public class Z7FragGrenadeEntityRenderer extends EntityRenderer<Z7FragGrenadeEntity> {
     private static final Identifier TEXTURE_PRIMED = new Identifier(Zombie7.MODID, "textures/entity/grenade/frag/primed.png");
-    private static final Identifier TEXTURE_INACTIVE = new Identifier(Zombie7.MODID, "textures/entity/grenade/frag/default.png");
+    private static final Identifier TEXTURE_INACTIVE = new Identifier(Zombie7.MODID, "textures/entity/grenade/frag/bowling_ball.png");
 
     public Z7FragGrenadeEntityRenderer(EntityRendererFactory.Context context) {
         super(context);

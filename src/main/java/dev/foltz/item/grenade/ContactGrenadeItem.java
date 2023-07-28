@@ -1,6 +1,7 @@
 package dev.foltz.item.grenade;
 
 import dev.foltz.Z7Util;
+import dev.foltz.entity.Z7ContactGrenadeEntity;
 import dev.foltz.entity.Z7Entities;
 import dev.foltz.entity.Z7FragGrenadeEntity;
 import dev.foltz.entity.Z7GrenadeEntity;
@@ -44,7 +45,7 @@ public class ContactGrenadeItem extends StagedGrenadeItem {
 
     @Override
     public List<? extends Z7GrenadeEntity> createGrenadeEntities(LivingEntity entity, ItemStack stack) {
-        Z7FragGrenadeEntity grenade = new Z7FragGrenadeEntity(Z7Entities.FRAG_GRENADE_ENTITY, entity.world);
+        Z7ContactGrenadeEntity grenade = new Z7ContactGrenadeEntity(Z7Entities.CONTACT_GRENADE_ENTITY, entity.world);
         if (getStageName(stack).equals(STAGE_PRIMED)) {
             int fuseTime = Math.max(1, getMaxStageTicks(stack) - getStageTicks(stack));
             grenade.setFuseTime(fuseTime);

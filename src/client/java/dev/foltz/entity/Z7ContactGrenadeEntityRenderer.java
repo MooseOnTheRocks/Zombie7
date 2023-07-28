@@ -17,7 +17,7 @@ import org.joml.Matrix4f;
 
 public class Z7ContactGrenadeEntityRenderer extends EntityRenderer<Z7ContactGrenadeEntity> {
     private static final Identifier TEXTURE_PRIMED = new Identifier(Zombie7.MODID, "textures/entity/grenade/contact/primed.png");
-    private static final Identifier TEXTURE_INACTIVE = new Identifier(Zombie7.MODID, "textures/entity/grenade/contact/default.png");
+    private static final Identifier TEXTURE_INACTIVE = new Identifier(Zombie7.MODID, "textures/entity/grenade/contact/bowling_ball.png");
 
     public Z7ContactGrenadeEntityRenderer(EntityRendererFactory.Context context) {
         super(context);

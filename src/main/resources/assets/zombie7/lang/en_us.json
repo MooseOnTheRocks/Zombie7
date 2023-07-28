@@ -16,6 +16,7 @@
 
   "item.zombie7.ammo.pistol_basic": "Basic Pistol Ammo",
   "item.zombie7.ammo.shotgun_basic": "Basic Shotgun Ammo",
+  "item.zombie7.ammo.magnum_basic": "Basic Magnum Ammo",
 
   "item.zombie7.gun.pistol_basic": "Basic Pistol",
   "item.zombie7.gun.pistol_flintlock": "Flintlock Pistol",
@@ -28,7 +29,8 @@
   "item.zombie7.grenade.contact": "Contact Grenade",
   "item.zombie7.grenade.molotov": "Molotov Cocktail",
   "item.zombie7.grenade.sticky": "Sticky Grenade",
-  "item.zombie7.grenade.bowling_ball": "Bowling Ball",
+
+  "item.zombie7.misc.bowling_ball": "Bowling Ball",
 
 
 
