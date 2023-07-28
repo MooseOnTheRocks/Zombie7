@@ -3,6 +3,7 @@ package dev.foltz.mixin.client;
 import dev.foltz.entity.*;
 import dev.foltz.entity.bullet.BulletBronzeEntity;
 import dev.foltz.entity.bullet.BulletLeadEntity;
+import dev.foltz.entity.bullet.BulletRubberEntity;
 import dev.foltz.entity.grenade.ContactGrenadeEntity;
 import dev.foltz.entity.grenade.FragGrenadeEntity;
 import dev.foltz.entity.grenade.MolotovGrenadeEntity;
@@ -52,6 +53,9 @@ public class Z7ClientPlayNetworkHandlerMixin {
         }
         else if (entityType == Z7Entities.BULLET_LEAD_ENTITY) {
             entity = new BulletLeadEntity(Z7Entities.BULLET_LEAD_ENTITY, this.world);
+        }
+        else if (entityType == Z7Entities.BULLET_RUBBER_ENTITY) {
+            entity = new BulletRubberEntity(Z7Entities.BULLET_RUBBER_ENTITY, this.world);
         }
 
         if (entity != null) {

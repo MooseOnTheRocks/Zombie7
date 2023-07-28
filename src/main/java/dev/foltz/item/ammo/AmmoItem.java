@@ -33,19 +33,27 @@ public abstract class AmmoItem extends Item {
 
     public abstract List<? extends Z7BulletEntity> createBulletEntities(PlayerEntity player, ItemStack gunStack, ItemStack ammoStack);
 
+    public static float determineDivergence(float totalAccuracy) {
+             if (totalAccuracy >= 0.95f) return 0f;
+        else if (totalAccuracy >= 0.90f) return 0.25f;
+        else if (totalAccuracy >= 0.80f) return 0.75f;
+        else if (totalAccuracy >= 0.70f) return 1f;
+        else if (totalAccuracy >= 0.60f) return 3f;
+        else if (totalAccuracy >= 0.50f) return 6f;
+        else if (totalAccuracy >= 0.45f) return 8f;
+        else if (totalAccuracy >= 0.40f) return 10f;
+        else if (totalAccuracy >= 0.30f) return 15f;
+        else if (totalAccuracy >= 0.20f) return 20f;
+        else if (totalAccuracy >= 0.10f) return 25f;
+        else                             return 50f;
+    }
+
     public enum AmmoCategory {
-        PISTOL_AMMO(AMMO_TYPE_PISTOL_TAG, () -> {
-            System.out.println(Z7Items.ITEM_AMMO_PISTOL);
-            return Z7Items.ITEM_AMMO_PISTOL;
-        }),
-        MAGNUM_AMMO(AMMO_TYPE_MAGNUM_TAG, () -> {
-            System.out.println(Z7Items.ITEM_AMMO_MAGNUM);
-            return Z7Items.ITEM_AMMO_MAGNUM;
-        }),
-        SHOTGUN_AMMO(AMMO_TYPE_SHOTGUN_TAG, () -> {
-            System.out.println(Z7Items.ITEM_AMMO_SHOTGUN);
-            return Z7Items.ITEM_AMMO_SHOTGUN;
-        });
+        PISTOL_AMMO(AMMO_TYPE_PISTOL_TAG, () -> Z7Items.ITEM_AMMO_PISTOL),
+        MAGNUM_AMMO(AMMO_TYPE_MAGNUM_TAG, () -> Z7Items.ITEM_AMMO_MAGNUM),
+        SHOTGUN_AMMO(AMMO_TYPE_SHOTGUN_TAG, () -> Z7Items.ITEM_AMMO_SHOTGUN);
+
+
 
         public final TagKey<Item> tag;
         public final Supplier<AmmoItem> defaultItem;

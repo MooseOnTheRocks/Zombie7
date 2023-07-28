@@ -52,40 +52,7 @@ public class MagnumBasicAmmoItem extends AmmoItem {
             totalAccuracy = gun.getModifiedBulletAccuracy(gunStack, ammoStack, totalAccuracy);
         }
         bullet.setDamage(totalDamage);
-        float divergence;
-        if (totalAccuracy >= 0.95f) {
-            divergence = 0f;
-        }
-        else if (totalAccuracy >= 0.9f) {
-            divergence = 0.25f;
-        }
-        else if (totalAccuracy >= 0.8f) {
-            divergence = 0.75f;
-        }
-        else if (totalAccuracy >= 0.7f) {
-            divergence = 1f;
-        }
-        else if (totalAccuracy >= 0.6f) {
-            divergence = 3f;
-        }
-        else if (totalAccuracy >= 0.5f) {
-            divergence = 6f;
-        }
-        else if (totalAccuracy >= 0.4f) {
-            divergence = 10f;
-        }
-        else if (totalAccuracy >= 0.3f) {
-            divergence = 15f;
-        }
-        else if (totalAccuracy >= 0.2f) {
-            divergence = 20f;
-        }
-        else if (totalAccuracy >= 0.1f) {
-            divergence = 25f;
-        }
-        else {
-            divergence = 50f;
-        }
+        float divergence = determineDivergence(totalAccuracy);
 
         bullet.setVelocity(player, player.getPitch(), player.getYaw(), 0f, totalSpeed, divergence);
         bullet.setBaseDistance(baseDistance);

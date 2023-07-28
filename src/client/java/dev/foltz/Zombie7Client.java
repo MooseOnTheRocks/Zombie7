@@ -3,6 +3,7 @@ package dev.foltz;
 import dev.foltz.entity.*;
 import dev.foltz.entity.model.BulletBronzeEntityModel;
 import dev.foltz.entity.model.BulletLeadEntityModel;
+import dev.foltz.entity.model.BulletRubberEntityModel;
 import dev.foltz.item.stage.StagedItem;
 import dev.foltz.network.Z7Networking;
 import dev.foltz.render.ConcussionFogModifier;
@@ -42,6 +43,7 @@ public class Zombie7Client implements ClientModInitializer {
 
     public static final EntityModelLayer MODEL_BULLET_BRONZE_LAYER = new EntityModelLayer(new Identifier(Zombie7.MODID, "bullet_bronze"), "main");
     public static final EntityModelLayer MODEL_BULLET_LEAD_LAYER = new EntityModelLayer(new Identifier(Zombie7.MODID, "bullet_lead"), "main");
+    public static final EntityModelLayer MODEL_BULLET_RUBBER_LAYER = new EntityModelLayer(new Identifier(Zombie7.MODID, "bullet_rubber"), "main");
 
 	@Override
 	public void onInitializeClient() {
@@ -61,6 +63,9 @@ public class Zombie7Client implements ClientModInitializer {
         EntityRendererRegistry.register(Z7Entities.BULLET_LEAD_ENTITY, BulletLeadEntityRenderer::new);
         EntityModelLayerRegistry.registerModelLayer(MODEL_BULLET_LEAD_LAYER, BulletLeadEntityModel::getTexturedModelData);
 
+
+        EntityRendererRegistry.register(Z7Entities.BULLET_RUBBER_ENTITY, BulletRubberEntityRenderer::new);
+        EntityModelLayerRegistry.registerModelLayer(MODEL_BULLET_RUBBER_LAYER, BulletRubberEntityModel::getTexturedModelData);
 
         ClientPreAttackCallback.EVENT.register((client, player, clickCount) -> {
             Item item = player.getMainHandStack().getItem();

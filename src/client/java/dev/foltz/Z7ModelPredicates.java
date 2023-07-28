@@ -137,6 +137,7 @@ public abstract class Z7ModelPredicates {
             List.of(
                 Z7Items.ITEM_AMMO_PISTOL,
                 Z7Items.ITEM_AMMO_SHOTGUN,
+                Z7Items.ITEM_AMMO_RUBBER_SHOTGUN,
                 Z7Items.ITEM_AMMO_MAGNUM,
                 Z7Items.ITEM_ANTIBIOTICS,
                 Z7Items.ITEM_PAINKILLERS),

@@ -1,10 +1,7 @@
 package dev.foltz.item;
 
 import dev.foltz.Zombie7;
-import dev.foltz.item.ammo.PistolBasicAmmoItem;
-import dev.foltz.item.ammo.ShotgunBasicAmmoItem;
-import dev.foltz.item.ammo.AmmoItem;
-import dev.foltz.item.ammo.MagnumBasicAmmoItem;
+import dev.foltz.item.ammo.*;
 import dev.foltz.item.consumable.AntibioticsItem;
 import dev.foltz.item.consumable.BandageItem;
 import dev.foltz.item.consumable.PainkillersItem;
@@ -84,6 +81,7 @@ public abstract class Z7Items {
     public static final AmmoItem ITEM_AMMO_PISTOL = registerAmmoItem("pistol_basic", new PistolBasicAmmoItem());
     public static final AmmoItem ITEM_AMMO_MAGNUM = registerAmmoItem("magnum_basic", new MagnumBasicAmmoItem());
     public static final AmmoItem ITEM_AMMO_SHOTGUN = registerAmmoItem("shotgun_basic", new ShotgunBasicAmmoItem());
+    public static final AmmoItem ITEM_AMMO_RUBBER_SHOTGUN = registerAmmoItem("shotgun_rubber", new ShotgunRubberAmmoItem());
 
     // Misc
     public static final Item ITEM_BONK_STICK = registerItem("bonk_stick", new BonkStick());
@@ -97,7 +95,7 @@ public abstract class Z7Items {
     public static final ItemGroup GROUP_GENERAL = registerItemGroup("general", ALL_ITEMS_GENERAL, () -> new ItemStack(ITEM_BONK_STICK));
 
 
-    private static <T extends Item > String properName(String name, T item) {
+    private static <T extends Item> String properName(String name, T item) {
         return name + (item instanceof ComplexItem ? "/default" : "");
     }
 

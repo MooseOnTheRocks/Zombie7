@@ -2,6 +2,7 @@ package dev.foltz.entity;
 
 import dev.foltz.entity.bullet.BulletBronzeEntity;
 import dev.foltz.entity.bullet.BulletLeadEntity;
+import dev.foltz.entity.bullet.BulletRubberEntity;
 import dev.foltz.entity.grenade.ContactGrenadeEntity;
 import dev.foltz.entity.grenade.FragGrenadeEntity;
 import dev.foltz.entity.grenade.MolotovGrenadeEntity;
@@ -57,6 +58,12 @@ public abstract class Z7Entities {
         Registries.ENTITY_TYPE,
         new Identifier(MODID, "bullet_lead"),
         FabricEntityTypeBuilder.create().entityFactory(BulletLeadEntity::new).dimensions(EntityDimensions.fixed(0.15f, 0.15f)).build()
+    );
+
+    public static final EntityType<BulletRubberEntity> BULLET_RUBBER_ENTITY = Registry.register(
+        Registries.ENTITY_TYPE,
+        new Identifier(MODID, "bullet_rubber"),
+        FabricEntityTypeBuilder.create().entityFactory(BulletRubberEntity::new).dimensions(EntityDimensions.fixed(0.10f, 0.10f)).build()
     );
 
     public static void registerAllEntities() {
