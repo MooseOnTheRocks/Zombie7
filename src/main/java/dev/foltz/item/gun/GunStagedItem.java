@@ -325,7 +325,7 @@ public class GunStagedItem extends StagedItem<GunStagedItem> {
             return false;
         }
 
-        System.out.println("Shooting gun!");
+//        System.out.println("Shooting gun!");
 
         boolean isCreative = player.getAbilities().creativeMode;
         ItemStack ammoStack = popNextBullet(itemStack);
@@ -415,10 +415,6 @@ public class GunStagedItem extends StagedItem<GunStagedItem> {
 
     @Override
     public void appendTooltip(ItemStack stack, @Nullable World world, List<Text> tooltip, TooltipContext context) {
-        if (stack.getDamage() > 0){
-            tooltip.add(MutableText.of(Text.of("Durability: " + (stack.getMaxDamage() - stack.getDamage()) + "/" + stack.getMaxDamage()).getContent()).formatted(Formatting.GRAY, Formatting.BOLD));
-        }
-
 //        tooltip.add(MutableText.of(Text.of("Gun Stage (" + getStageId(stack) + ") = " + stagesGraph.nameFromId(getStageId(stack))).getContent()));
 
         var ammoList = getAmmoInGun(stack);
@@ -446,6 +442,10 @@ public class GunStagedItem extends StagedItem<GunStagedItem> {
             }
 
             compactList.forEach(a -> tooltip.add(MutableText.of(Text.of("  " + a.getCount() + "x ").getContent()).append(Text.translatable(a.getTranslationKey())).formatted(Formatting.DARK_GRAY)));
+
+            if (stack.getDamage() > 0){
+                tooltip.add(MutableText.of(Text.of("Durability: " + (stack.getMaxDamage() - stack.getDamage()) + "/" + stack.getMaxDamage()).getContent()).formatted(Formatting.GRAY, Formatting.BOLD));
+            }
         }
     }
 

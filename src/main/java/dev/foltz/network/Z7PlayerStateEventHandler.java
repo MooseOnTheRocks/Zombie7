@@ -20,8 +20,7 @@ public abstract class Z7PlayerStateEventHandler {
             int stageId = gun.getStageId(stack);
             gun.handlePressShoot(new StagedItemView<>(
                 gun.stagesGraph.nameFromId(stageId), gun.getStageTicks(stack), gun.getMaxStageTicks(stack),
-                playerState,
-                    gun, stack, player, world
+                playerState, gun, stack, player, world
             ));
         }
     }
@@ -39,8 +38,7 @@ public abstract class Z7PlayerStateEventHandler {
             int stageId = gun.getStageId(stack);
             gun.handleReleaseShoot(new StagedItemView<>(
                 gun.stagesGraph.nameFromId(stageId), gun.getStageTicks(stack), gun.getMaxStageTicks(stack),
-                playerState,
-                    gun, stack, player, world
+                playerState, gun, stack, player, world
             ));
         }
     }
@@ -60,8 +58,7 @@ public abstract class Z7PlayerStateEventHandler {
             int stageId = gun.getStageId(stack);
             gun.handlePressReload(new StagedItemView<>(
                 gun.stagesGraph.nameFromId(stageId), gun.getStageTicks(stack), gun.getMaxStageTicks(stack),
-                playerState,
-                    gun, stack, player, world
+                playerState, gun, stack, player, world
             ));
         }
     }
@@ -81,8 +78,7 @@ public abstract class Z7PlayerStateEventHandler {
             int stageId = gun.getStageId(stack);
             gun.handleReleaseReload(new StagedItemView<>(
                 gun.stagesGraph.nameFromId(stageId), gun.getStageTicks(stack), gun.getMaxStageTicks(stack),
-                playerState,
-                    gun, stack, player, world
+                playerState, gun, stack, player, world
             ));
         }
     }
@@ -105,7 +101,7 @@ public abstract class Z7PlayerStateEventHandler {
         playerState.setPressingReload(false);
         playerState.setLastHeldItemStack(player.getMainHandStack());
         playerState.setLastFiredTime(player.world.getTime());
-        System.out.println("Held item change: " + stack.getItem() + " -> " + player.getMainHandStack().getItem());
+//        System.out.println("Held item change: " + stack.getItem() + " -> " + player.getMainHandStack().getItem());
 
 //        var stack = lastStack;
         var item = stack.getItem();
@@ -118,8 +114,7 @@ public abstract class Z7PlayerStateEventHandler {
             int stageId = gun.getStageId(stack);
             gun.handleUnselected(new StagedItemView<>(
                 gun.stagesGraph.nameFromId(stageId), gun.getStageTicks(stack), gun.getMaxStageTicks(stack),
-                playerState,
-                    gun, stack, player, world
+                playerState, gun, stack, player, world
             ));
         }
     }
@@ -131,14 +126,13 @@ public abstract class Z7PlayerStateEventHandler {
         var world = player.world;
 
         if (item instanceof StagedItem gun) {
-            System.out.println("About to tick a StagedItem:");
-            System.out.println("item = " + item);
+//            System.out.println("About to tick a StagedItem:");
+//            System.out.println("item = " + item);
+//            System.out.println("stageId = " + stageId);
             int stageId = gun.getStageId(stack);
-            System.out.println("stageId = " + stageId);
             gun.handleTick(new StagedItemView<>(
                 gun.stagesGraph.nameFromId(stageId), gun.getStageTicks(stack), gun.getMaxStageTicks(stack),
-                playerState,
-                    gun, stack, player, world
+                playerState, gun, stack, player, world
             ));
         }
     }

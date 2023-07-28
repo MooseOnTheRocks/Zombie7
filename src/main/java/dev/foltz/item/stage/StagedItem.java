@@ -30,7 +30,7 @@ public class StagedItem<T extends StagedItem<?>> extends ComplexItem {
 
     public void updateStageGraph(String newStage, StagedItemView<T> view) {
         if (!newStage.equals(view.stageId)) {
-            System.out.println(view.stageId + " -> " + newStage);
+//            System.out.println(view.stageId + " -> " + newStage);
             setStageId(view.stack, stagesGraph.idFromName(newStage));
             setStageTicks(view.stack, 0);
             handleInit(new StagedItemView<>(
@@ -42,43 +42,43 @@ public class StagedItem<T extends StagedItem<?>> extends ComplexItem {
     }
 
     public void handleInit(StagedItemView<T> view) {
-        System.out.println("init: " + view.stageId + " :: " + view.stageTicks + " / " + view.maxStageTicks);
+//        System.out.println("init: " + view.stageId + " :: " + view.stageTicks + " / " + view.maxStageTicks);
         String newStage = stagesGraph.gunStages.get(view.stageId).handleInit(view);
         updateStageGraph(newStage, view);
     }
 
     public void handlePressShoot(StagedItemView<T> view) {
-        System.out.println("pressShoot: " + view.stageId + " :: " + view.stageTicks + " / " + view.maxStageTicks);
+//        System.out.println("pressShoot: " + view.stageId + " :: " + view.stageTicks + " / " + view.maxStageTicks);
         String newStage = stagesGraph.gunStages.get(view.stageId).handlePressShoot(view);
         updateStageGraph(newStage, view);
     }
 
     public void handleReleaseShoot(StagedItemView<T> view) {
-        System.out.println("releaseShoot: " + view.stageId + " :: " + view.stageTicks + " / " + view.maxStageTicks);
+//        System.out.println("releaseShoot: " + view.stageId + " :: " + view.stageTicks + " / " + view.maxStageTicks);
         String newStage = stagesGraph.gunStages.get(view.stageId).handleReleaseShoot(view);
         updateStageGraph(newStage, view);
     }
 
     public void handlePressReload(StagedItemView<T> view) {
-        System.out.println("pressReload: " + view.stageId + " :: " + view.stageTicks + " / " + view.maxStageTicks);
+//        System.out.println("pressReload: " + view.stageId + " :: " + view.stageTicks + " / " + view.maxStageTicks);
         String newStage = stagesGraph.gunStages.get(view.stageId).handlePressReload(view);
         updateStageGraph(newStage, view);
     }
 
     public void handleReleaseReload(StagedItemView<T> view) {
-        System.out.println("releaseReload: " + view.stageId + " :: " + view.stageTicks + " / " + view.maxStageTicks);
+//        System.out.println("releaseReload: " + view.stageId + " :: " + view.stageTicks + " / " + view.maxStageTicks);
         String newStage = stagesGraph.gunStages.get(view.stageId).handleReleaseReload(view);
         updateStageGraph(newStage, view);
     }
 
     public void handleTickInventory(StagedItemView<T> view) {
-        System.out.println("handleTickInventory: " + view.stageId + " :: " + view.stageTicks + " / " + view.maxStageTicks);
+//        System.out.println("handleTickInventory: " + view.stageId + " :: " + view.stageTicks + " / " + view.maxStageTicks);
         handleTick(view);
     }
 
     public void handleTick(StagedItemView<T> view) {
         if (view.maxStageTicks > 0) {
-            System.out.println("handleTick: " + view.stageId + " :: " + view.stageTicks + " / " + view.maxStageTicks);
+//            System.out.println("handleTick: " + view.stageId + " :: " + view.stageTicks + " / " + view.maxStageTicks);
         }
 
         String newStage = stagesGraph.gunStages.get(view.stageId).handleTick(view);
@@ -98,13 +98,13 @@ public class StagedItem<T extends StagedItem<?>> extends ComplexItem {
     }
 
     public void handleLastTick(StagedItemView<T> view) {
-        System.out.println("handleLastTick: " + view.stageId + " :: " + view.stageTicks + " / " + view.maxStageTicks);
+//        System.out.println("handleLastTick: " + view.stageId + " :: " + view.stageTicks + " / " + view.maxStageTicks);
         String newStage = stagesGraph.gunStages.get(view.stageId).handleLastTick(view);
         updateStageGraph(newStage, view);
     }
 
     public void handleUnselected(StagedItemView<T> view) {
-        System.out.println("unselected: " + view.stageId + " :: " + view.stageTicks + " / " + view.maxStageTicks);
+//        System.out.println("unselected: " + view.stageId + " :: " + view.stageTicks + " / " + view.maxStageTicks);
         String newStage = stagesGraph.gunStages.get(view.stageId).handleUnselected(view);
         updateStageGraph(newStage, view);
     }
@@ -157,9 +157,9 @@ public class StagedItem<T extends StagedItem<?>> extends ComplexItem {
             var playerState = Z7ServerState.getPlayerState(player);
             T gun = (T) stack.getItem();
             handleTickInventory(new StagedItemView<>(
-                    getStageName(stack), gun.getStageTicks(stack), gun.getMaxStageTicks(stack),
-                    playerState,
-                    gun, stack, entity, world
+                getStageName(stack), gun.getStageTicks(stack), gun.getMaxStageTicks(stack),
+                playerState,
+                gun, stack, entity, world
             ));
         }
     }
