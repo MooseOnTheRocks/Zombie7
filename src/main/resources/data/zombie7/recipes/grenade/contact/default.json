@@ -1,0 +1,24 @@
+{
+  "type": "minecraft:crafting_shaped",
+  "category": "equipment",
+  "key": {
+    ".": {
+      "item": "minecraft:iron_nugget"
+    },
+    "X": {
+      "item": "minecraft:tnt"
+    },
+    "_": {
+      "item": "minecraft:heavy_weighted_pressure_plate"
+    }
+  },
+  "pattern": [
+    "._.",
+    "_X_",
+    "._."
+  ],
+  "result": {
+    "item": "zombie7:grenade/contact/default"
+  },
+  "show_notification": true
+}

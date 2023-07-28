@@ -1,6 +1,6 @@
 package dev.foltz.item.stage;
 
-import dev.foltz.item.Z7ComplexItem;
+import dev.foltz.item.ComplexItem;
 import dev.foltz.network.Z7ServerState;
 import net.minecraft.entity.Entity;
 import net.minecraft.entity.player.PlayerEntity;
@@ -8,7 +8,7 @@ import net.minecraft.item.ItemStack;
 import net.minecraft.nbt.NbtCompound;
 import net.minecraft.world.World;
 
-public class StagedItem<T extends StagedItem<?>> extends Z7ComplexItem {
+public class StagedItem<T extends StagedItem<?>> extends ComplexItem {
     public static final String STAGE_ID = "StageId";
     public static final String STAGE_TICKS = "StageTicks";
     public final StagedItemGraph<T> stagesGraph;

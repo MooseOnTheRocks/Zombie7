@@ -23,7 +23,7 @@ import java.util.Arrays;
 import java.util.List;
 import java.util.function.Consumer;
 
-public class Z7ModelPredicates {
+public abstract class Z7ModelPredicates {
 //    public static final Consumer<Z7GunItem> USAGE_STAGE = makePredicate("usage_stage", (gun, stack, livingEntity, world) -> {
 //        int maxUse = gun.getMaxUsageTicks(stack);
 //        return maxUse == 0 ? 0.0f : gun.getUsageStage(stack) / (float) maxUse;

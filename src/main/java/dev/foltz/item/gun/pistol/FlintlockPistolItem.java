@@ -1,7 +1,7 @@
 package dev.foltz.item.gun.pistol;
 
+import dev.foltz.item.ammo.AmmoItem;
 import dev.foltz.item.gun.GunStagedItem;
-import dev.foltz.item.ammo.Z7AmmoItem;
 import dev.foltz.item.gun.GunStageBuilder;
 import net.minecraft.item.ItemStack;
 import net.minecraft.util.math.MathHelper;
@@ -19,7 +19,7 @@ public class FlintlockPistolItem extends GunStagedItem {
     public static final String STAGE_FIRING = "firing";
 
     public FlintlockPistolItem() {
-        super(5, Z7AmmoItem.AmmoCategory.PISTOL_AMMO, 1, Map.of(
+        super(5, AmmoItem.AmmoCategory.PISTOL_AMMO, 1, Map.of(
             STAGE_DEFAULT, new GunStageBuilder()
                 .onInit(tryShootOrReloadInit(STAGE_COCKING, STAGE_RELOADING))
                 .onPressShoot(tryShootOrReload(STAGE_COCKING, STAGE_RELOADING))

@@ -4,16 +4,10 @@ import dev.foltz.block.Z7Blocks;
 import dev.foltz.entity.*;
 import dev.foltz.item.Z7Items;
 import dev.foltz.network.Z7Networking;
-import dev.foltz.status.Z7StatusEffects;
+import dev.foltz.status.StatusEffects;
 import net.fabricmc.api.ModInitializer;
 
-import net.fabricmc.fabric.api.object.builder.v1.entity.FabricEntityTypeBuilder;
-import net.minecraft.entity.EntityDimensions;
-import net.minecraft.entity.EntityType;
 import net.minecraft.entity.damage.DamageType;
-import net.minecraft.entity.damage.DamageTypes;
-import net.minecraft.registry.Registries;
-import net.minecraft.registry.Registry;
 import net.minecraft.registry.RegistryKey;
 import net.minecraft.registry.RegistryKeys;
 import net.minecraft.util.Identifier;
@@ -39,7 +33,7 @@ public class Zombie7 implements ModInitializer {
         Z7Blocks.registerAllBlocks();
         Z7Items.registerAllItems();
         Z7Entities.registerAllEntities();
-        Z7StatusEffects.registerAllStatusEffects();
+        StatusEffects.registerAllStatusEffects();
         Z7Networking.registerAllEvents();
 	}
 }

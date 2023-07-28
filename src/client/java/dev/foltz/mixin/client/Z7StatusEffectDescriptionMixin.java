@@ -1,14 +1,12 @@
 package dev.foltz.mixin.client;
 
-import dev.foltz.status.Z7InfectionStatusEffect;
-import dev.foltz.status.Z7StatusEffect;
-import dev.foltz.status.Z7StatusEffects;
+import dev.foltz.status.InfectionStatusEffect;
+import dev.foltz.status.StatusEffects;
 import net.fabricmc.api.EnvType;
 import net.fabricmc.api.Environment;
 import net.minecraft.client.gui.screen.ingame.AbstractInventoryScreen;
 import net.minecraft.entity.effect.StatusEffectInstance;
 import net.minecraft.entity.effect.StatusEffectUtil;
-import net.minecraft.screen.ScreenTexts;
 import net.minecraft.text.MutableText;
 import net.minecraft.text.Text;
 import net.minecraft.util.Formatting;
@@ -35,11 +33,11 @@ public abstract class Z7StatusEffectDescriptionMixin {
 
     @Redirect(method="drawStatusEffectDescriptions", at=@At(value = "INVOKE", target = "Lnet/minecraft/entity/effect/StatusEffectUtil;durationToString(Lnet/minecraft/entity/effect/StatusEffectInstance;F)Lnet/minecraft/text/Text;"))
     protected Text customStatusEffectDurationDescription(StatusEffectInstance effect, float multiplier) {
-        if (effect.getEffectType() == Z7StatusEffects.STATUS_EFFECT_CONCUSSION) {
+        if (effect.getEffectType() == StatusEffects.STATUS_EFFECT_CONCUSSION) {
             return MutableText.of(Text.of("*bonk*").getContent()).formatted(Formatting.ITALIC);
         }
-        else if (effect.getEffectType() == Z7StatusEffects.STATUS_EFFECT_INFECTION) {
-            int percent = MathHelper.lerp((float) effect.getDuration() / (float) Z7InfectionStatusEffect.MAX_TICKS, 100, 0);
+        else if (effect.getEffectType() == StatusEffects.STATUS_EFFECT_INFECTION) {
+            int percent = MathHelper.lerp((float) effect.getDuration() / (float) InfectionStatusEffect.MAX_TICKS, 100, 0);
             return MutableText.of(Text.of(percent + "%").getContent());
         }
         else {

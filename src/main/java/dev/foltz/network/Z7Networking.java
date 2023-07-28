@@ -1,8 +1,7 @@
 package dev.foltz.network;
 
-import dev.foltz.Z7PlayerStateEventHandler;
+import dev.foltz.block.GoreBlock;
 import dev.foltz.block.Z7Blocks;
-import dev.foltz.block.Z7GoreBlock;
 import net.fabricmc.fabric.api.event.lifecycle.v1.ServerTickEvents;
 import net.fabricmc.fabric.api.event.player.PlayerBlockBreakEvents;
 import net.fabricmc.fabric.api.networking.v1.ServerPlayConnectionEvents;
@@ -14,7 +13,7 @@ import net.minecraft.util.Identifier;
 
 import static dev.foltz.Zombie7.MODID;
 
-public class Z7Networking {
+public abstract class Z7Networking {
     public static final Identifier SHOOT_PRESS_PACKET_ID = new Identifier(MODID, "shoot_press");
     public static final Identifier SHOOT_RELEASE_PACKET_ID = new Identifier(MODID, "shoot_release");
 
@@ -42,10 +41,10 @@ public class Z7Networking {
             }
             else {
                 System.out.println("Not broken with a shovel :c");
-                int layers = state.get(Z7GoreBlock.LAYERS);
+                int layers = state.get(GoreBlock.LAYERS);
                 if (layers > 1) {
                     System.out.println("More than one layer...");
-                    world.setBlockState(pos, state.with(Z7GoreBlock.LAYERS, layers - 1));
+                    world.setBlockState(pos, state.with(GoreBlock.LAYERS, layers - 1));
                     Block.dropStacks(state, world, pos, null, player, item);
                     return false;
                 }

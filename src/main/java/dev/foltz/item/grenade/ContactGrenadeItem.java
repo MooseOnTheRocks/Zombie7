@@ -1,10 +1,9 @@
 package dev.foltz.item.grenade;
 
 import dev.foltz.Z7Util;
-import dev.foltz.entity.Z7ContactGrenadeEntity;
+import dev.foltz.entity.grenade.ContactGrenadeEntity;
+import dev.foltz.entity.grenade.Z7GrenadeEntity;
 import dev.foltz.entity.Z7Entities;
-import dev.foltz.entity.Z7FragGrenadeEntity;
-import dev.foltz.entity.Z7GrenadeEntity;
 import net.minecraft.entity.LivingEntity;
 import net.minecraft.item.ItemStack;
 import net.minecraft.world.World;
@@ -14,7 +13,7 @@ import java.util.Map;
 
 import static dev.foltz.Z7Util.*;
 
-public class ContactGrenadeItem extends StagedGrenadeItem {
+public class ContactGrenadeItem extends GrenadeStagedItem {
     public static final String STAGE_DEFAULT = "default";
     public static final String STAGE_PRIMING = "priming";
     public static final String STAGE_PRIMED = "primed";
@@ -45,7 +44,7 @@ public class ContactGrenadeItem extends StagedGrenadeItem {
 
     @Override
     public List<? extends Z7GrenadeEntity> createGrenadeEntities(LivingEntity entity, ItemStack stack) {
-        Z7ContactGrenadeEntity grenade = new Z7ContactGrenadeEntity(Z7Entities.CONTACT_GRENADE_ENTITY, entity.world);
+        ContactGrenadeEntity grenade = new ContactGrenadeEntity(Z7Entities.CONTACT_GRENADE_ENTITY, entity.world);
         if (getStageName(stack).equals(STAGE_PRIMED)) {
             int fuseTime = Math.max(1, getMaxStageTicks(stack) - getStageTicks(stack));
             grenade.setFuseTime(fuseTime);

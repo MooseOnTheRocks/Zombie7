@@ -30,21 +30,21 @@ public class GrenadeRecipeGenerator extends FabricRecipeProvider {
             .criterion(hasItem(Items.TNT), conditionsFromItem(Items.TNT))
             .offerTo(exporter);
 
-//        ShapelessRecipeJsonBuilder.create(RecipeCategory.COMBAT, Z7Items.ITEM_STICKY_GRENADE)
-//            .input(Z7Items.ITEM_FRAG_GRENADE)
-//            .input(Items.SLIME_BALL)
-//            .criterion(hasItem(Z7Items.ITEM_FRAG_GRENADE), conditionsFromItem(Z7Items.ITEM_FRAG_GRENADE))
-//            .offerTo(exporter);
-//
-//        ShapedRecipeJsonBuilder.create(RecipeCategory.COMBAT, Z7Items.ITEM_CONTACT_GRENADE)
-//            .input('_', Items.HEAVY_WEIGHTED_PRESSURE_PLATE)
-//            .input('.', Items.IRON_NUGGET)
-//            .input('X', Items.TNT)
-//            .pattern("._.")
-//            .pattern("_X_")
-//            .pattern("._.")
-//            .criterion(hasItem(Items.TNT), conditionsFromItem(Items.TNT))
-//            .offerTo(exporter);
+        ShapelessRecipeJsonBuilder.create(RecipeCategory.COMBAT, Z7Items.ITEM_STICKY_GRENADE)
+            .input(Z7Items.ITEM_FRAG_GRENADE)
+            .input(Items.SLIME_BALL)
+            .criterion(hasItem(Z7Items.ITEM_FRAG_GRENADE), conditionsFromItem(Z7Items.ITEM_FRAG_GRENADE))
+            .offerTo(exporter);
+
+        ShapedRecipeJsonBuilder.create(RecipeCategory.COMBAT, Z7Items.ITEM_CONTACT_GRENADE)
+            .input('_', Items.HEAVY_WEIGHTED_PRESSURE_PLATE)
+            .input('.', Items.IRON_NUGGET)
+            .input('X', Items.TNT)
+            .pattern("._.")
+            .pattern("_X_")
+            .pattern("._.")
+            .criterion(hasItem(Items.TNT), conditionsFromItem(Items.TNT))
+            .offerTo(exporter);
 //
         ShapelessRecipeJsonBuilder.create(RecipeCategory.COMBAT, Z7Items.ITEM_MOLOTOV_GRENADE)
             .input(ItemTags.WOOL)

@@ -12,7 +12,7 @@ import net.minecraft.text.Text;
 
 import java.util.UUID;
 
-public class Z7StatusEffect extends StatusEffect {
+public abstract class Z7StatusEffect extends StatusEffect {
     public final boolean showParticles;
 
     public Z7StatusEffect(StatusEffectCategory category, int color) {

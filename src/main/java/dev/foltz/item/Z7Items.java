@@ -1,14 +1,14 @@
 package dev.foltz.item;
 
 import dev.foltz.Zombie7;
-import dev.foltz.item.ammo.Z7AmmoBasicPistolItem;
-import dev.foltz.item.ammo.Z7AmmoBasicShotgunItem;
-import dev.foltz.item.ammo.Z7AmmoItem;
-import dev.foltz.item.ammo.Z7AmmoBasicMagnumItem;
-import dev.foltz.item.consumable.Z7AntibioticsItem;
-import dev.foltz.item.consumable.Z7BandageItem;
-import dev.foltz.item.consumable.Z7PainkillersItem;
-import dev.foltz.item.consumable.Z7SplintItem;
+import dev.foltz.item.ammo.PistolBasicAmmoItem;
+import dev.foltz.item.ammo.ShotgunBasicAmmoItem;
+import dev.foltz.item.ammo.AmmoItem;
+import dev.foltz.item.ammo.MagnumBasicAmmoItem;
+import dev.foltz.item.consumable.AntibioticsItem;
+import dev.foltz.item.consumable.BandageItem;
+import dev.foltz.item.consumable.PainkillersItem;
+import dev.foltz.item.consumable.SplintItem;
 import dev.foltz.item.grenade.*;
 import dev.foltz.item.gun.pistol.BasicPistolItem;
 import dev.foltz.item.gun.pistol.DeaglePistolItem;
@@ -16,6 +16,7 @@ import dev.foltz.item.gun.pistol.FlintlockPistolItem;
 import dev.foltz.item.gun.rifle.AkRifleItem;
 import dev.foltz.item.gun.shotgun.Aa12ShotgunItem;
 import dev.foltz.item.gun.shotgun.PumpShotgunItem;
+import dev.foltz.item.misc.BonkStick;
 import dev.foltz.item.misc.BowlingBallItem;
 import net.fabricmc.fabric.api.item.v1.FabricItemSettings;
 import net.fabricmc.fabric.api.itemgroup.v1.FabricItemGroup;
@@ -55,10 +56,10 @@ public abstract class Z7Items {
 
 
     // Consumables
-    public static final Item ITEM_BANDAGE = registerConsumableItem("bandage", new Z7BandageItem());
-    public static final Item ITEM_ANTIBIOTICS = registerConsumableItem("antibiotics", new Z7AntibioticsItem());
-    public static final Item ITEM_PAINKILLERS = registerConsumableItem("painkillers", new Z7PainkillersItem());
-    public static final Item ITEM_SPLINT = registerConsumableItem("splint", new Z7SplintItem());
+    public static final Item ITEM_BANDAGE = registerConsumableItem("bandage", new BandageItem());
+    public static final Item ITEM_ANTIBIOTICS = registerConsumableItem("antibiotics", new AntibioticsItem());
+    public static final Item ITEM_PAINKILLERS = registerConsumableItem("painkillers", new PainkillersItem());
+    public static final Item ITEM_SPLINT = registerConsumableItem("splint", new SplintItem());
 
     public static final Item ITEM_COFFEE = registerConsumableItem("coffee", new Item(new FabricItemSettings().maxCount(10)));
 
@@ -80,13 +81,13 @@ public abstract class Z7Items {
 
 
     // Ammo
-    public static final Z7AmmoItem ITEM_AMMO_PISTOL = registerAmmoItem("pistol_basic", new Z7AmmoBasicPistolItem());
-    public static final Z7AmmoItem ITEM_AMMO_MAGNUM = registerAmmoItem("magnum_basic", new Z7AmmoBasicMagnumItem());
-    public static final Z7AmmoItem ITEM_AMMO_SHOTGUN = registerAmmoItem("shotgun_basic", new Z7AmmoBasicShotgunItem());
+    public static final AmmoItem ITEM_AMMO_PISTOL = registerAmmoItem("pistol_basic", new PistolBasicAmmoItem());
+    public static final AmmoItem ITEM_AMMO_MAGNUM = registerAmmoItem("magnum_basic", new MagnumBasicAmmoItem());
+    public static final AmmoItem ITEM_AMMO_SHOTGUN = registerAmmoItem("shotgun_basic", new ShotgunBasicAmmoItem());
 
     // Misc
-    public static final Item ITEM_BONK_STICK = registerItem("bonk_stick", new Z7BonkStick());
-    public static final Item ITEM_BONK_STICK_16 = registerItem("bonk_stick16", new Z7BonkStick());
+    public static final Item ITEM_BONK_STICK = registerItem("bonk_stick", new BonkStick());
+    public static final Item ITEM_BONK_STICK_16 = registerItem("bonk_stick16", new BonkStick());
 
 
     // Item groups
@@ -97,7 +98,7 @@ public abstract class Z7Items {
 
 
     private static <T extends Item > String properName(String name, T item) {
-        return name + (item instanceof Z7ComplexItem ? "/default" : "");
+        return name + (item instanceof ComplexItem ? "/default" : "");
     }
 
     private static <T extends Item> T registerItem(String name, T item) {
