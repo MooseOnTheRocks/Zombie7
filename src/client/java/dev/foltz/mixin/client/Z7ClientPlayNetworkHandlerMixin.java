@@ -1,7 +1,13 @@
 package dev.foltz.mixin.client;
 
-import dev.foltz.Zombie7;
 import dev.foltz.entity.*;
+import dev.foltz.entity.bullet.BulletBronzeEntity;
+import dev.foltz.entity.bullet.BulletLeadEntity;
+import dev.foltz.entity.grenade.ContactGrenadeEntity;
+import dev.foltz.entity.grenade.FragGrenadeEntity;
+import dev.foltz.entity.grenade.MolotovGrenadeEntity;
+import dev.foltz.entity.grenade.StickyGrenadeEntity;
+import dev.foltz.entity.misc.BowlingBallGrenadeEntity;
 import net.minecraft.client.network.ClientPlayNetworkHandler;
 import net.minecraft.client.world.ClientWorld;
 import net.minecraft.entity.Entity;
@@ -27,25 +33,25 @@ public class Z7ClientPlayNetworkHandlerMixin {
     private void onEntitySpawn(EntitySpawnS2CPacket packet, CallbackInfo ci, EntityType entityType) {
         Entity entity = null;
         if (entityType == Z7Entities.FRAG_GRENADE_ENTITY) {
-            entity = new Z7FragGrenadeEntity(Z7Entities.FRAG_GRENADE_ENTITY, this.world);
+            entity = new FragGrenadeEntity(Z7Entities.FRAG_GRENADE_ENTITY, this.world);
         }
         else if (entityType == Z7Entities.CONTACT_GRENADE_ENTITY) {
-            entity = new Z7ContactGrenadeEntity(Z7Entities.CONTACT_GRENADE_ENTITY, this.world);
+            entity = new ContactGrenadeEntity(Z7Entities.CONTACT_GRENADE_ENTITY, this.world);
         }
         else if (entityType == Z7Entities.MOLOTOV_GRENADE_ENTITY) {
-            entity = new Z7MolotovGrenadeEntity(Z7Entities.MOLOTOV_GRENADE_ENTITY, this.world);
+            entity = new MolotovGrenadeEntity(Z7Entities.MOLOTOV_GRENADE_ENTITY, this.world);
         }
         else if (entityType == Z7Entities.STICKY_GRENADE_ENTITY) {
-            entity = new Z7StickyGrenadeEntity(Z7Entities.STICKY_GRENADE_ENTITY, this.world);
+            entity = new StickyGrenadeEntity(Z7Entities.STICKY_GRENADE_ENTITY, this.world);
         }
         else if (entityType == Z7Entities.BOWLING_BALL_GRENADE_ENTITY) {
-            entity = new Z7BowlingBallGrenadeEntity(Z7Entities.BOWLING_BALL_GRENADE_ENTITY, this.world);
+            entity = new BowlingBallGrenadeEntity(Z7Entities.BOWLING_BALL_GRENADE_ENTITY, this.world);
         }
         else if (entityType == Z7Entities.BULLET_BRONZE_ENTITY) {
-            entity = new Z7BulletBronzeEntity(Z7Entities.BULLET_BRONZE_ENTITY, this.world);
+            entity = new BulletBronzeEntity(Z7Entities.BULLET_BRONZE_ENTITY, this.world);
         }
         else if (entityType == Z7Entities.BULLET_LEAD_ENTITY) {
-            entity = new Z7BulletLeadEntity(Z7Entities.BULLET_LEAD_ENTITY, this.world);
+            entity = new BulletLeadEntity(Z7Entities.BULLET_LEAD_ENTITY, this.world);
         }
 
         if (entity != null) {

@@ -1,7 +1,7 @@
 package dev.foltz.item.gun.shotgun;
 
+import dev.foltz.item.ammo.AmmoItem;
 import dev.foltz.item.gun.GunStagedItem;
-import dev.foltz.item.ammo.Z7AmmoItem;
 import dev.foltz.item.gun.GunStageBuilder;
 import net.minecraft.item.ItemStack;
 
@@ -16,7 +16,7 @@ public class Aa12ShotgunItem extends GunStagedItem {
     public static final String STAGE_FIRING = "firing";
 
     public Aa12ShotgunItem() {
-        super(360, Z7AmmoItem.AmmoCategory.SHOTGUN_AMMO, 20, Map.of(
+        super(360, AmmoItem.AmmoCategory.SHOTGUN_AMMO, 20, Map.of(
             STAGE_DEFAULT, new GunStageBuilder()
                 .barColor(stack -> ORANGE)
                 .onInit(tryShootOrReloadInit(STAGE_FIRING, STAGE_RELOADING))

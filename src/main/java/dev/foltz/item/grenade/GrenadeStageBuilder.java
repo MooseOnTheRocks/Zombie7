@@ -2,7 +2,7 @@ package dev.foltz.item.grenade;
 
 import dev.foltz.item.stage.StageBuilder;
 
-public class GrenadeStageBuilder extends StageBuilder<StagedGrenadeItem> {
+public class GrenadeStageBuilder extends StageBuilder<GrenadeStagedItem> {
     public GrenadeStageBuilder() {
         super();
     }

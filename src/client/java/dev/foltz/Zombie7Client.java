@@ -1,12 +1,12 @@
 package dev.foltz;
 
 import dev.foltz.entity.*;
-import dev.foltz.entity.model.Z7BulletBronzeEntityModel;
-import dev.foltz.entity.model.Z7BulletLeadEntityModel;
+import dev.foltz.entity.model.BulletBronzeEntityModel;
+import dev.foltz.entity.model.BulletLeadEntityModel;
 import dev.foltz.item.stage.StagedItem;
 import dev.foltz.network.Z7Networking;
-import dev.foltz.render.Z7ConcussionFogModifier;
-import dev.foltz.render.Z7ConcussionLongFogModifier;
+import dev.foltz.render.ConcussionFogModifier;
+import dev.foltz.render.ConcussionLongFogModifier;
 import net.fabricmc.api.ClientModInitializer;
 import net.fabricmc.api.EnvType;
 import net.fabricmc.api.Environment;
@@ -27,8 +27,8 @@ import org.lwjgl.glfw.GLFW;
 
 @Environment(EnvType.CLIENT)
 public class Zombie7Client implements ClientModInitializer {
-    public static final Z7ConcussionFogModifier FOG_MODIFIER = new Z7ConcussionFogModifier();
-    public static final Z7ConcussionLongFogModifier FOG_MODIFIER_LONG = new Z7ConcussionLongFogModifier();
+    public static final ConcussionFogModifier FOG_MODIFIER = new ConcussionFogModifier();
+    public static final ConcussionLongFogModifier FOG_MODIFIER_LONG = new ConcussionLongFogModifier();
 
     public static final KeyBinding RELOAD_BIND = KeyBindingHelper.registerKeyBinding(new KeyBinding(
             "key.zombie7.reload",
@@ -49,17 +49,17 @@ public class Zombie7Client implements ClientModInitializer {
 
         Z7ModelPredicates.registerAllModelPredicates();
 
-        EntityRendererRegistry.register(Z7Entities.FRAG_GRENADE_ENTITY, Z7FragGrenadeEntityRenderer::new);
-        EntityRendererRegistry.register(Z7Entities.CONTACT_GRENADE_ENTITY, Z7ContactGrenadeEntityRenderer::new);
-        EntityRendererRegistry.register(Z7Entities.MOLOTOV_GRENADE_ENTITY, Z7MolotovGrenadeEntityRenderer::new);
-        EntityRendererRegistry.register(Z7Entities.STICKY_GRENADE_ENTITY, Z7StickyGrenadeEntityRenderer::new);
-        EntityRendererRegistry.register(Z7Entities.BOWLING_BALL_GRENADE_ENTITY, Z7BowlingBallGrenadeEntityRenderer::new);
+        EntityRendererRegistry.register(Z7Entities.FRAG_GRENADE_ENTITY, FragGrenadeEntityRenderer::new);
+        EntityRendererRegistry.register(Z7Entities.CONTACT_GRENADE_ENTITY, ContactGrenadeEntityRenderer::new);
+        EntityRendererRegistry.register(Z7Entities.MOLOTOV_GRENADE_ENTITY, MolotovGrenadeEntityRenderer::new);
+        EntityRendererRegistry.register(Z7Entities.STICKY_GRENADE_ENTITY, StickyGrenadeEntityRenderer::new);
+        EntityRendererRegistry.register(Z7Entities.BOWLING_BALL_GRENADE_ENTITY, BowlingBallGrenadeEntityRenderer::new);
 
-        EntityRendererRegistry.register(Z7Entities.BULLET_BRONZE_ENTITY, Z7BulletBronzeEntityRenderer::new);
-        EntityModelLayerRegistry.registerModelLayer(MODEL_BULLET_BRONZE_LAYER, Z7BulletBronzeEntityModel::getTexturedModelData);
+        EntityRendererRegistry.register(Z7Entities.BULLET_BRONZE_ENTITY, BulletBronzeEntityRenderer::new);
+        EntityModelLayerRegistry.registerModelLayer(MODEL_BULLET_BRONZE_LAYER, BulletBronzeEntityModel::getTexturedModelData);
 
-        EntityRendererRegistry.register(Z7Entities.BULLET_LEAD_ENTITY, Z7BulletLeadEntityRenderer::new);
-        EntityModelLayerRegistry.registerModelLayer(MODEL_BULLET_LEAD_LAYER, Z7BulletLeadEntityModel::getTexturedModelData);
+        EntityRendererRegistry.register(Z7Entities.BULLET_LEAD_ENTITY, BulletLeadEntityRenderer::new);
+        EntityModelLayerRegistry.registerModelLayer(MODEL_BULLET_LEAD_LAYER, BulletLeadEntityModel::getTexturedModelData);
 
 
         ClientPreAttackCallback.EVENT.register((client, player, clickCount) -> {

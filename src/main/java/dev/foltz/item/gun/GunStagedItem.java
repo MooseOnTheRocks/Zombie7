@@ -1,7 +1,7 @@
 package dev.foltz.item.gun;
 
-import dev.foltz.entity.Z7BulletEntity;
-import dev.foltz.item.ammo.Z7AmmoItem;
+import dev.foltz.entity.bullet.Z7BulletEntity;
+import dev.foltz.item.ammo.AmmoItem;
 import dev.foltz.item.stage.*;
 import net.fabricmc.fabric.api.item.v1.FabricItemSettings;
 import net.minecraft.block.BlockState;
@@ -28,19 +28,19 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
 
-public class GunStagedItem extends StagedItem {
+public class GunStagedItem extends StagedItem<GunStagedItem> {
     public static final String AMMO_LIST = "AmmoList";
 
-    public final Z7AmmoItem.AmmoCategory ammoCategory;
+    public final AmmoItem.AmmoCategory ammoCategory;
     public final int maxAmmoCapacity;
 
-    public GunStagedItem(int maxDurability, Z7AmmoItem.AmmoCategory ammoCategory, int maxAmmoCapacity, Map<String, StageBuilder> stagesMap) {
-        super(new FabricItemSettings().maxDamage(maxDurability), new StagedItemGraphBuilder(stagesMap).build());
+    public GunStagedItem(int maxDurability, AmmoItem.AmmoCategory ammoCategory, int maxAmmoCapacity, Map<String, StageBuilder<GunStagedItem>> stagesMap) {
+        super(new FabricItemSettings().maxDamage(maxDurability), new StagedItemGraphBuilder<>(stagesMap).build());
         this.ammoCategory = ammoCategory;
         this.maxAmmoCapacity = maxAmmoCapacity;
     }
 
-    public GunStagedItem(int maxDurability, Z7AmmoItem.AmmoCategory ammoCategory, int maxAmmoCapacity, StagedItemGraph graph) {
+    public GunStagedItem(int maxDurability, AmmoItem.AmmoCategory ammoCategory, int maxAmmoCapacity, StagedItemGraph<GunStagedItem> graph) {
         super(new FabricItemSettings().maxDamage(maxDurability), graph);
         this.ammoCategory = ammoCategory;
         this.maxAmmoCapacity = maxAmmoCapacity;
@@ -291,7 +291,7 @@ public class GunStagedItem extends StagedItem {
     }
 
     public List<? extends Z7BulletEntity> createBulletEntities(PlayerEntity player, ItemStack gunStack, ItemStack ammoStack) {
-        if (ammoStack.getItem() instanceof Z7AmmoItem ammoItem) {
+        if (ammoStack.getItem() instanceof AmmoItem ammoItem) {
             return ammoItem.createBulletEntities(player, gunStack, ammoStack);
         }
         return List.of();
@@ -325,7 +325,7 @@ public class GunStagedItem extends StagedItem {
             return false;
         }
 
-        System.out.println("Shooting gun!");
+//        System.out.println("Shooting gun!");
 
         boolean isCreative = player.getAbilities().creativeMode;
         ItemStack ammoStack = popNextBullet(itemStack);
@@ -415,10 +415,6 @@ public class GunStagedItem extends StagedItem {
 
     @Override
     public void appendTooltip(ItemStack stack, @Nullable World world, List<Text> tooltip, TooltipContext context) {
-        if (stack.getDamage() > 0){
-            tooltip.add(MutableText.of(Text.of("Durability: " + (stack.getMaxDamage() - stack.getDamage()) + "/" + stack.getMaxDamage()).getContent()).formatted(Formatting.GRAY, Formatting.BOLD));
-        }
-
 //        tooltip.add(MutableText.of(Text.of("Gun Stage (" + getStageId(stack) + ") = " + stagesGraph.nameFromId(getStageId(stack))).getContent()));
 
         var ammoList = getAmmoInGun(stack);
@@ -446,6 +442,10 @@ public class GunStagedItem extends StagedItem {
             }
 
             compactList.forEach(a -> tooltip.add(MutableText.of(Text.of("  " + a.getCount() + "x ").getContent()).append(Text.translatable(a.getTranslationKey())).formatted(Formatting.DARK_GRAY)));
+
+            if (stack.getDamage() > 0){
+                tooltip.add(MutableText.of(Text.of("Durability: " + (stack.getMaxDamage() - stack.getDamage()) + "/" + stack.getMaxDamage()).getContent()).formatted(Formatting.GRAY, Formatting.BOLD));
+            }
         }
     }
 

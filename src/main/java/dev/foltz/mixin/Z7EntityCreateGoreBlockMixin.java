@@ -1,6 +1,6 @@
 package dev.foltz.mixin;
 
-import dev.foltz.block.Z7GoreBlock;
+import dev.foltz.block.GoreBlock;
 import dev.foltz.block.Z7Blocks;
 import net.minecraft.block.Block;
 import net.minecraft.entity.LivingEntity;
@@ -46,7 +46,7 @@ public abstract class Z7EntityCreateGoreBlockMixin {
             }
         }
 
-        int hi = Z7GoreBlock.MAX_LAYERS;
+        int hi = GoreBlock.MAX_LAYERS;
         int lo = 3;
         if (entity.isBaby()) {
             hi = 2;

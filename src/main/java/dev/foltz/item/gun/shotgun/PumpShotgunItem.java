@@ -1,7 +1,7 @@
 package dev.foltz.item.gun.shotgun;
 
 import dev.foltz.item.gun.GunStagedItem;
-import dev.foltz.item.ammo.Z7AmmoItem;
+import dev.foltz.item.ammo.AmmoItem;
 import dev.foltz.item.gun.GunStageBuilder;
 import net.minecraft.item.ItemStack;
 import net.minecraft.util.math.MathHelper;
@@ -21,7 +21,7 @@ public class PumpShotgunItem extends GunStagedItem {
     public static final String STAGE_FIRING = "firing";
 
     public PumpShotgunItem() {
-        super(80, Z7AmmoItem.AmmoCategory.SHOTGUN_AMMO, 4, Map.of(
+        super(80, AmmoItem.AmmoCategory.SHOTGUN_AMMO, 4, Map.of(
             STAGE_DEFAULT, new GunStageBuilder()
                 .onInit(tryShootOrReloadInit(STAGE_PUMPING_DOWN, STAGE_RELOADING))
                 .onPressShoot(tryShootOrReload(STAGE_PUMPING_DOWN, STAGE_RELOADING))

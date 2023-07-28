@@ -1,9 +1,8 @@
 package dev.foltz.item.misc;
 
 import dev.foltz.Z7Util;
-import dev.foltz.entity.Z7BowlingBallGrenadeEntity;
+import dev.foltz.entity.misc.BowlingBallGrenadeEntity;
 import dev.foltz.entity.Z7Entities;
-import dev.foltz.item.Z7ComplexItem;
 import net.fabricmc.fabric.api.item.v1.FabricItemSettings;
 import net.minecraft.client.item.TooltipContext;
 import net.minecraft.entity.LivingEntity;
@@ -43,7 +42,7 @@ public class BowlingBallItem extends Item {
         final int fullThrowTime = Z7Util.ticksFromSeconds(4f);
         float speed = MathHelper.map(Math.min(usedTime, fullThrowTime), 0, fullThrowTime, 0.5f, 2.5f);
 
-        Z7BowlingBallGrenadeEntity g = new Z7BowlingBallGrenadeEntity(Z7Entities.BOWLING_BALL_GRENADE_ENTITY, entity.world);
+        BowlingBallGrenadeEntity g = new BowlingBallGrenadeEntity(Z7Entities.BOWLING_BALL_GRENADE_ENTITY, entity.world);
         var grenades = List.of(g);
         for (var grenade : grenades) {
             ItemStack throwStack = new ItemStack(stack.getItem());

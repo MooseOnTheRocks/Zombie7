@@ -2,7 +2,7 @@ package dev.foltz.mixin.client;
 
 import com.mojang.blaze3d.systems.RenderSystem;
 import dev.foltz.Zombie7Client;
-import dev.foltz.status.Z7StatusEffects;
+import dev.foltz.status.StatusEffects;
 import net.fabricmc.api.EnvType;
 import net.fabricmc.api.Environment;
 import net.minecraft.client.render.BackgroundRenderer;
@@ -11,7 +11,6 @@ import net.minecraft.client.world.ClientWorld;
 import net.minecraft.entity.Entity;
 import net.minecraft.entity.LivingEntity;
 import net.minecraft.entity.effect.StatusEffectInstance;
-import net.minecraft.util.math.MathHelper;
 import org.spongepowered.asm.mixin.Mixin;
 import org.spongepowered.asm.mixin.injection.At;
 import org.spongepowered.asm.mixin.injection.Inject;
@@ -39,14 +38,14 @@ public abstract class Z7FogModifierMixin {
             return;
         }
 
-        if (entity.hasStatusEffect(Z7StatusEffects.STATUS_EFFECT_CONCUSSION)) {
-            StatusEffectInstance status = entity.getStatusEffect(Z7StatusEffects.STATUS_EFFECT_CONCUSSION);
+        if (entity.hasStatusEffect(StatusEffects.STATUS_EFFECT_CONCUSSION)) {
+            StatusEffectInstance status = entity.getStatusEffect(StatusEffects.STATUS_EFFECT_CONCUSSION);
             if (status != null) {
                 RenderSystem.clearColor(0.9f, 0.9f, 0.9f, 0.0f);
             }
         }
-        else if (entity.hasStatusEffect(Z7StatusEffects.STATUS_EFFECT_CONCUSSION_LONG)) {
-            StatusEffectInstance status = entity.getStatusEffect(Z7StatusEffects.STATUS_EFFECT_CONCUSSION_LONG);
+        else if (entity.hasStatusEffect(StatusEffects.STATUS_EFFECT_CONCUSSION_LONG)) {
+            StatusEffectInstance status = entity.getStatusEffect(StatusEffects.STATUS_EFFECT_CONCUSSION_LONG);
             if (status != null) {
                 RenderSystem.clearColor(0.9f, 0.9f, 0.9f, 0.0f);
             }

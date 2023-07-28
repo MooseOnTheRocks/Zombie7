@@ -18,6 +18,7 @@ public class Z7ModelResourceProvider implements ModelResourceProvider {
     public @Nullable UnbakedModel loadModelResource(Identifier resourceId, ModelProviderContext context) throws ModelProviderException {
         if (resourceId.getNamespace().equals(Zombie7.MODID)) {
             System.out.println("loadModelResource for " + resourceId);
+
         }
 
         return null;

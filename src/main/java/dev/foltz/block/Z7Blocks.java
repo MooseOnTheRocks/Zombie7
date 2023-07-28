@@ -16,7 +16,7 @@ import net.minecraft.world.BlockView;
 import java.util.HashMap;
 import java.util.Map;
 
-public class Z7Blocks {
+public abstract class Z7Blocks {
     private static final Map<String, Block> ALL_BLOCKS = new HashMap<>();
 
     private static <A> boolean always(BlockState var1, BlockView var2, BlockPos var3, A var4) {
@@ -27,7 +27,7 @@ public class Z7Blocks {
         return true;
     }
 
-    public static final Block GORE_BLOCK = registerBlock("gore_block", new Z7GoreBlock(FabricBlockSettings.of(Material.SOLID_ORGANIC)
+    public static final Block GORE_BLOCK = registerBlock("gore_block", new GoreBlock(FabricBlockSettings.of(Material.SOLID_ORGANIC)
             .velocityMultiplier(0.75f)
             .allowsSpawning(Z7Blocks::always)
             .solidBlock(Z7Blocks::always)
