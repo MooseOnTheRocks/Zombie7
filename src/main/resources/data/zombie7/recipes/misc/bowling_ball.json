@@ -10,9 +10,9 @@
     }
   },
   "pattern": [
-    " # ",
+    "###",
     "#X#",
-    " # "
+    "###"
   ],
   "result": {
     "item": "zombie7:misc/bowling_ball"

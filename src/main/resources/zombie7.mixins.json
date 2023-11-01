@@ -6,7 +6,10 @@
     "Z7AnvilScreenHandlerMixin",
     "Z7EntityCreateGoreBlockMixin",
     "Z7HarmEntityOnAttackMixin",
-    "Z7WorldGenMixin"
+    "Z7WorldGenMixin",
+    "fear.Z7CowFearsPlayerMixin",
+    "fear.Z7PigFearsPlayerMixin",
+    "fear.Z7SheepFearsPlayerMixin"
   ],
   "injectors": {
     "defaultRequire": 1

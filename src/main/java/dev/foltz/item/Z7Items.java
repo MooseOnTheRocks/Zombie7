@@ -2,14 +2,12 @@ package dev.foltz.item;
 
 import dev.foltz.Zombie7;
 import dev.foltz.item.ammo.*;
-import dev.foltz.item.consumable.AntibioticsItem;
-import dev.foltz.item.consumable.BandageItem;
-import dev.foltz.item.consumable.PainkillersItem;
-import dev.foltz.item.consumable.SplintItem;
+import dev.foltz.item.consumable.*;
 import dev.foltz.item.grenade.*;
 import dev.foltz.item.gun.pistol.BasicPistolItem;
 import dev.foltz.item.gun.pistol.DeaglePistolItem;
 import dev.foltz.item.gun.pistol.FlintlockPistolItem;
+import dev.foltz.item.gun.pistol.GlockPistolItem;
 import dev.foltz.item.gun.rifle.AkRifleItem;
 import dev.foltz.item.gun.shotgun.Aa12ShotgunItem;
 import dev.foltz.item.gun.shotgun.PumpShotgunItem;
@@ -25,6 +23,9 @@ import net.minecraft.item.ItemGroup;
 import net.minecraft.item.ItemStack;
 import net.minecraft.registry.Registries;
 import net.minecraft.registry.Registry;
+import net.minecraft.registry.RegistryKey;
+import net.minecraft.registry.RegistryKeys;
+import net.minecraft.text.Text;
 import net.minecraft.util.Identifier;
 
 import java.util.HashMap;
@@ -42,6 +43,8 @@ public abstract class Z7Items {
     private static final Map<String, Item> ALL_ITEMS_AMMO = new HashMap<>();
     private static final Map<String, Item> ALL_ITEMS_MISC_WEAPONS = new HashMap<>();
 
+    private static final Map<String, ItemGroup> ALL_ITEM_GROUPS = new HashMap<>();
+
 
 
     // Materials
@@ -55,6 +58,7 @@ public abstract class Z7Items {
 
     // Consumables
     public static final Item ITEM_BANDAGE = registerConsumableItem("bandage", new BandageItem());
+    public static final Item ITEM_HEALING_BANDAGE = registerConsumableItem("healing_bandage", new HealingBandageItem());
     public static final Item ITEM_ANTIBIOTICS = registerConsumableItem("antibiotics", new AntibioticsItem());
     public static final Item ITEM_PAINKILLERS = registerConsumableItem("painkillers", new PainkillersItem());
     public static final Item ITEM_SPLINT = registerConsumableItem("splint", new SplintItem());
@@ -70,6 +74,7 @@ public abstract class Z7Items {
 
     public static final Item ITEM_PISTOL_FLINTLOCK = registerGunItem("pistol_flintlock", new FlintlockPistolItem());
     public static final Item ITEM_PISTOL_BASIC = registerGunItem("pistol_basic", new BasicPistolItem());
+    public static final Item ITEM_PISTOL_GLOCK = registerGunItem("pistol_glock", new GlockPistolItem());
     public static final Item ITEM_PISTOL_DEAGLE = registerGunItem("pistol_deagle", new DeaglePistolItem());
     public static final Item ITEM_SHOTGUN_BASIC = registerGunItem("shotgun_basic", new PumpShotgunItem());
     public static final Item ITEM_SHOTGUN_AA12 = registerGunItem("shotgun_aa12", new Aa12ShotgunItem());
@@ -92,13 +97,13 @@ public abstract class Z7Items {
 
     // Item groups
     public static final ItemGroup GROUP_MATERIALS = registerItemGroup("materials", ALL_ITEMS_MATERIALS, () -> new ItemStack(ITEM_PLANT_FIBER));
-    public static final ItemGroup GROUP_CONSUMABLES = registerItemGroup("consumables", ALL_ITEMS_CONSUMABLES, () -> new ItemStack(ITEM_BANDAGE));
+    public static final ItemGroup GROUP_CONSUMABLES = registerItemGroup("consumables", ALL_ITEMS_CONSUMABLES, () -> new ItemStack(ITEM_HEALING_BANDAGE));
     public static final ItemGroup GROUP_WEAPONS = registerItemGroup("weapons", List.of(ALL_ITEMS_GUNS, ALL_ITEMS_GRENADES, ALL_ITEMS_AMMO, ALL_ITEMS_MISC_WEAPONS), () -> new ItemStack(ITEM_SHOTGUN_BASIC));
     public static final ItemGroup GROUP_GENERAL = registerItemGroup("general", ALL_ITEMS_GENERAL, () -> new ItemStack(ITEM_BONK_STICK));
 
 
     private static <T extends Item> String properName(String name, T item) {
-        return name + (item instanceof ComplexItem ? "/default" : "");
+        return name + (item instanceof CompositeResourceItem ? "/default" : "");
     }
 
     private static <T extends Item> T registerItem(String name, T item) {
@@ -161,17 +166,27 @@ public abstract class Z7Items {
     }
 
     protected static ItemGroup registerItemGroup(String name, List<Map<String, Item>> groups, Supplier<ItemStack> icon) {
-        return FabricItemGroup
-            .builder(new Identifier(Zombie7.MODID, name))
+        var itemGroup = FabricItemGroup
+            .builder()
             .icon(icon)
             .entries((displayContext, entries) -> groups.forEach(group -> group.values().stream().map(ItemStack::new).forEach(entries::add)))
+            .displayName(Text.translatable("itemGroup.zombie7." + name))
             .build();
+        ALL_ITEM_GROUPS.put(name, itemGroup);
+        return itemGroup;
     }
 
     public static void registerAllItems() {
         for (var entry : ALL_ITEMS.entrySet()) {
             var identifier = new Identifier(Zombie7.MODID, entry.getKey());
             Registry.register(Registries.ITEM, identifier, entry.getValue());
+        }
+    }
+
+    public static void registerAllItemGroups() {
+        for (var entry : ALL_ITEM_GROUPS.entrySet()) {
+            var identifier = new Identifier(Zombie7.MODID, entry.getKey());
+            Registry.register(Registries.ITEM_GROUP, identifier, entry.getValue());
         }
     }
 }

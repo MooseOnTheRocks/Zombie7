@@ -48,39 +48,39 @@ public class MolotovGrenadeEntity extends Z7GrenadeEntity {
             vz = speed * norm.z;
         }
 
-        int count = (int) Math.floor(1 + 3 * len * world.random.nextFloat());
+        int count = (int) Math.floor(1 + 3 * len * getWorld().random.nextFloat());
         for (int i = 0; i < count; i++) {
             double p = i / (float) (count - 1);
             double xx = MathHelper.lerp(p, x, x - vel.x);
             double yy = MathHelper.lerp(p, y, y - vel.y);
             double zz = MathHelper.lerp(p, z, z - vel.z);
-            world.addParticle(ParticleTypes.SMALL_FLAME, xx, yy, zz, vx, vy, vz);
+            getWorld().addParticle(ParticleTypes.SMALL_FLAME, xx, yy, zz, vx, vy, vz);
         }
     }
 
     private void burstIntoFlames() {
-        if (!this.world.isClient) {
+        if (!this.getWorld().isClient) {
             BlockPos start = getBlockPos();
-            for (int i = 0; i < 2 && !Z7Util.isAirWithFullFaceBelow(world, start); i++) {
+            for (int i = 0; i < 2 && !Z7Util.isAirWithFullFaceBelow(getWorld(), start); i++) {
                 start = start.down();
             }
             int n = 4;
             int range = 12;
             int steps = 16;
-            var blocks = Z7Util.getBlocksAround(range, start, world);
+            var blocks = Z7Util.getBlocksAround(range, start, getWorld());
             var paths = new ArrayList<List<BlockPos>>();
             for (int i = 0; i < n; i++) {
 //                var thick = i == 0 || world.random.nextFloat() > 0.5;
 //                thick = false;
                 var backTrack = i % 2;
-                var path = Z7Util.randomWalkOnGround(steps, start, blocks, world, backTrack);
+                var path = Z7Util.randomWalkOnGround(steps, start, blocks, getWorld(), backTrack);
                 paths.add(path);
             }
 
             for (var path : paths) {
                 for (BlockPos blockPos : path) {
-                    if (Z7Util.isAirWithFullFaceBelow(world, blockPos) && world.random.nextFloat() > 0.15) {
-                        this.world.setBlockState(blockPos, AbstractFireBlock.getState(this.world, blockPos));
+                    if (Z7Util.isAirWithFullFaceBelow(getWorld(), blockPos) && getWorld().random.nextFloat() > 0.15) {
+                        this.getWorld().setBlockState(blockPos, AbstractFireBlock.getState(this.getWorld(), blockPos));
                     }
                 }
             }
@@ -92,7 +92,7 @@ public class MolotovGrenadeEntity extends Z7GrenadeEntity {
     @Override
     protected void onEntityHit(EntityHitResult entityHitResult) {
         super.onEntityHit(entityHitResult);
-        if (!this.world.isClient && isActive()) {
+        if (!this.getWorld().isClient && isActive()) {
             burstIntoFlames();
         }
     }
@@ -100,7 +100,7 @@ public class MolotovGrenadeEntity extends Z7GrenadeEntity {
     @Override
     protected void onBlockHit(BlockHitResult blockHitResult) {
         super.onBlockHit(blockHitResult);
-        if (!this.world.isClient && isActive()) {
+        if (!this.getWorld().isClient && isActive()) {
             burstIntoFlames();
         }
     }

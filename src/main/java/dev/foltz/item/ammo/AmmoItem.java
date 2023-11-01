@@ -1,7 +1,11 @@
 package dev.foltz.item.ammo;
 
+import dev.foltz.entity.Z7Entities;
+import dev.foltz.entity.bullet.BulletBronzeEntity;
 import dev.foltz.entity.bullet.Z7BulletEntity;
+import dev.foltz.item.CompositeResourceItem;
 import dev.foltz.item.Z7Items;
+import dev.foltz.item.gun.GunStagedItem;
 import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.entity.player.PlayerInventory;
 import net.minecraft.item.Item;
@@ -14,7 +18,7 @@ import java.util.function.Supplier;
 
 import static dev.foltz.Z7Util.identifier;
 
-public abstract class AmmoItem extends Item {
+public abstract class AmmoItem extends CompositeResourceItem {
     public static final TagKey<Item> AMMO_TYPE_PISTOL_TAG = TagKey.of(RegistryKeys.ITEM, identifier("ammo_type_pistol"));
     public static final TagKey<Item> AMMO_TYPE_MAGNUM_TAG = TagKey.of(RegistryKeys.ITEM, identifier("ammo_type_magnum"));
     public static final TagKey<Item> AMMO_TYPE_SHOTGUN_TAG = TagKey.of(RegistryKeys.ITEM, identifier("ammo_type_shotgun"));
@@ -32,6 +36,31 @@ public abstract class AmmoItem extends Item {
     public abstract float getBaseAccuracy(ItemStack itemStack);
 
     public abstract List<? extends Z7BulletEntity> createBulletEntities(PlayerEntity player, ItemStack gunStack, ItemStack ammoStack);
+
+    public <T extends Z7BulletEntity> T modifyBulletEntity(T bullet, PlayerEntity player, ItemStack gunStack, ItemStack ammoStack) {
+//        BulletBronzeEntity bullet = new BulletBronzeEntity(Z7Entities.BULLET_BRONZE_ENTITY, player.world);
+//        bullet.setHitBoxExpansion(1.0f);
+        bullet.setPosition(player.getX(), player.getEyeY() - bullet.getHeight() / 2f, player.getZ());
+        bullet.setOwner(player);
+
+        float totalDamage = getBaseDamage(ammoStack);
+        float totalSpeed = getBaseSpeed(ammoStack);
+        float baseDistance = getBaseRange(ammoStack);
+        float totalAccuracy = getBaseAccuracy(ammoStack);
+        if (gunStack.getItem() instanceof GunStagedItem gun) {
+            totalDamage = gun.getModifiedBulletDamage(gunStack, ammoStack, totalDamage);
+            totalSpeed = gun.getModifiedBulletSpeed(gunStack, ammoStack, totalSpeed);
+            baseDistance = gun.getModifiedBulletBaseRange(gunStack, ammoStack, baseDistance);
+            totalAccuracy = gun.getModifiedBulletAccuracy(gunStack, ammoStack, totalAccuracy);
+        }
+        bullet.setDamage(totalDamage);
+        float divergence = determineDivergence(totalAccuracy);
+
+        bullet.setVelocity(player, player.getPitch(), player.getYaw(), 0f, totalSpeed, divergence);
+        bullet.setBaseDistance(baseDistance);
+
+        return bullet;
+    }
 
     public static float determineDivergence(float totalAccuracy) {
              if (totalAccuracy >= 0.95f) return 0f;

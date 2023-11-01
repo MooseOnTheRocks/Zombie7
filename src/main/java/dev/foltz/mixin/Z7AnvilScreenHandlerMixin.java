@@ -78,14 +78,19 @@ public abstract class Z7AnvilScreenHandlerMixin {
 
         if (!result.isDamageable() || result.getDamage() == 0) {
 //            System.out.println("Gun cannot be repaired atm...");
-            this.levelCost.set(0);
             this.repairItemUsage = 0;
         }
         else {
             repaired = true;
             result.setDamage(0);
-            this.levelCost.set(0);
+            gunItem.setStageId(stackTool, gunItem.stagesGraph.idFromName("default"));
             this.repairItemUsage = 1;
+        }
+
+        this.levelCost.set(0);
+
+        if (renamed) {
+            this.levelCost.set(1);
         }
 
         if (renamed || repaired) {

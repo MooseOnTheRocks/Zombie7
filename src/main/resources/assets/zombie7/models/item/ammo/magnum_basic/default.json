@@ -1,0 +1,8 @@
+{
+  "parent": "item/generated",
+  "overrides": [
+    { "predicate": { "stack_count": 0.0 }, "model": "zombie7:item/ammo/magnum_basic/single" },
+    { "predicate": { "stack_count": 0.125 }, "model": "zombie7:item/ammo/magnum_basic/some" },
+    { "predicate": { "stack_count": 0.5 }, "model": "zombie7:item/ammo/magnum_basic/many" }
+  ]
+}

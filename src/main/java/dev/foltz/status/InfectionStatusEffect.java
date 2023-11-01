@@ -14,7 +14,7 @@ public class InfectionStatusEffect extends Z7StatusEffect {
 
     @Override
     public void applyUpdateEffect(LivingEntity entity, int amplifier) {
-        if (!entity.world.isClient) {
+        if (!entity.getWorld().isClient) {
             entity.damage(entity.getDamageSources().create(Zombie7.INFECTION_DAMAGE_TYPE), Float.MAX_VALUE);
         }
     }

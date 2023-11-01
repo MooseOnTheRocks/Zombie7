@@ -73,7 +73,7 @@ public abstract class Z7BulletEntity extends ProjectileEntity {
 
     @Nullable
     protected EntityHitResult getEntityCollision(Vec3d currentPosition, Vec3d nextPosition) {
-        return ProjectileUtil.getEntityCollision(this.world, this, currentPosition, nextPosition, this.getBoundingBox().stretch(this.getVelocity()).expand(1.0), this::canHit);
+        return ProjectileUtil.getEntityCollision(this.getWorld(), this, currentPosition, nextPosition, this.getBoundingBox().stretch(this.getVelocity()).expand(1.0), this::canHit);
     }
 
     @Override
@@ -86,7 +86,7 @@ public abstract class Z7BulletEntity extends ProjectileEntity {
         this.onCollision(hitResult);
 
         if (hitResult.getType() == HitResult.Type.MISS) {
-            var entities = this.world.getOtherEntities(this, this.getBoundingBox().expand(hitBoxExpansion));
+            var entities = this.getWorld().getOtherEntities(this, this.getBoundingBox().expand(hitBoxExpansion));
             boolean entityHit = false;
             if (!entities.isEmpty()) {
                 for (var entity : entities) {
@@ -95,7 +95,7 @@ public abstract class Z7BulletEntity extends ProjectileEntity {
                         entityHit = true;
                     }
                 }
-                if (entityHit && !this.world.isClient) {
+                if (entityHit && !this.getWorld().isClient) {
                     this.discard();
                 }
             }
@@ -103,11 +103,11 @@ public abstract class Z7BulletEntity extends ProjectileEntity {
         else if (hitResult.getType() == HitResult.Type.BLOCK) {
             this.onBlockHit((BlockHitResult) hitResult);
         }
-        else if (!this.world.isClient && hitResult.getType() == HitResult.Type.ENTITY) {
+        else if (!this.getWorld().isClient && hitResult.getType() == HitResult.Type.ENTITY) {
             this.discard();
         }
 
-        if (!this.world.isClient && this.world.getStatesInBox(this.getBoundingBox()).noneMatch(AbstractBlock.AbstractBlockState::isAir)) {
+        if (!this.getWorld().isClient && this.getWorld().getStatesInBox(this.getBoundingBox()).noneMatch(AbstractBlock.AbstractBlockState::isAir)) {
             this.discard();
             return;
         }
@@ -125,7 +125,7 @@ public abstract class Z7BulletEntity extends ProjectileEntity {
         double f = this.getZ() + vec3d.z;
         this.updateRotation();
         this.setPosition(d, e, f);
-        if (!this.world.isClient) {
+        if (!this.getWorld().isClient) {
             this.distanceTraveled += Math.sqrt(vec3d.x * vec3d.x + vec3d.y * vec3d.y + vec3d.z * vec3d.z);
         }
     }
@@ -133,7 +133,7 @@ public abstract class Z7BulletEntity extends ProjectileEntity {
     @Override
     protected void onBlockHit(BlockHitResult blockHitResult) {
         super.onBlockHit(blockHitResult);
-        if (!this.world.isClient) {
+        if (!this.getWorld().isClient) {
 //            System.out.println("Block hit! Discarding!");
             this.discard();
         }
@@ -153,7 +153,7 @@ public abstract class Z7BulletEntity extends ProjectileEntity {
 
         float newDist = distanceTraveled + edist;
 
-        if (!this.world.isClient && entity instanceof LivingEntity livingEntity) {
+        if (!this.getWorld().isClient && entity instanceof LivingEntity livingEntity) {
             float damage = getDamage(newDist);
 
             if (entityHitResult.getEntity().damage(this.getDamageSources().create(Zombie7.BULLET_DAMAGE_TYPE, this, this.getOwner() instanceof LivingEntity e ? e : null), damage)) {

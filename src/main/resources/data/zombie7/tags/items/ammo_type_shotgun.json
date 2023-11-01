@@ -1,7 +1,7 @@
 {
   "replace": false,
   "values": [
-    "zombie7:ammo/shotgun_basic",
-    "zombie7:ammo/shotgun_rubber"
+    "zombie7:ammo/shotgun_basic/default",
+    "zombie7:ammo/shotgun_rubber/default"
   ]
 }

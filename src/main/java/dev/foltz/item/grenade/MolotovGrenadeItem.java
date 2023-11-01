@@ -31,7 +31,7 @@ public class MolotovGrenadeItem extends GrenadeStagedItem {
 
     @Override
     public List<? extends Z7GrenadeEntity> createGrenadeEntities(LivingEntity entity, ItemStack stack) {
-        MolotovGrenadeEntity grenade = new MolotovGrenadeEntity(Z7Entities.MOLOTOV_GRENADE_ENTITY, entity.world);
+        MolotovGrenadeEntity grenade = new MolotovGrenadeEntity(Z7Entities.MOLOTOV_GRENADE_ENTITY, entity.getWorld());
         if (getStageName(stack).equals(STAGE_LIT)) {
             grenade.setLit(true);
         }

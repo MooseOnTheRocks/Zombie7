@@ -44,7 +44,7 @@ public class ContactGrenadeItem extends GrenadeStagedItem {
 
     @Override
     public List<? extends Z7GrenadeEntity> createGrenadeEntities(LivingEntity entity, ItemStack stack) {
-        ContactGrenadeEntity grenade = new ContactGrenadeEntity(Z7Entities.CONTACT_GRENADE_ENTITY, entity.world);
+        ContactGrenadeEntity grenade = new ContactGrenadeEntity(Z7Entities.CONTACT_GRENADE_ENTITY, entity.getWorld());
         if (getStageName(stack).equals(STAGE_PRIMED)) {
             int fuseTime = Math.max(1, getMaxStageTicks(stack) - getStageTicks(stack));
             grenade.setFuseTime(fuseTime);

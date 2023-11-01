@@ -10,7 +10,7 @@ import java.util.Map;
 import static dev.foltz.Z7Util.*;
 
 public class DeaglePistolItem extends GunStagedItem {
-    public static final int FIRE_WAIT_TICKS = ticksFromSeconds(0.25f);
+    public static final int FIRE_WAIT_TICKS = ticksFromSeconds(0.4f);
     public static final String STAGE_DEFAULT = "default";
     public static final String STAGE_BROKEN = "broken";
     public static final String STAGE_RELOADING = "reloading";

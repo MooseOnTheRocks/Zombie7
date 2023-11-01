@@ -2,7 +2,7 @@ package dev.foltz.mixin.client;
 
 import com.mojang.blaze3d.systems.RenderSystem;
 import dev.foltz.Zombie7Client;
-import dev.foltz.status.StatusEffects;
+import dev.foltz.status.Z7StatusEffects;
 import net.fabricmc.api.EnvType;
 import net.fabricmc.api.Environment;
 import net.minecraft.client.render.BackgroundRenderer;
@@ -38,14 +38,14 @@ public abstract class Z7FogModifierMixin {
             return;
         }
 
-        if (entity.hasStatusEffect(StatusEffects.STATUS_EFFECT_CONCUSSION)) {
-            StatusEffectInstance status = entity.getStatusEffect(StatusEffects.STATUS_EFFECT_CONCUSSION);
+        if (entity.hasStatusEffect(Z7StatusEffects.STATUS_EFFECT_CONCUSSION)) {
+            StatusEffectInstance status = entity.getStatusEffect(Z7StatusEffects.STATUS_EFFECT_CONCUSSION);
             if (status != null) {
                 RenderSystem.clearColor(0.9f, 0.9f, 0.9f, 0.0f);
             }
         }
-        else if (entity.hasStatusEffect(StatusEffects.STATUS_EFFECT_CONCUSSION_LONG)) {
-            StatusEffectInstance status = entity.getStatusEffect(StatusEffects.STATUS_EFFECT_CONCUSSION_LONG);
+        else if (entity.hasStatusEffect(Z7StatusEffects.STATUS_EFFECT_CONCUSSION_LONG)) {
+            StatusEffectInstance status = entity.getStatusEffect(Z7StatusEffects.STATUS_EFFECT_CONCUSSION_LONG);
             if (status != null) {
                 RenderSystem.clearColor(0.9f, 0.9f, 0.9f, 0.0f);
             }

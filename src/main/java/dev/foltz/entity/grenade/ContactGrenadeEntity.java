@@ -29,10 +29,10 @@ public class ContactGrenadeEntity extends Z7GrenadeEntity {
         else {
             ticksToExplode -= 1;
 
-            if (!this.world.isClient) {
+            if (!this.getWorld().isClient) {
                 if (ticksToExplode <= 0) {
-                    world.createExplosion(null, getX(), getY(), getZ(), 5f, World.ExplosionSourceType.NONE);
-                    world.createExplosion(null, getX(), getY(), getZ(), 0.25f, World.ExplosionSourceType.TNT);
+                    getWorld().createExplosion(null, getX(), getY(), getZ(), 5f, World.ExplosionSourceType.NONE);
+                    getWorld().createExplosion(null, getX(), getY(), getZ(), 0.25f, World.ExplosionSourceType.TNT);
                     this.discard();
                 }
                 else {
@@ -44,9 +44,9 @@ public class ContactGrenadeEntity extends Z7GrenadeEntity {
 
     @Override
     protected void onEntityHit(EntityHitResult entityHitResult) {
-        if (!this.world.isClient) {
-            world.createExplosion(null, getX(), getY(), getZ(), 5f, World.ExplosionSourceType.NONE);
-            world.createExplosion(null, getX(), getY(), getZ(), 0.25f, World.ExplosionSourceType.TNT);
+        if (!this.getWorld().isClient) {
+            getWorld().createExplosion(null, getX(), getY(), getZ(), 5f, World.ExplosionSourceType.NONE);
+            getWorld().createExplosion(null, getX(), getY(), getZ(), 0.25f, World.ExplosionSourceType.TNT);
             this.discard();
         }
     }
@@ -68,9 +68,9 @@ public class ContactGrenadeEntity extends Z7GrenadeEntity {
             case UP -> {
 //                System.out.println("prevVel: " + prevVelocity);
                 if (prevVelocity.length() <= 0.2f) {
-                    this.inBlockState = this.world.getBlockState(blockHitResult.getBlockPos());
-                    BlockState blockState = this.world.getBlockState(blockHitResult.getBlockPos());
-                    blockState.onProjectileHit(this.world, blockState, blockHitResult, this);
+                    this.inBlockState = this.getWorld().getBlockState(blockHitResult.getBlockPos());
+                    BlockState blockState = this.getWorld().getBlockState(blockHitResult.getBlockPos());
+                    blockState.onProjectileHit(this.getWorld(), blockState, blockHitResult, this);
                     this.playSound(this.getSound(), 1.0f, 1.2f / (this.random.nextFloat() * 0.2f + 0.9f));
                     this.inGround = true;
                     this.setVelocity(Vec3d.ZERO);

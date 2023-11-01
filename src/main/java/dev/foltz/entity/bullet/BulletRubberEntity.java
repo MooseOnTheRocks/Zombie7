@@ -16,7 +16,7 @@ public class BulletRubberEntity extends Z7BulletEntity {
     @Override
     protected void onEntityHit(EntityHitResult entityHitResult) {
         super.onEntityHit(entityHitResult);
-        if (!this.world.isClient && entityHitResult.getEntity() instanceof LivingEntity livingEntity) {
+        if (!this.getWorld().isClient && entityHitResult.getEntity() instanceof LivingEntity livingEntity) {
             Vec3d vec3d = this.getVelocity().multiply(1.0, 0.0, 1.0).normalize().multiply(MathHelper.map(getVelocity().length(), 0, 0.8, 1, 4));
             if (vec3d.lengthSquared() > 0.0) {
                 float f = 0.05f;

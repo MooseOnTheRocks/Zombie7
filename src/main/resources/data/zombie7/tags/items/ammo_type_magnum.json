@@ -1,6 +1,6 @@
 {
   "replace": false,
   "values": [
-    "zombie7:ammo/magnum_basic"
+    "zombie7:ammo/magnum_basic/default"
   ]
 }

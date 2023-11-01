@@ -40,7 +40,7 @@ public class BowlingBallGrenadeEntity extends Z7GrenadeEntity {
 
 
         Vec3d vec3d3 = this.getPos();
-        HitResult hitResult = this.world.raycast(new RaycastContext(vec3d3, vec3d2 = vec3d3.add(vec3d), RaycastContext.ShapeType.COLLIDER, RaycastContext.FluidHandling.NONE, this));
+        HitResult hitResult = this.getWorld().raycast(new RaycastContext(vec3d3, vec3d2 = vec3d3.add(vec3d), RaycastContext.ShapeType.COLLIDER, RaycastContext.FluidHandling.NONE, this));
         if (hitResult.getType() != HitResult.Type.MISS) {
             vec3d2 = hitResult.getPos();
         }
@@ -76,12 +76,12 @@ public class BowlingBallGrenadeEntity extends Z7GrenadeEntity {
 //        this.checkBlockCollision();
 
         this.move(MovementType.SELF, this.getVelocity());
-        if (!this.onGround) {
+        if (!this.isOnGround()) {
             this.setVelocity(this.getVelocity().subtract(0, 0.1, 0));
         }
         else {
             this.setVelocity(this.getVelocity().multiply(0.98));
-            if (this.getVelocity().length() < 0.05 && this.onGround) {
+            if (this.getVelocity().length() < 0.05 && this.isOnGround()) {
 //                System.out.println("Allowed to pickup");
                 if (this.getOwner() != null && this.getOwner() instanceof PlayerEntity player && player.getAbilities().creativeMode) {
                     this.pickupType = PickupPermission.CREATIVE_ONLY;
@@ -108,7 +108,7 @@ public class BowlingBallGrenadeEntity extends Z7GrenadeEntity {
 
     @Override
     public void onPlayerCollision(PlayerEntity player) {
-        if (this.world.isClient || !this.onGround && !this.isNoClip()) {
+        if (this.getWorld().isClient || !this.isOnGround() && !this.isNoClip()) {
             return;
         }
         if (this.tryPickup(player)) {
@@ -132,7 +132,7 @@ public class BowlingBallGrenadeEntity extends Z7GrenadeEntity {
 
     @Override
     protected void onEntityHit(EntityHitResult entityHitResult) {
-        if (!world.isClient) {
+        if (!getWorld().isClient) {
             this.setVelocity(this.getVelocity().multiply(0.90));
             if (entityHitResult.getEntity() instanceof BowlingBallGrenadeEntity other) {
                 var diff = this.getPos().subtract(other.getPos()).normalize();
@@ -141,7 +141,7 @@ public class BowlingBallGrenadeEntity extends Z7GrenadeEntity {
 //                this.addVelocity(diff.multiply(other.getVelocity().rotateY((float) (Math.random() * Math.PI * 2)).multiply(0.3)));
             }
             else if (entityHitResult.getEntity() instanceof LivingEntity livingEntity) {
-                var entities = world.getOtherEntities(this, this.getBoundingBox().expand(1d),
+                var entities = getWorld().getOtherEntities(this, this.getBoundingBox().expand(1d),
                         e -> e.isLiving() && !e.getUuid().equals(this.getOwner() != null ? this.getOwner().getUuid() : null));
 
 //                if (entities.size() > 0) {
@@ -163,8 +163,8 @@ public class BowlingBallGrenadeEntity extends Z7GrenadeEntity {
             double g = vec3d.z;
             int pcount = (int) MathHelper.map(Math.min(1, vec3d.length()), 0, 1, 2, 10);
             for (int i = 0; i < pcount; ++i) {
-                this.world.addParticle(ParticleTypes.CRIT, this.getX() + e * (double) i / 4.0, this.getY() + f * (double) i / 4.0, this.getZ() + g * (double) i / 4.0, -e, -f + 0.2, -g);
-                this.world.playSound(null, this.getX(), this.getY(), this.getZ(), SoundEvents.ITEM_SHIELD_BLOCK, SoundCategory.NEUTRAL, 0.5f, -4.0f);
+                this.getWorld().addParticle(ParticleTypes.CRIT, this.getX() + e * (double) i / 4.0, this.getY() + f * (double) i / 4.0, this.getZ() + g * (double) i / 4.0, -e, -f + 0.2, -g);
+                this.getWorld().playSound(null, this.getX(), this.getY(), this.getZ(), SoundEvents.ITEM_SHIELD_BLOCK, SoundCategory.NEUTRAL, 0.5f, -4.0f);
             }
         }
     }

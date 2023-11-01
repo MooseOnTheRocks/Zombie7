@@ -35,7 +35,7 @@ public abstract class GrenadeStagedItem extends StagedItem<GrenadeStagedItem> {
     }
 
     public void playSoundReloadCancel(ItemStack stack, Entity entity) {
-        entity.world.playSound(null, entity.getX(), entity.getY(), entity.getZ(), SoundEvents.ITEM_CROSSBOW_LOADING_END, SoundCategory.PLAYERS, 0.5f, 3.0f);
+        entity.getWorld().playSound(null, entity.getX(), entity.getY(), entity.getZ(), SoundEvents.ITEM_CROSSBOW_LOADING_END, SoundCategory.PLAYERS, 0.5f, 3.0f);
     }
 
     public abstract List<? extends Z7GrenadeEntity> createGrenadeEntities(LivingEntity entity, ItemStack stack);

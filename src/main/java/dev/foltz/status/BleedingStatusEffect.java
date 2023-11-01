@@ -23,11 +23,14 @@ public class BleedingStatusEffect extends Z7StatusEffect {
     @Override
     public void applyUpdateEffect(LivingEntity entity, int amplifier) {
         entity.damage(entity.getDamageSources().create(Zombie7.BLEEDING_DAMAGE_TYPE), 0.33f);
+        if (entity.getStatusEffect(this).getDuration() == 1) {
+            entity.addStatusEffect(new StatusEffectInstance(Z7StatusEffects.STATUS_EFFECT_BLEEDING_LONG, LONG_DURATION));
+        }
     }
 
-    @Override
-    public void onRemoved(LivingEntity entity, AttributeContainer attributes, int amplifier) {
-        super.onRemoved(entity, attributes, amplifier);
-        entity.addStatusEffect(new StatusEffectInstance(StatusEffects.STATUS_EFFECT_BLEEDING_LONG, LONG_DURATION));
-    }
+//    @Override
+//    public void onRemoved(LivingEntity entity, AttributeContainer attributes, int amplifier) {
+//        super.onRemoved(entity, attributes, amplifier);
+//        entity.addStatusEffect(new StatusEffectInstance(Z7StatusEffects.STATUS_EFFECT_BLEEDING_LONG, LONG_DURATION));
+//    }
 }

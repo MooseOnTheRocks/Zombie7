@@ -5,7 +5,6 @@ import dev.foltz.item.Z7Items;
 import net.fabricmc.fabric.api.object.builder.v1.block.FabricBlockSettings;
 import net.minecraft.block.Block;
 import net.minecraft.block.BlockState;
-import net.minecraft.block.Material;
 import net.minecraft.registry.Registries;
 import net.minecraft.registry.Registry;
 import net.minecraft.sound.BlockSoundGroup;
@@ -27,7 +26,7 @@ public abstract class Z7Blocks {
         return true;
     }
 
-    public static final Block GORE_BLOCK = registerBlock("gore_block", new GoreBlock(FabricBlockSettings.of(Material.SOLID_ORGANIC)
+    public static final Block GORE_BLOCK = registerBlock("gore_block", new GoreBlock(FabricBlockSettings.create()
             .velocityMultiplier(0.75f)
             .allowsSpawning(Z7Blocks::always)
             .solidBlock(Z7Blocks::always)

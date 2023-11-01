@@ -27,7 +27,7 @@ public class Z7ClientPlayNetworkHandlerMixin {
 
     @Inject(
             method = "onEntitySpawn(Lnet/minecraft/network/packet/s2c/play/EntitySpawnS2CPacket;)V",
-            at = @At(value = "INVOKE_ASSIGN", target = "Lnet/minecraft/network/packet/s2c/play/EntitySpawnS2CPacket;getEntityType()Lnet/minecraft/entity/EntityType;"),
+            at = @At(value = "INVOKE_ASSIGN", target = "Lnet/minecraft/entity/EntityType;create(Lnet/minecraft/world/World;)Lnet/minecraft/entity/Entity;"),
             cancellable = true,
             locals = LocalCapture.CAPTURE_FAILHARD
     ) // thank you parzivail

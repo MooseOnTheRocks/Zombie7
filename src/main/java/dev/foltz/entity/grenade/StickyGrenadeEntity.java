@@ -35,7 +35,7 @@ public class StickyGrenadeEntity extends Z7GrenadeEntity {
                 this.setVelocity(Vec3d.ZERO);
                 this.setNoGravity(true);
                 this.setNoClip(true);
-                if (!world.isClient) {
+                if (!getWorld().isClient) {
                     this.setPosition(entityStuck.getPos().add(stuckOffset));
                 }
             }
@@ -53,10 +53,10 @@ public class StickyGrenadeEntity extends Z7GrenadeEntity {
             else {
                 ticksToExplode -= 1;
 
-                if (!this.world.isClient) {
+                if (!this.getWorld().isClient) {
                     if (ticksToExplode <= 0) {
-                        world.createExplosion(null, getX(), getY(), getZ(), 5f, World.ExplosionSourceType.NONE);
-                        world.createExplosion(null, getX(), getY(), getZ(), 0.25f, World.ExplosionSourceType.TNT);
+                        getWorld().createExplosion(null, getX(), getY(), getZ(), 5f, World.ExplosionSourceType.NONE);
+                        getWorld().createExplosion(null, getX(), getY(), getZ(), 0.25f, World.ExplosionSourceType.TNT);
                         this.discard();
                     }
                     else {
@@ -90,7 +90,7 @@ public class StickyGrenadeEntity extends Z7GrenadeEntity {
     @Override
     protected void onBlockHit(BlockHitResult blockHitResult) {
         if (!inGround && entityStuck == null) {
-            this.inBlockState = this.world.getBlockState(blockHitResult.getBlockPos());
+            this.inBlockState = this.getWorld().getBlockState(blockHitResult.getBlockPos());
             super.onBlockHit(blockHitResult);
             Vec3d vec3d = blockHitResult.getPos().subtract(this.getX(), this.getY(), this.getZ());
             this.setVelocity(vec3d);

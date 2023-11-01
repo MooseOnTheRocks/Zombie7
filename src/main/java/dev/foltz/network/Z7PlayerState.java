@@ -16,7 +16,7 @@ public class Z7PlayerState {
 
     public Z7PlayerState(LivingEntity player) {
         this.player = player;
-        this.serverState = Z7ServerState.getServerState(player.world.getServer());
+        this.serverState = Z7ServerState.getServerState(player.getWorld().getServer());
         this.isShooting = false;
         this.isReloading = false;
         this.isAiming = false;

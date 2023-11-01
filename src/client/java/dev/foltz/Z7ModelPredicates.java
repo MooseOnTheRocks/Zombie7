@@ -25,11 +25,6 @@ import java.util.List;
 import java.util.function.Consumer;
 
 public abstract class Z7ModelPredicates {
-//    public static final Consumer<Z7GunItem> USAGE_STAGE = makePredicate("usage_stage", (gun, stack, livingEntity, world) -> {
-//        int maxUse = gun.getMaxUsageTicks(stack);
-//        return maxUse == 0 ? 0.0f : gun.getUsageStage(stack) / (float) maxUse;
-//    });
-
     public static final Consumer<Item> STACK_COUNT = makePredicate("stack_count", (item, stack, livingEntity, world) -> stack.getCount() / (float) stack.getMaxCount());
 
     public static final Consumer<GunStagedItem> USAGE_TICKS = makePredicate("usage_stage", (gun, stack, livingEntity, world) -> {
@@ -47,7 +42,7 @@ public abstract class Z7ModelPredicates {
     }
 
     public static <T extends StagedItem> Consumer<T> stagePredicate(String predName, String... stageName) {
-        return booleanPredicate(predName, (item, stack, entity, world) -> Arrays.asList(stageName).contains(item.getStageName(stack)));
+        return booleanPredicate(predName, (item, stack, entity, world) -> List.of(stageName).contains(item.getStageName(stack)));
     }
 
     public static void registerItemsWithPredicates(List<Item> items, List<Consumer<? extends Item>> predicates) {
@@ -68,7 +63,10 @@ public abstract class Z7ModelPredicates {
 
         // == Grenades
         registerItemsWithPredicates(
-            List.of(Z7Items.ITEM_FRAG_GRENADE, Z7Items.ITEM_CONTACT_GRENADE, Z7Items.ITEM_STICKY_GRENADE),
+            List.of(
+                Z7Items.ITEM_FRAG_GRENADE,
+                Z7Items.ITEM_CONTACT_GRENADE,
+                Z7Items.ITEM_STICKY_GRENADE),
             List.of(
                 stagePredicate("is_priming", FragGrenadeItem.STAGE_PRIMING),
                 stagePredicate("is_primed", FragGrenadeItem.STAGE_PRIMED),
@@ -82,7 +80,9 @@ public abstract class Z7ModelPredicates {
         // == Guns
         // -- Pistols
         registerItemsWithPredicates(
-            List.of(Z7Items.ITEM_PISTOL_FLINTLOCK, Z7Items.ITEM_PISTOL_BASIC),
+            List.of(
+                Z7Items.ITEM_PISTOL_FLINTLOCK,
+                Z7Items.ITEM_PISTOL_BASIC),
             List.of(
                 stagePredicate("is_readying", FlintlockPistolItem.STAGE_COCKING),
                 stagePredicate("is_reloading", FlintlockPistolItem.STAGE_RELOADING),
@@ -92,8 +92,10 @@ public abstract class Z7ModelPredicates {
                 USAGE_TICKS));
 
         // -- Magnums
-        registerItemWithPredicates(
-            Z7Items.ITEM_PISTOL_DEAGLE,
+        registerItemsWithPredicates(
+            List.of(
+                Z7Items.ITEM_PISTOL_DEAGLE,
+                Z7Items.ITEM_PISTOL_GLOCK),
             List.of(
                 stagePredicate("is_reloading", DeaglePistolItem.STAGE_RELOADING),
                 stagePredicate("is_ready_to_fire", DeaglePistolItem.STAGE_READY),
@@ -142,7 +144,7 @@ public abstract class Z7ModelPredicates {
                 stagePredicate("is_broken", AkRifleItem.STAGE_BROKEN),
                 USAGE_TICKS));
 
-        // "Numerous" items
+        // -- "Numerous" items
         registerItemsWithPredicates(
             List.of(
                 Z7Items.ITEM_AMMO_PISTOL,

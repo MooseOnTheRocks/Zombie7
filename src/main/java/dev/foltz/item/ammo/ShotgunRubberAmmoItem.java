@@ -40,29 +40,11 @@ public class ShotgunRubberAmmoItem extends AmmoItem {
     @Override
     public List<BulletRubberEntity> createBulletEntities(PlayerEntity player, ItemStack gunStack, ItemStack ammoStack) {
         ArrayList<BulletRubberEntity> bullets = new ArrayList<>();
-        int n = player.world.random.nextFloat() > 0.75f ? 12 : 9;
+        int n = player.getWorld().random.nextFloat() > 0.75f ? 12 : 9;
         for (int i = 0; i < n; i++) {
-            BulletRubberEntity bullet = new BulletRubberEntity(Z7Entities.BULLET_RUBBER_ENTITY, player.world);
-            bullet.setHitBoxExpansion(0.0f);
-            bullet.setPosition(player.getX(), player.getEyeY() - bullet.getHeight() / 2f, player.getZ());
-            bullet.setOwner(player);
-
-            float totalDamage = getBaseDamage(ammoStack);
-            float totalSpeed = getBaseSpeed(ammoStack);
-            float baseDistance = getBaseRange(ammoStack);
-            float totalAccuracy = getBaseAccuracy(ammoStack);
-            if (gunStack.getItem() instanceof GunStagedItem gun) {
-                totalDamage = gun.getModifiedBulletDamage(gunStack, ammoStack, totalDamage);
-                totalSpeed = gun.getModifiedBulletSpeed(gunStack, ammoStack, totalSpeed);
-                baseDistance = gun.getModifiedBulletBaseRange(gunStack, ammoStack, baseDistance);
-                totalAccuracy = gun.getModifiedBulletAccuracy(gunStack, ammoStack, totalAccuracy);
-            }
-            bullet.setDamage(totalDamage);
-            float divergence = determineDivergence(totalAccuracy);
-//            System.out.println("divergence = " + divergence);
-            bullet.setVelocity(player, player.getPitch(), player.getYaw(), 0f, totalSpeed, divergence);
-            bullet.setBaseDistance(baseDistance);
-
+            BulletRubberEntity bullet = new BulletRubberEntity(Z7Entities.BULLET_RUBBER_ENTITY, player.getWorld());
+            bullet.setHitBoxExpansion(0.25f);
+            bullet = modifyBulletEntity(bullet, player, gunStack, ammoStack);
             bullets.add(bullet);
         }
         return List.copyOf(bullets);

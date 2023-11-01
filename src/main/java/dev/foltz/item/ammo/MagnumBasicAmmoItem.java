@@ -36,27 +36,9 @@ public class MagnumBasicAmmoItem extends AmmoItem {
 
     @Override
     public List<BulletBronzeEntity> createBulletEntities(PlayerEntity player, ItemStack gunStack, ItemStack ammoStack) {
-        BulletBronzeEntity bullet = new BulletBronzeEntity(Z7Entities.BULLET_BRONZE_ENTITY, player.world);
+        BulletBronzeEntity bullet = new BulletBronzeEntity(Z7Entities.BULLET_BRONZE_ENTITY, player.getWorld());
         bullet.setHitBoxExpansion(1.0f);
-        bullet.setPosition(player.getX(), player.getEyeY() - bullet.getHeight() / 2f, player.getZ());
-        bullet.setOwner(player);
-
-        float totalDamage = getBaseDamage(ammoStack);
-        float totalSpeed = getBaseSpeed(ammoStack);
-        float baseDistance = getBaseRange(ammoStack);
-        float totalAccuracy = getBaseAccuracy(ammoStack);
-        if (gunStack.getItem() instanceof GunStagedItem gun) {
-            totalDamage = gun.getModifiedBulletDamage(gunStack, ammoStack, totalDamage);
-            totalSpeed = gun.getModifiedBulletSpeed(gunStack, ammoStack, totalSpeed);
-            baseDistance = gun.getModifiedBulletBaseRange(gunStack, ammoStack, baseDistance);
-            totalAccuracy = gun.getModifiedBulletAccuracy(gunStack, ammoStack, totalAccuracy);
-        }
-        bullet.setDamage(totalDamage);
-        float divergence = determineDivergence(totalAccuracy);
-
-        bullet.setVelocity(player, player.getPitch(), player.getYaw(), 0f, totalSpeed, divergence);
-        bullet.setBaseDistance(baseDistance);
-
+        bullet = modifyBulletEntity(bullet, player, gunStack, ammoStack);
         return List.of(bullet);
     }
 }

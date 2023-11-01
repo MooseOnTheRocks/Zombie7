@@ -1,6 +1,7 @@
 package dev.foltz.item.consumable;
 
-import dev.foltz.status.StatusEffects;
+import dev.foltz.item.CompositeResourceItem;
+import dev.foltz.status.Z7StatusEffects;
 import net.fabricmc.fabric.api.item.v1.FabricItemSettings;
 import net.minecraft.advancement.criterion.Criteria;
 import net.minecraft.client.item.TooltipContext;
@@ -24,7 +25,7 @@ import org.jetbrains.annotations.Nullable;
 
 import java.util.List;
 
-public class PainkillersItem extends Item {
+public class PainkillersItem extends CompositeResourceItem {
 //    public static final StatusEffectInstance EFFECT_HEALTH = new StatusEffectInstance(StatusEffects.INSTANT_HEALTH, 1, 1);
     public static final int HEAL_AMOUNT = 5; // Number of half-hearts.
 
@@ -39,8 +40,8 @@ public class PainkillersItem extends Item {
             Criteria.CONSUME_ITEM.trigger((ServerPlayerEntity)playerEntity, stack);
         }
         if (!world.isClient) {
-            user.removeStatusEffect(StatusEffects.STATUS_EFFECT_CONCUSSION);
-            user.removeStatusEffect(StatusEffects.STATUS_EFFECT_CONCUSSION_LONG);
+            user.removeStatusEffect(Z7StatusEffects.STATUS_EFFECT_CONCUSSION);
+            user.removeStatusEffect(Z7StatusEffects.STATUS_EFFECT_CONCUSSION_LONG);
             user.heal(HEAL_AMOUNT);
 //            user.addStatusEffect(new StatusEffectInstance(Z7StatusEffects.STATUS_EFFECT_HEALING, 280));
         }
@@ -66,7 +67,7 @@ public class PainkillersItem extends Item {
 
     @Override
     public TypedActionResult<ItemStack> use(World world, PlayerEntity user, Hand hand) {
-        if (user.hasStatusEffect(StatusEffects.STATUS_EFFECT_CONCUSSION) || user.hasStatusEffect(StatusEffects.STATUS_EFFECT_CONCUSSION_LONG) || user.getMaxHealth() != user.getHealth()) {
+        if (user.hasStatusEffect(Z7StatusEffects.STATUS_EFFECT_CONCUSSION) || user.hasStatusEffect(Z7StatusEffects.STATUS_EFFECT_CONCUSSION_LONG) || user.getMaxHealth() != user.getHealth()) {
             return ItemUsage.consumeHeldItem(world, user, hand);
         }
         else {
@@ -82,6 +83,6 @@ public class PainkillersItem extends Item {
         tooltip.add(ScreenTexts.EMPTY);
         tooltip.add(Text.translatable("tooltip.whenApplied").formatted(Formatting.DARK_PURPLE));
         tooltip.add(Text.translatable("attribute.modifier.plus.0", ItemStack.MODIFIER_FORMAT.format(HEAL_AMOUNT), Text.translatable(net.minecraft.entity.effect.StatusEffects.INSTANT_HEALTH.getTranslationKey())).formatted(Formatting.BLUE));
-        tooltip.add(Text.translatable("attribute.modifier.take.1", ItemStack.MODIFIER_FORMAT.format(100), Text.translatable(StatusEffects.STATUS_EFFECT_CONCUSSION.getTranslationKey())).formatted(Formatting.BLUE));
+        tooltip.add(Text.translatable("attribute.modifier.take.1", ItemStack.MODIFIER_FORMAT.format(100), Text.translatable(Z7StatusEffects.STATUS_EFFECT_CONCUSSION.getTranslationKey())).formatted(Formatting.BLUE));
     }
 }

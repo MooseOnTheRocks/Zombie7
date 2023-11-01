@@ -1,0 +1,24 @@
+{
+  "type": "minecraft:crafting_shaped",
+  "category": "misc",
+  "key": {
+    "#": {
+      "item": "minecraft:stick"
+    },
+    "X": {
+      "item": "minecraft:white_wool"
+    },
+    "s": {
+      "item": "minecraft:string"
+    }
+  },
+  "pattern": [
+    "#X#",
+    "#s#",
+    "#X#"
+  ],
+  "result": {
+    "item": "zombie7:consumable/splint"
+  },
+  "show_notification": true
+}

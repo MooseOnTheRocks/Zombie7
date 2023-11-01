@@ -9,6 +9,7 @@
   "item.zombie7.material.part_axe_steel": "Steel Axe Part",
 
   "item.zombie7.consumable.bandage": "Bandage",
+  "item.zombie7.consumable.healing_bandage": "Healing Bandage",
   "item.zombie7.consumable.splint": "Splint",
   "item.zombie7.consumable.antibiotics": "Antibiotics",
   "item.zombie7.consumable.painkillers": "Painkillers",
@@ -20,6 +21,7 @@
   "item.zombie7.ammo.magnum_basic": "Basic Magnum Ammo",
 
   "item.zombie7.gun.pistol_basic": "Basic Pistol",
+  "item.zombie7.gun.pistol_glock": "Glock 17",
   "item.zombie7.gun.pistol_flintlock": "Flintlock Pistol",
   "item.zombie7.gun.shotgun_basic": "Basic Shotgun",
   "item.zombie7.gun.shotgun_aa12": "AA-12",

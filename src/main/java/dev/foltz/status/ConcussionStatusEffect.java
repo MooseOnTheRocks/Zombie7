@@ -13,10 +13,19 @@ public class ConcussionStatusEffect extends Z7StatusEffect {
         super(StatusEffectCategory.HARMFUL, 0xDDDDDD);
     }
 
+//    @Override
+//    public void onRemoved(AttributeContainer attributes) {
+//        super.onRemoved(attributes);
+//        attributes.get
+//        entity.addStatusEffect(new StatusEffectInstance(Z7StatusEffects.STATUS_EFFECT_CONCUSSION_LONG, LONG_DURATION));
+//    }
+
+
     @Override
-    public void onRemoved(LivingEntity entity, AttributeContainer attributes, int amplifier) {
-        super.onRemoved(entity, attributes, amplifier);
-        entity.addStatusEffect(new StatusEffectInstance(StatusEffects.STATUS_EFFECT_CONCUSSION_LONG, LONG_DURATION));
+    public void applyUpdateEffect(LivingEntity entity, int amplifier) {
+        if (entity.getStatusEffect(this).getDuration() == 1) {
+            entity.addStatusEffect(new StatusEffectInstance(Z7StatusEffects.STATUS_EFFECT_BLEEDING_LONG, LONG_DURATION));
+        }
     }
 
     @Override

@@ -7,3 +7,4 @@ accessible field net/minecraft/screen/ForgingScreenHandler output Lnet/minecraft
 accessible field net/minecraft/screen/ForgingScreenHandler input Lnet/minecraft/inventory/Inventory;
 accessible field net/minecraft/item/Item translationKey Ljava/lang/String;
 accessible field net/minecraft/entity/projectile/PersistentProjectileEntity inBlockState Lnet/minecraft/block/BlockState;
+accessible field net/minecraft/entity/mob/MobEntity goalSelector Lnet/minecraft/entity/ai/goal/GoalSelector;

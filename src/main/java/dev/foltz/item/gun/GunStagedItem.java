@@ -189,32 +189,32 @@ public class GunStagedItem extends StagedItem<GunStagedItem> {
     }
 
     public void playSoundFireBegin(ItemStack stack, Entity entity) {
-        entity.world.playSound(null, entity.getX(), entity.getY(), entity.getZ(), SoundEvents.ENTITY_GENERIC_EXPLODE, SoundCategory.PLAYERS, 0.3f, 2.0f);
+        entity.getWorld().playSound(null, entity.getX(), entity.getY(), entity.getZ(), SoundEvents.ENTITY_GENERIC_EXPLODE, SoundCategory.PLAYERS, 0.3f, 2.0f);
     }
 
     public void playSoundPreFireStep(ItemStack stack, Entity entity) {
-        entity.world.playSound(null, entity.getX(), entity.getY(), entity.getZ(), SoundEvents.ITEM_FLINTANDSTEEL_USE, SoundCategory.PLAYERS, 0.25f, 4.0f);
+        entity.getWorld().playSound(null, entity.getX(), entity.getY(), entity.getZ(), SoundEvents.ITEM_FLINTANDSTEEL_USE, SoundCategory.PLAYERS, 0.25f, 4.0f);
     }
 
     public void playSoundReadyToFire(ItemStack stack, Entity entity) {
-        entity.world.playSound(null, entity.getX(), entity.getY(), entity.getZ(), SoundEvents.ITEM_FLINTANDSTEEL_USE, SoundCategory.PLAYERS, 0.25f, 8.0f);
+        entity.getWorld().playSound(null, entity.getX(), entity.getY(), entity.getZ(), SoundEvents.ITEM_FLINTANDSTEEL_USE, SoundCategory.PLAYERS, 0.25f, 8.0f);
     }
 
     public void playSoundReloadBegin(ItemStack stack, Entity entity) {
-        entity.world.playSound(null, entity.getX(), entity.getY(), entity.getZ(), SoundEvents.ITEM_ARMOR_EQUIP_IRON, SoundCategory.PLAYERS, 0.5f, 3.0f);
+        entity.getWorld().playSound(null, entity.getX(), entity.getY(), entity.getZ(), SoundEvents.ITEM_ARMOR_EQUIP_IRON, SoundCategory.PLAYERS, 0.5f, 3.0f);
     }
 
     public void playSoundReloadStep(ItemStack stack, Entity entity) {
-        entity.world.playSound(null, entity.getX(), entity.getY(), entity.getZ(), SoundEvents.ITEM_FLINTANDSTEEL_USE, SoundCategory.PLAYERS, 0.5f, 1.0f);
+        entity.getWorld().playSound(null, entity.getX(), entity.getY(), entity.getZ(), SoundEvents.ITEM_FLINTANDSTEEL_USE, SoundCategory.PLAYERS, 0.5f, 1.0f);
     }
 
     public void playSoundReloadEnd(ItemStack stack, Entity entity) {
-        entity.world.playSound(null, entity.getX(), entity.getY(), entity.getZ(), SoundEvents.ITEM_FLINTANDSTEEL_USE, SoundCategory.PLAYERS, 0.5f, 1.0f);
-        entity.world.playSound(null, entity.getX(), entity.getY(), entity.getZ(), SoundEvents.ENTITY_PLAYER_ATTACK_CRIT, SoundCategory.PLAYERS, 0.5f, 1.0f);
+        entity.getWorld().playSound(null, entity.getX(), entity.getY(), entity.getZ(), SoundEvents.ITEM_FLINTANDSTEEL_USE, SoundCategory.PLAYERS, 0.5f, 1.0f);
+        entity.getWorld().playSound(null, entity.getX(), entity.getY(), entity.getZ(), SoundEvents.ENTITY_PLAYER_ATTACK_CRIT, SoundCategory.PLAYERS, 0.5f, 1.0f);
     }
 
     public void playSoundReloadCancel(ItemStack stack, Entity entity) {
-        entity.world.playSound(null, entity.getX(), entity.getY(), entity.getZ(), SoundEvents.ITEM_CROSSBOW_LOADING_END, SoundCategory.PLAYERS, 0.5f, 3.0f);
+        entity.getWorld().playSound(null, entity.getX(), entity.getY(), entity.getZ(), SoundEvents.ITEM_CROSSBOW_LOADING_END, SoundCategory.PLAYERS, 0.5f, 3.0f);
     }
 
 
@@ -291,10 +291,9 @@ public class GunStagedItem extends StagedItem<GunStagedItem> {
     }
 
     public List<? extends Z7BulletEntity> createBulletEntities(PlayerEntity player, ItemStack gunStack, ItemStack ammoStack) {
-        if (ammoStack.getItem() instanceof AmmoItem ammoItem) {
-            return ammoItem.createBulletEntities(player, gunStack, ammoStack);
-        }
-        return List.of();
+        return ammoStack.getItem() instanceof AmmoItem ammoItem
+            ? ammoItem.createBulletEntities(player, gunStack, ammoStack)
+            : List.of();
     }
 
     public void spawnBulletParticles(PlayerEntity player, ItemStack gunStack, ItemStack ammoStack) {
@@ -310,12 +309,12 @@ public class GunStagedItem extends StagedItem<GunStagedItem> {
         double di = 1;
         for (int i = 0; i < 5; ++i) {
             double g = 0.05 * (double)i;
-            player.world.addParticle(ParticleTypes.SMOKE, x + di * d, y, z + di * f, d * g, 0.01f, f * g);
+            player.getWorld().addParticle(ParticleTypes.SMOKE, x + di * d, y, z + di * f, d * g, 0.01f, f * g);
         }
 
         for (int i = 0; i < 3; ++i) {
             double g = 0.01 * (double)i;
-            player.world.addParticle(ParticleTypes.LARGE_SMOKE, x + di * d, y, z + di * f, d * g, 0.01f, f * g);
+            player.getWorld().addParticle(ParticleTypes.LARGE_SMOKE, x + di * d, y, z + di * f, d * g, 0.01f, f * g);
         }
     }
 
@@ -378,6 +377,11 @@ public class GunStagedItem extends StagedItem<GunStagedItem> {
         return accuracy;
     }
 
+    public <T extends Z7BulletEntity> T modifyBulletEntity(T bullet) {
+
+        return bullet;
+    }
+
     // -- Vanilla
 
     @Override
@@ -417,12 +421,8 @@ public class GunStagedItem extends StagedItem<GunStagedItem> {
     public void appendTooltip(ItemStack stack, @Nullable World world, List<Text> tooltip, TooltipContext context) {
 //        tooltip.add(MutableText.of(Text.of("Gun Stage (" + getStageId(stack) + ") = " + stagesGraph.nameFromId(getStageId(stack))).getContent()));
 
-        var ammoList = getAmmoInGun(stack);
-        if (getMaxAmmoCapacity(stack) == 0);
-        else if (ammoList.isEmpty()) {
-            tooltip.add(MutableText.of(Text.of("Ammo 0/" + getMaxAmmoCapacity(stack)).getContent()).formatted(Formatting.GRAY));
-        }
-        else {
+        if (getMaxAmmoCapacity(stack) > 0) {
+            var ammoList = getAmmoInGun(stack);
             tooltip.add(MutableText.of(Text.of("Ammo " + ammoList.size() + "/" + getMaxAmmoCapacity(stack) + ":").getContent()).formatted(Formatting.GRAY));
             var compactList = new ArrayList<ItemStack>();
             for (ItemStack ammoStack : ammoList) {
@@ -442,10 +442,10 @@ public class GunStagedItem extends StagedItem<GunStagedItem> {
             }
 
             compactList.forEach(a -> tooltip.add(MutableText.of(Text.of("  " + a.getCount() + "x ").getContent()).append(Text.translatable(a.getTranslationKey())).formatted(Formatting.DARK_GRAY)));
+        }
 
-            if (stack.getDamage() > 0){
-                tooltip.add(MutableText.of(Text.of("Durability: " + (stack.getMaxDamage() - stack.getDamage()) + "/" + stack.getMaxDamage()).getContent()).formatted(Formatting.GRAY, Formatting.BOLD));
-            }
+        if (stack.getDamage() > 0){
+            tooltip.add(MutableText.of(Text.of("Durability: " + (stack.getMaxDamage() - stack.getDamage()) + "/" + stack.getMaxDamage()).getContent()).formatted(Formatting.GRAY, Formatting.BOLD));
         }
     }
 

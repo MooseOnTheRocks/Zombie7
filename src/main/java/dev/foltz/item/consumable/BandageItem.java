@@ -1,7 +1,7 @@
 package dev.foltz.item.consumable;
 
 import dev.foltz.Z7Util;
-import dev.foltz.status.StatusEffects;
+import dev.foltz.status.Z7StatusEffects;
 import net.fabricmc.fabric.api.item.v1.FabricItemSettings;
 import net.minecraft.advancement.criterion.Criteria;
 import net.minecraft.client.item.TooltipContext;
@@ -29,8 +29,6 @@ import java.util.List;
 import java.util.function.Supplier;
 
 public class BandageItem extends Item {
-    public static final Supplier<StatusEffectInstance> EFFECT_HEALING =  () -> new StatusEffectInstance(StatusEffects.STATUS_EFFECT_HEALING, 15 * 20);
-
     public BandageItem() {
         super(new FabricItemSettings());
     }
@@ -43,9 +41,8 @@ public class BandageItem extends Item {
             Criteria.CONSUME_ITEM.trigger((ServerPlayerEntity)playerEntity, stack);
         }
         if (!world.isClient) {
-            user.removeStatusEffect(StatusEffects.STATUS_EFFECT_BLEEDING);
-            user.removeStatusEffect(StatusEffects.STATUS_EFFECT_BLEEDING_LONG);
-            user.addStatusEffect(EFFECT_HEALING.get());
+            user.removeStatusEffect(Z7StatusEffects.STATUS_EFFECT_BLEEDING);
+            user.removeStatusEffect(Z7StatusEffects.STATUS_EFFECT_BLEEDING_LONG);
         }
         if (playerEntity != null) {
             playerEntity.incrementStat(Stats.USED.getOrCreateStat(this));
@@ -70,11 +67,11 @@ public class BandageItem extends Item {
 
     @Override
     public TypedActionResult<ItemStack> use(World world, PlayerEntity user, Hand hand) {
-        if (user.hasStatusEffect(StatusEffects.STATUS_EFFECT_BLEEDING) || user.getMaxHealth() != user.getHealth()) {
+        if (user.hasStatusEffect(Z7StatusEffects.STATUS_EFFECT_BLEEDING) || user.getMaxHealth() != user.getHealth()) {
             return ItemUsage.consumeHeldItem(world, user, hand);
         }
         else {
-            user.sendMessage(Text.of("Unable to use bandages: not bleeding and full health."), true);
+            user.sendMessage(Text.of("Unable to use bandages: not bleeding."), true);
             return TypedActionResult.pass(user.getStackInHand(hand));
         }
     }
@@ -84,11 +81,6 @@ public class BandageItem extends Item {
         tooltip.add(MutableText.of(Text.of("Wrap up those cuts!").getContent()).formatted(Formatting.GRAY));
         tooltip.add(ScreenTexts.EMPTY);
         tooltip.add(Text.translatable("tooltip.whenApplied").formatted(Formatting.DARK_PURPLE));
-
-        MutableText mutableText = Text.translatable(EFFECT_HEALING.get().getTranslationKey());
-        mutableText = Text.translatable("potion.withDuration", mutableText, StatusEffectUtil.durationToString(EFFECT_HEALING.get(), 1));
-        tooltip.add(mutableText.formatted(EFFECT_HEALING.get().getEffectType().getCategory().getFormatting()));
-
-        tooltip.add(Text.translatable("attribute.modifier.take.1", ItemStack.MODIFIER_FORMAT.format(100), Text.translatable(StatusEffects.STATUS_EFFECT_BLEEDING.getTranslationKey())).formatted(Formatting.BLUE));
+        tooltip.add(Text.translatable("attribute.modifier.take.1", ItemStack.MODIFIER_FORMAT.format(100), Text.translatable(Z7StatusEffects.STATUS_EFFECT_BLEEDING.getTranslationKey())).formatted(Formatting.BLUE));
     }
 }

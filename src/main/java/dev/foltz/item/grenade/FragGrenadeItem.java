@@ -44,7 +44,7 @@ public class FragGrenadeItem extends GrenadeStagedItem {
 
     @Override
     public List<? extends Z7GrenadeEntity> createGrenadeEntities(LivingEntity entity, ItemStack stack) {
-        FragGrenadeEntity grenade = new FragGrenadeEntity(Z7Entities.FRAG_GRENADE_ENTITY, entity.world);
+        FragGrenadeEntity grenade = new FragGrenadeEntity(Z7Entities.FRAG_GRENADE_ENTITY, entity.getWorld());
         if (getStageName(stack).equals(STAGE_PRIMED)) {
             int fuseTime = Math.max(1, getMaxStageTicks(stack) - getStageTicks(stack));
             grenade.setFuseTime(fuseTime);

@@ -10,7 +10,7 @@ public abstract class Z7PlayerStateEventHandler {
     public static void onShootPress(PlayerEntity player) {
         var stack = player.getMainHandStack();
         var item = stack.getItem();
-        var world = player.world;
+        var world = player.getWorld();
         Z7PlayerState playerState = Z7ServerState.getPlayerState(player);
 
         playerState.setPressingShoot(true);
@@ -28,7 +28,7 @@ public abstract class Z7PlayerStateEventHandler {
     public static void onShootRelease(PlayerEntity player) {
         var stack = player.getMainHandStack();
         var item = stack.getItem();
-        var world = player.world;
+        var world = player.getWorld();
         var playerState = Z7ServerState.getPlayerState(player);
 
         playerState.setPressingShoot(false);
@@ -46,7 +46,7 @@ public abstract class Z7PlayerStateEventHandler {
     public static void onReloadPress(PlayerEntity player) {
         var stack = player.getMainHandStack();
         var item = stack.getItem();
-        var world = player.world;
+        var world = player.getWorld();
         var server = world.getServer();
         var serverState = Z7ServerState.getServerState(server);
         var playerState = Z7ServerState.getPlayerState(player);
@@ -66,7 +66,7 @@ public abstract class Z7PlayerStateEventHandler {
     public static void onReloadRelease(PlayerEntity player) {
         var stack = player.getMainHandStack();
         var item = stack.getItem();
-        var world = player.world;
+        var world = player.getWorld();
         var server = world.getServer();
         var serverState = Z7ServerState.getServerState(server);
         var playerState = Z7ServerState.getPlayerState(player);
@@ -100,12 +100,12 @@ public abstract class Z7PlayerStateEventHandler {
         playerState.setPressingShoot(false);
         playerState.setPressingReload(false);
         playerState.setLastHeldItemStack(player.getMainHandStack());
-        playerState.setLastFiredTime(player.world.getTime());
+        playerState.setLastFiredTime(player.getWorld().getTime());
 //        System.out.println("Held item change: " + stack.getItem() + " -> " + player.getMainHandStack().getItem());
 
 //        var stack = lastStack;
         var item = stack.getItem();
-        var world = player.world;
+        var world = player.getWorld();
         var server = world.getServer();
 //        var serverState = Z7ServerState.getServerState(server);
 //        var playerState = Z7ServerState.getPlayerState(player);
@@ -123,7 +123,7 @@ public abstract class Z7PlayerStateEventHandler {
         var playerState = Z7ServerState.getPlayerState(player);
         var stack = player.getMainHandStack();
         var item = stack.getItem();
-        var world = player.world;
+        var world = player.getWorld();
 
         if (item instanceof StagedItem gun) {
 //            System.out.println("About to tick a StagedItem:");

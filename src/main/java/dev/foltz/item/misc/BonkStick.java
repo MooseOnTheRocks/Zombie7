@@ -1,7 +1,7 @@
 package dev.foltz.item.misc;
 
 import dev.foltz.status.ConcussionStatusEffect;
-import dev.foltz.status.StatusEffects;
+import dev.foltz.status.Z7StatusEffects;
 import net.fabricmc.fabric.api.item.v1.FabricItemSettings;
 import net.minecraft.entity.effect.StatusEffectInstance;
 import net.minecraft.entity.player.PlayerEntity;
@@ -18,7 +18,7 @@ public class BonkStick extends Item {
 
     @Override
     public TypedActionResult<ItemStack> use(World world, PlayerEntity user, Hand hand) {
-        user.addStatusEffect(new StatusEffectInstance(StatusEffects.STATUS_EFFECT_CONCUSSION, ConcussionStatusEffect.SHORT_DURATION));
+        user.addStatusEffect(new StatusEffectInstance(Z7StatusEffects.STATUS_EFFECT_CONCUSSION, ConcussionStatusEffect.SHORT_DURATION));
         return TypedActionResult.success(user.getStackInHand(hand), true);
     }
 }

@@ -30,7 +30,7 @@ public class StickyGrenadeItem extends GrenadeStagedItem {
 
     @Override
     public List<? extends Z7GrenadeEntity> createGrenadeEntities(LivingEntity entity, ItemStack stack) {
-        StickyGrenadeEntity grenade = new StickyGrenadeEntity(Z7Entities.STICKY_GRENADE_ENTITY, entity.world);
+        StickyGrenadeEntity grenade = new StickyGrenadeEntity(Z7Entities.STICKY_GRENADE_ENTITY, entity.getWorld());
         grenade.setFuseTime(getStageName(stack).equals(STAGE_PRIMED) ? ticksFromSeconds(7f) : -1);
         return List.of(grenade);
     }

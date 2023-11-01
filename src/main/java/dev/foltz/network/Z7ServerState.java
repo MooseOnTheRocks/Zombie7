@@ -13,39 +13,35 @@ import java.util.HashMap;
 import java.util.UUID;
 
 public class Z7ServerState extends PersistentState {
+//    public static final Type<Z7ServerState> TYPE = new Type<>(
+//        Z7ServerState::new,
+//        Z7ServerState::createFromNbt,
+//        null
+//    );
+
     public final HashMap<UUID, Z7PlayerState> players = new HashMap<>();
 
     @Override
     public NbtCompound writeNbt(NbtCompound nbt) {
-//        NbtCompound playersNbt = new NbtCompound();
-//        players.forEach((uuid, playerState) -> {
-//            NbtCompound playerNbt = playerState.writeNbt(new NbtCompound());
-//            playersNbt.put(uuid.toString(), playerNbt);
-//        });
-//        nbt.put("players", playersNbt);
         return nbt;
     }
 
     public static Z7ServerState createFromNbt(NbtCompound nbt) {
-//        Z7ServerState serverState = new Z7ServerState();
-//        NbtCompound playersNbt = nbt.getCompound("players");
-//        playersNbt.getKeys().forEach(key -> {
-//            NbtCompound playerNbt = playersNbt.getCompound(key);
-//            Z7PlayerState playerState = new Z7PlayerState();
-//            UUID uuid = UUID.fromString(key);
-//            serverState.players.put(uuid, playerState);
-//        });
-//        return serverState;
         return new Z7ServerState();
     }
 
     public static Z7ServerState getServerState(MinecraftServer server) {
         PersistentStateManager stateManager = server.getWorld(World.OVERWORLD).getPersistentStateManager();
+//        var state = stateManager.getOrCreate(TYPE, Zombie7.MODID);
+//        state.markDirty();
+//        return state;
+//        return stateManager.getOrCreate(Zombie7.MODID);
+//        return stateManager.getOrCreate(Z7ServerState::createFromNbt, Zombie7.MODID);
         return stateManager.getOrCreate(Z7ServerState::createFromNbt, Z7ServerState::new, Zombie7.MODID);
     }
 
     public static Z7PlayerState getPlayerState(LivingEntity player) {
-        Z7ServerState serverState = getServerState(player.world.getServer());
+        Z7ServerState serverState = getServerState(player.getWorld().getServer());
         return serverState.players.computeIfAbsent(player.getUuid(), uuid -> new Z7PlayerState(player));
     }
 

@@ -1,6 +1,6 @@
 {
   "replace": false,
   "values": [
-    "zombie7:ammo/pistol_basic"
+    "zombie7:ammo/pistol_basic/default"
   ]
 }

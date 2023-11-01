@@ -1,7 +1,7 @@
 package dev.foltz.mixin.client;
 
 import dev.foltz.status.InfectionStatusEffect;
-import dev.foltz.status.StatusEffects;
+import dev.foltz.status.Z7StatusEffects;
 import net.fabricmc.api.EnvType;
 import net.fabricmc.api.Environment;
 import net.minecraft.client.gui.screen.ingame.AbstractInventoryScreen;
@@ -31,17 +31,17 @@ public abstract class Z7StatusEffectDescriptionMixin {
 //        }
     }
 
-    @Redirect(method="drawStatusEffectDescriptions", at=@At(value = "INVOKE", target = "Lnet/minecraft/entity/effect/StatusEffectUtil;durationToString(Lnet/minecraft/entity/effect/StatusEffectInstance;F)Lnet/minecraft/text/Text;"))
+    @Redirect(method="drawStatusEffectDescriptions", at=@At(value = "INVOKE", target = "Lnet/minecraft/entity/effect/StatusEffectUtil;getDurationText(Lnet/minecraft/entity/effect/StatusEffectInstance;F)Lnet/minecraft/text/Text;"))
     protected Text customStatusEffectDurationDescription(StatusEffectInstance effect, float multiplier) {
-        if (effect.getEffectType() == StatusEffects.STATUS_EFFECT_CONCUSSION) {
+        if (effect.getEffectType() == Z7StatusEffects.STATUS_EFFECT_CONCUSSION) {
             return MutableText.of(Text.of("*bonk*").getContent()).formatted(Formatting.ITALIC);
         }
-        else if (effect.getEffectType() == StatusEffects.STATUS_EFFECT_INFECTION) {
+        else if (effect.getEffectType() == Z7StatusEffects.STATUS_EFFECT_INFECTION) {
             int percent = MathHelper.lerp((float) effect.getDuration() / (float) InfectionStatusEffect.MAX_TICKS, 100, 0);
             return MutableText.of(Text.of(percent + "%").getContent());
         }
         else {
-            return StatusEffectUtil.durationToString(effect, 1.0f);
+            return StatusEffectUtil.getDurationText(effect, 1.0f);
         }
     }
 }

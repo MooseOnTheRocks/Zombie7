@@ -43,7 +43,7 @@ public class MolotovGrenadeEntityRenderer extends EntityRenderer<MolotovGrenadeE
         matrixStack.multiply(RotationAxis.POSITIVE_Y.rotationDegrees(180.0f));
         float theta = 0f;
         if (grenadeEntity.isMoving()) {
-            theta = 0.5f * (grenadeEntity.world.getTime() / 20f) * 360f;
+            theta = 0.5f * (grenadeEntity.getWorld().getTime() / 20f) * 360f;
         }
         matrixStack.multiply(RotationAxis.POSITIVE_Z.rotationDegrees(theta));
         MatrixStack.Entry entry = matrixStack.peek();

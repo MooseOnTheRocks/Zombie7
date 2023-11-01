@@ -1,12 +1,12 @@
 package dev.foltz.item.consumable;
 
-import dev.foltz.status.StatusEffects;
+import dev.foltz.item.CompositeResourceItem;
+import dev.foltz.status.Z7StatusEffects;
 import net.fabricmc.fabric.api.item.v1.FabricItemSettings;
 import net.minecraft.advancement.criterion.Criteria;
 import net.minecraft.client.item.TooltipContext;
 import net.minecraft.entity.LivingEntity;
 import net.minecraft.entity.player.PlayerEntity;
-import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
 import net.minecraft.item.ItemUsage;
 import net.minecraft.screen.ScreenTexts;
@@ -24,7 +24,7 @@ import org.jetbrains.annotations.Nullable;
 
 import java.util.List;
 
-public class AntibioticsItem extends Item {
+public class AntibioticsItem extends CompositeResourceItem {
     public AntibioticsItem() {
         super(new FabricItemSettings().maxCount(5));
     }
@@ -36,7 +36,7 @@ public class AntibioticsItem extends Item {
             Criteria.CONSUME_ITEM.trigger((ServerPlayerEntity)playerEntity, stack);
         }
         if (!world.isClient) {
-            user.removeStatusEffect(StatusEffects.STATUS_EFFECT_INFECTION);
+            user.removeStatusEffect(Z7StatusEffects.STATUS_EFFECT_INFECTION);
 //            user.addStatusEffect(new StatusEffectInstance(Z7StatusEffects.STATUS_EFFECT_HEALING, 280));
         }
         if (playerEntity != null) {
@@ -61,7 +61,7 @@ public class AntibioticsItem extends Item {
 
     @Override
     public TypedActionResult<ItemStack> use(World world, PlayerEntity user, Hand hand) {
-        if (user.hasStatusEffect(StatusEffects.STATUS_EFFECT_INFECTION)) {
+        if (user.hasStatusEffect(Z7StatusEffects.STATUS_EFFECT_INFECTION)) {
             return ItemUsage.consumeHeldItem(world, user, hand);
         }
         else {
@@ -77,6 +77,6 @@ public class AntibioticsItem extends Item {
         tooltip.add(MutableText.of(Text.of("Cures infection.").getContent()).formatted(Formatting.GRAY));
         tooltip.add(ScreenTexts.EMPTY);
         tooltip.add(Text.translatable("tooltip.whenApplied").formatted(Formatting.DARK_PURPLE));
-        tooltip.add(Text.translatable("attribute.modifier.take.1", ItemStack.MODIFIER_FORMAT.format(100), Text.translatable(StatusEffects.STATUS_EFFECT_INFECTION.getTranslationKey())).formatted(Formatting.BLUE));
+        tooltip.add(Text.translatable("attribute.modifier.take.1", ItemStack.MODIFIER_FORMAT.format(100), Text.translatable(Z7StatusEffects.STATUS_EFFECT_INFECTION.getTranslationKey())).formatted(Formatting.BLUE));
     }
 }

@@ -1,0 +1,28 @@
+{
+  "type": "minecraft:crafting_shaped",
+  "category": "equipment",
+  "key": {
+    "#": {
+      "item": "minecraft:iron_ingot"
+    },
+    "^": {
+      "item": "minecraft:copper_ingot"
+    },
+    "o": {
+      "item": "minecraft:gunpowder"
+    },
+    "|": {
+      "item": "minecraft:iron_nugget"
+    }
+  },
+  "pattern": [
+    "|^|",
+    "|o|",
+    "|#|"
+  ],
+  "result": {
+    "count": 4,
+    "item": "zombie7:ammo/pistol_basic/default"
+  },
+  "show_notification": true
+}

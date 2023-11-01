@@ -1,0 +1,8 @@
+{
+  "parent": "item/generated",
+  "overrides": [
+    { "predicate": { "stack_count": 0.0 }, "model": "zombie7:item/consumable/painkillers/single" },
+    { "predicate": { "stack_count": 0.4 }, "model": "zombie7:item/consumable/painkillers/some" },
+    { "predicate": { "stack_count": 0.8 }, "model": "zombie7:item/consumable/painkillers/many" }
+  ]
+}

@@ -45,7 +45,7 @@ public class GrenadeRecipeGenerator extends FabricRecipeProvider {
             .pattern("._.")
             .criterion(hasItem(Items.TNT), conditionsFromItem(Items.TNT))
             .offerTo(exporter);
-//
+
         ShapelessRecipeJsonBuilder.create(RecipeCategory.COMBAT, Z7Items.ITEM_MOLOTOV_GRENADE)
             .input(ItemTags.WOOL)
             .input(Items.GLASS_BOTTLE)

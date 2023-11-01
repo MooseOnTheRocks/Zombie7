@@ -6,7 +6,6 @@ import net.fabricmc.fabric.api.datagen.v1.provider.FabricRecipeProvider;
 import net.minecraft.data.server.recipe.RecipeJsonProvider;
 import net.minecraft.data.server.recipe.ShapedRecipeJsonBuilder;
 import net.minecraft.data.server.recipe.ShapelessRecipeJsonBuilder;
-import net.minecraft.item.ItemStack;
 import net.minecraft.item.Items;
 import net.minecraft.recipe.book.RecipeCategory;
 
@@ -15,71 +14,83 @@ import java.util.function.Consumer;
 public class Z7RecipeGenerator extends FabricRecipeProvider {
     public final GunRecipeGenerator gunRecipes;
     public final GrenadeRecipeGenerator grenadeRecipes;
+    public final AmmoRecipeGenerator ammoRecipes;
 
     public Z7RecipeGenerator(FabricDataOutput generator) {
         super(generator);
         gunRecipes = new GunRecipeGenerator(generator);
         grenadeRecipes = new GrenadeRecipeGenerator(generator);
+        ammoRecipes = new AmmoRecipeGenerator(generator);
     }
 
     @Override
     public void generate(Consumer<RecipeJsonProvider> exporter) {
-        // == Guns
         gunRecipes.generate(exporter);
-
-        // == Grenades
         grenadeRecipes.generate(exporter);
+        ammoRecipes.generate(exporter);
 
-        // == Ammo
-        ShapedRecipeJsonBuilder.create(RecipeCategory.COMBAT, Z7Items.ITEM_AMMO_PISTOL, 4)
-            .input('^', Items.COPPER_INGOT)
-            .input('o', Items.GUNPOWDER)
-            .input('|', Items.IRON_NUGGET)
-            .input('#', Items.IRON_INGOT)
-            .pattern("|^|")
-            .pattern("|o|")
-            .pattern("|#|")
-            .criterion(hasItem(Items.COPPER_INGOT), conditionsFromItem(Items.COPPER_INGOT))
-            .criterion(hasItem(Items.GUNPOWDER), conditionsFromItem(Items.GUNPOWDER))
-            .criterion(hasItem(Items.IRON_NUGGET), conditionsFromItem(Items.IRON_NUGGET))
-            .criterion(hasItem(Items.IRON_INGOT), conditionsFromItem(Items.IRON_INGOT))
+        // == Consumables
+        ShapelessRecipeJsonBuilder.create(RecipeCategory.FOOD, Z7Items.ITEM_ANTIBIOTICS)
+            .input(Items.HONEY_BOTTLE)
+            .input(Items.GLISTERING_MELON_SLICE)
+            .input(Items.SUGAR)
+            .input(Items.EGG)
+            .criterion(hasItem(Items.HONEY_BOTTLE), conditionsFromItem(Items.HONEY_BOTTLE))
+            .criterion(hasItem(Items.GLISTERING_MELON_SLICE), conditionsFromItem(Items.GLISTERING_MELON_SLICE))
+            .criterion(hasItem(Items.SUGAR), conditionsFromItem(Items.SUGAR))
+            .criterion(hasItem(Items.EGG), conditionsFromItem(Items.EGG))
             .offerTo(exporter);
 
-        ShapedRecipeJsonBuilder.create(RecipeCategory.COMBAT, Z7Items.ITEM_AMMO_SHOTGUN, 2)
-            .input('^', Items.FLINT)
-            .input('o', Items.GUNPOWDER)
-            .input('|', Items.IRON_NUGGET)
-            .input('-', Items.GOLD_INGOT)
-            .pattern("|^|")
-            .pattern("|o|")
-            .pattern("|-|")
-            .criterion(hasItem(Items.FLINT), conditionsFromItem(Items.FLINT))
-            .criterion(hasItem(Items.GUNPOWDER), conditionsFromItem(Items.GUNPOWDER))
-            .criterion(hasItem(Items.IRON_NUGGET), conditionsFromItem(Items.IRON_NUGGET))
-            .criterion(hasItem(Items.GOLD_INGOT), conditionsFromItem(Items.GOLD_INGOT))
+        ShapelessRecipeJsonBuilder.create(RecipeCategory.FOOD, Z7Items.ITEM_PAINKILLERS)
+            .input(Items.POPPY)
+            .input(Items.FERMENTED_SPIDER_EYE)
+            .input(Items.SUGAR)
+            .criterion(hasItem(Items.POPPY), conditionsFromItem(Items.POPPY))
+            .criterion(hasItem(Items.FERMENTED_SPIDER_EYE), conditionsFromItem(Items.FERMENTED_SPIDER_EYE))
+            .criterion(hasItem(Items.SUGAR), conditionsFromItem(Items.SUGAR))
             .offerTo(exporter);
 
-        ShapedRecipeJsonBuilder.create(RecipeCategory.COMBAT, Z7Items.ITEM_AMMO_MAGNUM, 4)
-            .input('^', Items.COPPER_INGOT)
-            .input('o', Items.GUNPOWDER)
-            .input('#', Items.IRON_INGOT)
-            .input('|', Items.IRON_NUGGET)
-            .pattern("|^|")
-            .pattern("|o|")
-            .pattern("###")
-            .criterion(hasItem(Items.COPPER_INGOT), conditionsFromItem(Items.COPPER_INGOT))
-            .criterion(hasItem(Items.GUNPOWDER), conditionsFromItem(Items.GUNPOWDER))
-            .criterion(hasItem(Items.IRON_NUGGET), conditionsFromItem(Items.IRON_NUGGET))
-            .criterion(hasItem(Items.IRON_INGOT), conditionsFromItem(Items.IRON_INGOT))
+        ShapedRecipeJsonBuilder.create(RecipeCategory.FOOD, Z7Items.ITEM_SPLINT)
+            .input('#', Items.STICK)
+            .input('X', Items.WHITE_WOOL)
+            .input('s', Items.STRING)
+            .pattern("#X#")
+            .pattern("#s#")
+            .pattern("#X#")
+            .criterion(hasItem(Items.STICK), conditionsFromItem(Items.WHITE_WOOL))
+            .criterion(hasItem(Items.WHITE_WOOL), conditionsFromItem(Items.WHITE_WOOL))
+            .criterion(hasItem(Items.STRING), conditionsFromItem(Items.STRING))
+            .offerTo(exporter);
+
+        ShapedRecipeJsonBuilder.create(RecipeCategory.FOOD, Z7Items.ITEM_HEALING_BANDAGE)
+            .input('#', Items.HONEYCOMB)
+            .input('X', Items.WHITE_WOOL)
+            .input('s', Items.STRING)
+            .pattern("sXs")
+            .pattern("X#X")
+            .pattern("sXs")
+            .criterion(hasItem(Items.HONEYCOMB), conditionsFromItem(Items.HONEYCOMB))
+            .criterion(hasItem(Items.WHITE_WOOL), conditionsFromItem(Items.WHITE_WOOL))
+            .criterion(hasItem(Items.STRING), conditionsFromItem(Items.STRING))
+            .offerTo(exporter);
+
+        ShapedRecipeJsonBuilder.create(RecipeCategory.FOOD, Z7Items.ITEM_HEALING_BANDAGE)
+            .input('X', Items.WHITE_WOOL)
+            .input('s', Items.STRING)
+            .pattern("sss")
+            .pattern("sXs")
+            .pattern("sss")
+            .criterion(hasItem(Items.WHITE_WOOL), conditionsFromItem(Items.WHITE_WOOL))
+            .criterion(hasItem(Items.STRING), conditionsFromItem(Items.STRING))
             .offerTo(exporter);
 
         // == Misc
         ShapedRecipeJsonBuilder.create(RecipeCategory.COMBAT, Z7Items.ITEM_BOWLING_BALL)
             .input('#', Items.LEATHER)
             .input('X', Items.IRON_BLOCK)
-            .pattern(" # ")
+            .pattern("###")
             .pattern("#X#")
-            .pattern(" # ")
+            .pattern("###")
             .criterion(hasItem(Items.LEATHER), conditionsFromItem(Items.LEATHER))
             .criterion(hasItem(Items.IRON_BLOCK), conditionsFromItem(Items.IRON_BLOCK))
             .offerTo(exporter);

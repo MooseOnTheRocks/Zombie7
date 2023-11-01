@@ -1,6 +1,6 @@
 package dev.foltz.render;
 
-import dev.foltz.status.StatusEffects;
+import dev.foltz.status.Z7StatusEffects;
 import net.fabricmc.api.EnvType;
 import net.fabricmc.api.Environment;
 import net.minecraft.client.render.BackgroundRenderer;
@@ -12,7 +12,7 @@ import net.minecraft.entity.effect.StatusEffectInstance;
 public  class ConcussionFogModifier implements BackgroundRenderer.StatusEffectFogModifier {
     @Override
     public StatusEffect getStatusEffect() {
-        return StatusEffects.STATUS_EFFECT_CONCUSSION;
+        return Z7StatusEffects.STATUS_EFFECT_CONCUSSION;
     }
 
     @Override
