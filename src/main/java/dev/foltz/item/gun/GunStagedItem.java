@@ -290,7 +290,7 @@ public class GunStagedItem extends StagedItem<GunStagedItem> {
         return bullet;
     }
 
-    public List<? extends Z7BulletEntity> createBulletEntities(PlayerEntity player, ItemStack gunStack, ItemStack ammoStack) {
+    public List<? extends Entity> createBulletEntities(PlayerEntity player, ItemStack gunStack, ItemStack ammoStack) {
         return ammoStack.getItem() instanceof AmmoItem ammoItem
             ? ammoItem.createBulletEntities(player, gunStack, ammoStack)
             : List.of();

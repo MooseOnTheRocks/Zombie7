@@ -6,6 +6,7 @@ import dev.foltz.entity.bullet.Z7BulletEntity;
 import dev.foltz.item.CompositeResourceItem;
 import dev.foltz.item.Z7Items;
 import dev.foltz.item.gun.GunStagedItem;
+import net.minecraft.entity.Entity;
 import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.entity.player.PlayerInventory;
 import net.minecraft.item.Item;
@@ -18,28 +19,23 @@ import java.util.function.Supplier;
 
 import static dev.foltz.Z7Util.identifier;
 
-public abstract class AmmoItem extends CompositeResourceItem {
-    public static final TagKey<Item> AMMO_TYPE_PISTOL_TAG = TagKey.of(RegistryKeys.ITEM, identifier("ammo_type_pistol"));
-    public static final TagKey<Item> AMMO_TYPE_MAGNUM_TAG = TagKey.of(RegistryKeys.ITEM, identifier("ammo_type_magnum"));
-    public static final TagKey<Item> AMMO_TYPE_SHOTGUN_TAG = TagKey.of(RegistryKeys.ITEM, identifier("ammo_type_shotgun"));
+public interface AmmoItem {
+    TagKey<Item> AMMO_TYPE_PISTOL_TAG = TagKey.of(RegistryKeys.ITEM, identifier("ammo_type_pistol"));
+    TagKey<Item> AMMO_TYPE_MAGNUM_TAG = TagKey.of(RegistryKeys.ITEM, identifier("ammo_type_magnum"));
+    TagKey<Item> AMMO_TYPE_SHOTGUN_TAG = TagKey.of(RegistryKeys.ITEM, identifier("ammo_type_shotgun"));
+    TagKey<Item> AMMO_TYPE_CANNON_BALL_TAG = TagKey.of(RegistryKeys.ITEM, identifier("ammo_type_cannon_ball"));
 
-    public AmmoItem(Settings settings) {
-        super(settings);
-    }
+    float getBaseDamage(ItemStack itemStack);
 
-    public abstract float getBaseDamage(ItemStack itemStack);
+    float getBaseSpeed(ItemStack itemStack);
 
-    public abstract float getBaseSpeed(ItemStack itemStack);
+    float getBaseRange(ItemStack itemStack);
 
-    public abstract float getBaseRange(ItemStack itemStack);
+    float getBaseAccuracy(ItemStack itemStack);
 
-    public abstract float getBaseAccuracy(ItemStack itemStack);
+    List<? extends Entity> createBulletEntities(PlayerEntity player, ItemStack gunStack, ItemStack ammoStack);
 
-    public abstract List<? extends Z7BulletEntity> createBulletEntities(PlayerEntity player, ItemStack gunStack, ItemStack ammoStack);
-
-    public <T extends Z7BulletEntity> T modifyBulletEntity(T bullet, PlayerEntity player, ItemStack gunStack, ItemStack ammoStack) {
-//        BulletBronzeEntity bullet = new BulletBronzeEntity(Z7Entities.BULLET_BRONZE_ENTITY, player.world);
-//        bullet.setHitBoxExpansion(1.0f);
+    default <T extends Z7BulletEntity> T modifyBulletEntity(T bullet, PlayerEntity player, ItemStack gunStack, ItemStack ammoStack) {
         bullet.setPosition(player.getX(), player.getEyeY() - bullet.getHeight() / 2f, player.getZ());
         bullet.setOwner(player);
 
@@ -80,14 +76,15 @@ public abstract class AmmoItem extends CompositeResourceItem {
     public enum AmmoCategory {
         PISTOL_AMMO(AMMO_TYPE_PISTOL_TAG, () -> Z7Items.ITEM_AMMO_PISTOL),
         MAGNUM_AMMO(AMMO_TYPE_MAGNUM_TAG, () -> Z7Items.ITEM_AMMO_MAGNUM),
-        SHOTGUN_AMMO(AMMO_TYPE_SHOTGUN_TAG, () -> Z7Items.ITEM_AMMO_SHOTGUN);
+        SHOTGUN_AMMO(AMMO_TYPE_SHOTGUN_TAG, () -> Z7Items.ITEM_AMMO_SHOTGUN),
+        CANNON_BALL_AMMO(AMMO_TYPE_CANNON_BALL_TAG, () -> Z7Items.ITEM_CANNON_BALL);
 
 
 
         public final TagKey<Item> tag;
-        public final Supplier<AmmoItem> defaultItem;
+        public final Supplier<Item> defaultItem;
 
-        AmmoCategory(TagKey<Item> ammoCategory, Supplier<AmmoItem> defaultItem) {
+        AmmoCategory(TagKey<Item> ammoCategory, Supplier<Item> defaultItem) {
             this.tag = ammoCategory;
             this.defaultItem = defaultItem;
         }

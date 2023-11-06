@@ -1,6 +1,8 @@
 package dev.foltz;
 
 import dev.foltz.entity.*;
+import dev.foltz.entity.misc.BowlingBallGrenadeEntity;
+import dev.foltz.entity.misc.CannonBallEntity;
 import dev.foltz.entity.model.BulletBronzeEntityModel;
 import dev.foltz.entity.model.BulletLeadEntityModel;
 import dev.foltz.entity.model.BulletRubberEntityModel;
@@ -56,6 +58,7 @@ public class Zombie7Client implements ClientModInitializer {
         EntityRendererRegistry.register(Z7Entities.MOLOTOV_GRENADE_ENTITY, MolotovGrenadeEntityRenderer::new);
         EntityRendererRegistry.register(Z7Entities.STICKY_GRENADE_ENTITY, StickyGrenadeEntityRenderer::new);
         EntityRendererRegistry.register(Z7Entities.BOWLING_BALL_GRENADE_ENTITY, BowlingBallGrenadeEntityRenderer::new);
+        EntityRendererRegistry.register(Z7Entities.CANNON_BALL_ENTITY, CannonBallEntityRenderer::new);
 
         EntityRendererRegistry.register(Z7Entities.BULLET_BRONZE_ENTITY, BulletBronzeEntityRenderer::new);
         EntityModelLayerRegistry.registerModelLayer(MODEL_BULLET_BRONZE_LAYER, BulletBronzeEntityModel::getTexturedModelData);

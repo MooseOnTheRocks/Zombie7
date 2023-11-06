@@ -1,0 +1,21 @@
+{
+  "type": "minecraft:crafting_shaped",
+  "category": "misc",
+  "key": {
+    "X": {
+      "item": "minecraft:white_wool"
+    },
+    "s": {
+      "item": "minecraft:string"
+    }
+  },
+  "pattern": [
+    "sss",
+    "sXs",
+    "sss"
+  ],
+  "result": {
+    "item": "zombie7:consumable/bandage"
+  },
+  "show_notification": true
+}

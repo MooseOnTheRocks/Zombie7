@@ -7,6 +7,7 @@ import net.minecraft.data.server.recipe.RecipeJsonProvider;
 import net.minecraft.data.server.recipe.ShapedRecipeJsonBuilder;
 import net.minecraft.item.Items;
 import net.minecraft.recipe.book.RecipeCategory;
+import net.minecraft.registry.tag.ItemTags;
 
 import java.util.function.Consumer;
 
@@ -31,6 +32,17 @@ public class GunRecipeGenerator extends FabricRecipeProvider {
             .criterion(hasItem(Items.IRON_NUGGET), conditionsFromItem(Items.IRON_NUGGET))
             .criterion(hasItem(Items.IRON_INGOT), conditionsFromItem(Items.IRON_INGOT))
             .offerTo(exporter);
+
+        ShapedRecipeJsonBuilder.create(RecipeCategory.COMBAT, Z7Items.ITEM_PISTOL_EOKA)
+                .input('B', Items.IRON_INGOT)
+                .input('H', ItemTags.LOGS)
+                .input('I', Items.IRON_NUGGET)
+                .pattern("  I")
+                .pattern("BBH")
+                .pattern(" HH")
+                .criterion(hasItem(Items.IRON_NUGGET), conditionsFromItem(Items.IRON_NUGGET))
+                .criterion(hasItem(Items.IRON_INGOT), conditionsFromItem(Items.IRON_INGOT))
+                .offerTo(exporter);
 
         // -- Magnums
         ShapedRecipeJsonBuilder.create(RecipeCategory.COMBAT, Z7Items.ITEM_PISTOL_DEAGLE)

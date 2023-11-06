@@ -1,0 +1,24 @@
+{
+  "type": "minecraft:crafting_shaped",
+  "category": "equipment",
+  "key": {
+    "B": {
+      "item": "minecraft:iron_ingot"
+    },
+    "H": {
+      "tag": "minecraft:logs"
+    },
+    "I": {
+      "item": "minecraft:iron_nugget"
+    }
+  },
+  "pattern": [
+    "  I",
+    "BBH",
+    " HH"
+  ],
+  "result": {
+    "item": "zombie7:gun/pistol_eoka/default"
+  },
+  "show_notification": true
+}

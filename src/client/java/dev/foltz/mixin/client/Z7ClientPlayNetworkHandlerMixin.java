@@ -9,6 +9,7 @@ import dev.foltz.entity.grenade.FragGrenadeEntity;
 import dev.foltz.entity.grenade.MolotovGrenadeEntity;
 import dev.foltz.entity.grenade.StickyGrenadeEntity;
 import dev.foltz.entity.misc.BowlingBallGrenadeEntity;
+import dev.foltz.entity.misc.CannonBallEntity;
 import net.minecraft.client.network.ClientPlayNetworkHandler;
 import net.minecraft.client.world.ClientWorld;
 import net.minecraft.entity.Entity;
@@ -47,6 +48,9 @@ public class Z7ClientPlayNetworkHandlerMixin {
         }
         else if (entityType == Z7Entities.BOWLING_BALL_GRENADE_ENTITY) {
             entity = new BowlingBallGrenadeEntity(Z7Entities.BOWLING_BALL_GRENADE_ENTITY, this.world);
+        }
+        else if (entityType == Z7Entities.CANNON_BALL_ENTITY) {
+            entity = new CannonBallEntity(Z7Entities.CANNON_BALL_ENTITY, this.world);
         }
         else if (entityType == Z7Entities.BULLET_BRONZE_ENTITY) {
             entity = new BulletBronzeEntity(Z7Entities.BULLET_BRONZE_ENTITY, this.world);

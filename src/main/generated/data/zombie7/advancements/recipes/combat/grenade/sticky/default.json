@@ -1,0 +1,35 @@
+{
+  "parent": "minecraft:recipes/root",
+  "criteria": {
+    "has_grenade/frag/default": {
+      "conditions": {
+        "items": [
+          {
+            "items": [
+              "zombie7:grenade/frag/default"
+            ]
+          }
+        ]
+      },
+      "trigger": "minecraft:inventory_changed"
+    },
+    "has_the_recipe": {
+      "conditions": {
+        "recipe": "zombie7:grenade/sticky/default"
+      },
+      "trigger": "minecraft:recipe_unlocked"
+    }
+  },
+  "requirements": [
+    [
+      "has_grenade/frag/default",
+      "has_the_recipe"
+    ]
+  ],
+  "rewards": {
+    "recipes": [
+      "zombie7:grenade/sticky/default"
+    ]
+  },
+  "sends_telemetry_event": false
+}

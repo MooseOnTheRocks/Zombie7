@@ -1,0 +1,24 @@
+{
+  "type": "minecraft:crafting_shaped",
+  "category": "misc",
+  "key": {
+    "#": {
+      "item": "minecraft:honeycomb"
+    },
+    "X": {
+      "item": "minecraft:white_wool"
+    },
+    "s": {
+      "item": "minecraft:string"
+    }
+  },
+  "pattern": [
+    "sXs",
+    "X#X",
+    "sXs"
+  ],
+  "result": {
+    "item": "zombie7:consumable/healing_bandage"
+  },
+  "show_notification": true
+}

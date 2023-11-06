@@ -77,7 +77,7 @@ public class SplintItem extends Item {
     @Override
     public void appendTooltip(ItemStack stack, @Nullable World world, List<Text> tooltip, TooltipContext context) {
 //        PotionUtil.buildTooltip(statusEffects, tooltip, 1);
-        tooltip.add(MutableText.of(Text.of("Fix those bones").getContent()).formatted(Formatting.GRAY));
+        tooltip.add(MutableText.of(Text.of("Mend those breaks!").getContent()).formatted(Formatting.GRAY));
         tooltip.add(ScreenTexts.EMPTY);
         tooltip.add(Text.translatable("tooltip.whenApplied").formatted(Formatting.DARK_PURPLE));
 //        tooltip.add(Text.translatable("attribute.modifier.plus.1", ItemStack.MODIFIER_FORMAT.format(HEAL_AMOUNT), Text.translatable(StatusEffects.INSTANT_HEALTH.getTranslationKey())).formatted(Formatting.BLUE));

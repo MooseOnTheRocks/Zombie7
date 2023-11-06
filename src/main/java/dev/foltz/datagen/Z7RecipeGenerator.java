@@ -57,7 +57,7 @@ public class Z7RecipeGenerator extends FabricRecipeProvider {
             .pattern("#X#")
             .pattern("#s#")
             .pattern("#X#")
-            .criterion(hasItem(Items.STICK), conditionsFromItem(Items.WHITE_WOOL))
+            .criterion(hasItem(Items.STICK), conditionsFromItem(Items.STICK))
             .criterion(hasItem(Items.WHITE_WOOL), conditionsFromItem(Items.WHITE_WOOL))
             .criterion(hasItem(Items.STRING), conditionsFromItem(Items.STRING))
             .offerTo(exporter);
@@ -74,7 +74,7 @@ public class Z7RecipeGenerator extends FabricRecipeProvider {
             .criterion(hasItem(Items.STRING), conditionsFromItem(Items.STRING))
             .offerTo(exporter);
 
-        ShapedRecipeJsonBuilder.create(RecipeCategory.FOOD, Z7Items.ITEM_HEALING_BANDAGE)
+        ShapedRecipeJsonBuilder.create(RecipeCategory.FOOD, Z7Items.ITEM_BANDAGE)
             .input('X', Items.WHITE_WOOL)
             .input('s', Items.STRING)
             .pattern("sss")
@@ -92,6 +92,32 @@ public class Z7RecipeGenerator extends FabricRecipeProvider {
             .pattern("#X#")
             .pattern("###")
             .criterion(hasItem(Items.LEATHER), conditionsFromItem(Items.LEATHER))
+            .criterion(hasItem(Items.IRON_BLOCK), conditionsFromItem(Items.IRON_BLOCK))
+            .offerTo(exporter);
+
+        ShapedRecipeJsonBuilder.create(RecipeCategory.COMBAT, Z7Items.ITEM_CANNON_BALL)
+            .input('.', Items.IRON_NUGGET)
+            .input('#', Items.IRON_INGOT)
+            .input('X', Items.IRON_BLOCK)
+            .pattern(".#.")
+            .pattern("#X#")
+            .pattern(".#.")
+            .criterion(hasItem(Items.IRON_NUGGET), conditionsFromItem(Items.IRON_NUGGET))
+            .criterion(hasItem(Items.IRON_INGOT), conditionsFromItem(Items.IRON_INGOT))
+            .criterion(hasItem(Items.IRON_BLOCK), conditionsFromItem(Items.IRON_BLOCK))
+            .offerTo(exporter);
+
+        ShapedRecipeJsonBuilder.create(RecipeCategory.COMBAT, Z7Items.ITEM_REPAIR_KIT)
+            .input('#', Items.LEATHER)
+            .input('D', Items.DIAMOND)
+            .input('X', Items.IRON_BLOCK)
+            .input('i', Items.IRON_INGOT)
+            .pattern("#D#")
+            .pattern("iXi")
+            .pattern("iii")
+            .criterion(hasItem(Items.LEATHER), conditionsFromItem(Items.LEATHER))
+            .criterion(hasItem(Items.DIAMOND), conditionsFromItem(Items.DIAMOND))
+            .criterion(hasItem(Items.IRON_INGOT), conditionsFromItem(Items.IRON_INGOT))
             .criterion(hasItem(Items.IRON_BLOCK), conditionsFromItem(Items.IRON_BLOCK))
             .offerTo(exporter);
     }

@@ -1,0 +1,27 @@
+{
+  "type": "minecraft:crafting_shaped",
+  "category": "equipment",
+  "key": {
+    "#": {
+      "item": "minecraft:leather"
+    },
+    "D": {
+      "item": "minecraft:diamond"
+    },
+    "X": {
+      "item": "minecraft:iron_block"
+    },
+    "i": {
+      "item": "minecraft:iron_ingot"
+    }
+  },
+  "pattern": [
+    "#D#",
+    "iXi",
+    "iii"
+  ],
+  "result": {
+    "item": "zombie7:material/repair_kit"
+  },
+  "show_notification": true
+}

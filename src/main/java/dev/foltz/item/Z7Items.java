@@ -4,16 +4,14 @@ import dev.foltz.Zombie7;
 import dev.foltz.item.ammo.*;
 import dev.foltz.item.consumable.*;
 import dev.foltz.item.grenade.*;
-import dev.foltz.item.gun.pistol.BasicPistolItem;
-import dev.foltz.item.gun.pistol.DeaglePistolItem;
-import dev.foltz.item.gun.pistol.FlintlockPistolItem;
-import dev.foltz.item.gun.pistol.GlockPistolItem;
+import dev.foltz.item.gun.pistol.*;
 import dev.foltz.item.gun.rifle.AkRifleItem;
 import dev.foltz.item.gun.shotgun.Aa12ShotgunItem;
 import dev.foltz.item.gun.shotgun.PumpShotgunItem;
 import dev.foltz.item.gun.shotgun.dblbrlShotgunItem;
 import dev.foltz.item.misc.BonkStick;
 import dev.foltz.item.misc.BowlingBallItem;
+import dev.foltz.item.misc.CannonBallItem;
 import net.fabricmc.fabric.api.item.v1.FabricItemSettings;
 import net.fabricmc.fabric.api.itemgroup.v1.FabricItemGroup;
 import net.minecraft.block.Block;
@@ -72,6 +70,7 @@ public abstract class Z7Items {
     public static final Item ITEM_MOLOTOV_GRENADE = registerGrenadeItem("molotov", new MolotovGrenadeItem());
     public static final Item ITEM_STICKY_GRENADE = registerGrenadeItem("sticky", new StickyGrenadeItem());
 
+    public static final Item ITEM_PISTOL_EOKA = registerGunItem("pistol_eoka", new EokaPistol());
     public static final Item ITEM_PISTOL_FLINTLOCK = registerGunItem("pistol_flintlock", new FlintlockPistolItem());
     public static final Item ITEM_PISTOL_BASIC = registerGunItem("pistol_basic", new BasicPistolItem());
     public static final Item ITEM_PISTOL_GLOCK = registerGunItem("pistol_glock", new GlockPistolItem());
@@ -82,13 +81,14 @@ public abstract class Z7Items {
     public static final Item ITEM_RIFLE_AK = registerGunItem("rifle_ak", new AkRifleItem());
 
     public static final Item ITEM_BOWLING_BALL = registerMiscWeaponItem("bowling_ball", new BowlingBallItem());
+    public static final Item ITEM_CANNON_BALL = registerMiscWeaponItem("cannon_ball", new CannonBallItem());
 
 
     // Ammo
-    public static final AmmoItem ITEM_AMMO_PISTOL = registerAmmoItem("pistol_basic", new PistolBasicAmmoItem());
-    public static final AmmoItem ITEM_AMMO_MAGNUM = registerAmmoItem("magnum_basic", new MagnumBasicAmmoItem());
-    public static final AmmoItem ITEM_AMMO_SHOTGUN = registerAmmoItem("shotgun_basic", new ShotgunBasicAmmoItem());
-    public static final AmmoItem ITEM_AMMO_RUBBER_SHOTGUN = registerAmmoItem("shotgun_rubber", new ShotgunRubberAmmoItem());
+    public static final Item ITEM_AMMO_PISTOL = registerAmmoItem("pistol_basic", new PistolBasicAmmoItem());
+    public static final Item ITEM_AMMO_MAGNUM = registerAmmoItem("magnum_basic", new MagnumBasicAmmoItem());
+    public static final Item ITEM_AMMO_SHOTGUN = registerAmmoItem("shotgun_basic", new ShotgunBasicAmmoItem());
+    public static final Item ITEM_AMMO_RUBBER_SHOTGUN = registerAmmoItem("shotgun_rubber", new ShotgunRubberAmmoItem());
 
     // Misc
     public static final Item ITEM_BONK_STICK = registerItem("bonk_stick", new BonkStick());

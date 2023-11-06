@@ -2,6 +2,7 @@ package dev.foltz.item.ammo;
 
 import dev.foltz.entity.bullet.BulletLeadEntity;
 import dev.foltz.entity.Z7Entities;
+import dev.foltz.item.CompositeResourceItem;
 import dev.foltz.item.gun.GunStagedItem;
 import net.fabricmc.fabric.api.item.v1.FabricItemSettings;
 import net.minecraft.entity.player.PlayerEntity;
@@ -10,7 +11,7 @@ import net.minecraft.item.ItemStack;
 import java.util.ArrayList;
 import java.util.List;
 
-public class ShotgunBasicAmmoItem extends AmmoItem {
+public class ShotgunBasicAmmoItem extends CompositeResourceItem implements AmmoItem {
     public ShotgunBasicAmmoItem() {
         super(new FabricItemSettings());
     }

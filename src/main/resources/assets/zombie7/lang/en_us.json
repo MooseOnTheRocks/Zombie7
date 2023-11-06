@@ -21,6 +21,7 @@
   "item.zombie7.ammo.magnum_basic": "Basic Magnum Ammo",
 
   "item.zombie7.gun.pistol_basic": "Basic Pistol",
+  "item.zombie7.gun.pistol_eoka": "Eoka Pistol",
   "item.zombie7.gun.pistol_glock": "Glock 17",
   "item.zombie7.gun.pistol_flintlock": "Flintlock Pistol",
   "item.zombie7.gun.shotgun_basic": "Basic Shotgun",
@@ -34,6 +35,7 @@
   "item.zombie7.grenade.sticky": "Sticky Grenade",
 
   "item.zombie7.misc.bowling_ball": "Bowling Ball",
+  "item.zombie7.misc.cannon_ball": "Cannon Ball",
 
 
 

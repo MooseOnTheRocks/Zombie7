@@ -7,6 +7,7 @@ import dev.foltz.item.gun.GunStagedItem;
 import dev.foltz.item.grenade.FragGrenadeItem;
 import dev.foltz.item.Z7Items;
 import dev.foltz.item.gun.pistol.DeaglePistolItem;
+import dev.foltz.item.gun.pistol.EokaPistol;
 import dev.foltz.item.gun.pistol.FlintlockPistolItem;
 import dev.foltz.item.gun.rifle.AkRifleItem;
 import dev.foltz.item.gun.shotgun.Aa12ShotgunItem;
@@ -41,7 +42,7 @@ public abstract class Z7ModelPredicates {
         return makePredicate(name, (item, stack, entity, world) -> predicate.apply(item, stack, entity, world) ? 1.0f : 0.0f);
     }
 
-    public static <T extends StagedItem> Consumer<T> stagePredicate(String predName, String... stageName) {
+    public static <T extends StagedItem<?>> Consumer<T> stagePredicate(String predName, String... stageName) {
         return booleanPredicate(predName, (item, stack, entity, world) -> List.of(stageName).contains(item.getStageName(stack)));
     }
 
@@ -89,6 +90,15 @@ public abstract class Z7ModelPredicates {
                 stagePredicate("is_ready_to_fire", FlintlockPistolItem.STAGE_COCKED),
                 stagePredicate("is_firing", FlintlockPistolItem.STAGE_FIRING),
                 stagePredicate("is_broken", FlintlockPistolItem.STAGE_BROKEN),
+                USAGE_TICKS));
+
+        registerItemWithPredicates(
+            Z7Items.ITEM_PISTOL_EOKA,
+            List.of(
+                stagePredicate("is_striking", EokaPistol.STAGE_STRIKING),
+                stagePredicate("is_reloading", EokaPistol.STAGE_RELOADING),
+                stagePredicate("is_firing", EokaPistol.STAGE_FIRING),
+                stagePredicate("is_broken", EokaPistol.STAGE_BROKEN),
                 USAGE_TICKS));
 
         // -- Magnums

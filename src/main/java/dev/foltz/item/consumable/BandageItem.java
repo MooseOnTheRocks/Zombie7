@@ -6,8 +6,10 @@ import net.fabricmc.fabric.api.item.v1.FabricItemSettings;
 import net.minecraft.advancement.criterion.Criteria;
 import net.minecraft.client.item.TooltipContext;
 import net.minecraft.entity.LivingEntity;
+import net.minecraft.entity.attribute.EntityAttribute;
 import net.minecraft.entity.effect.StatusEffectInstance;
 import net.minecraft.entity.effect.StatusEffectUtil;
+import net.minecraft.entity.effect.StatusEffects;
 import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
@@ -43,6 +45,7 @@ public class BandageItem extends Item {
         if (!world.isClient) {
             user.removeStatusEffect(Z7StatusEffects.STATUS_EFFECT_BLEEDING);
             user.removeStatusEffect(Z7StatusEffects.STATUS_EFFECT_BLEEDING_LONG);
+            user.heal(2.0f);
         }
         if (playerEntity != null) {
             playerEntity.incrementStat(Stats.USED.getOrCreateStat(this));
@@ -81,6 +84,7 @@ public class BandageItem extends Item {
         tooltip.add(MutableText.of(Text.of("Wrap up those cuts!").getContent()).formatted(Formatting.GRAY));
         tooltip.add(ScreenTexts.EMPTY);
         tooltip.add(Text.translatable("tooltip.whenApplied").formatted(Formatting.DARK_PURPLE));
+        tooltip.add(Text.translatable("attribute.modifier.plus.0", ItemStack.MODIFIER_FORMAT.format(2), Text.translatable(StatusEffects.INSTANT_HEALTH.getTranslationKey())).formatted(Formatting.BLUE));
         tooltip.add(Text.translatable("attribute.modifier.take.1", ItemStack.MODIFIER_FORMAT.format(100), Text.translatable(Z7StatusEffects.STATUS_EFFECT_BLEEDING.getTranslationKey())).formatted(Formatting.BLUE));
     }
 }

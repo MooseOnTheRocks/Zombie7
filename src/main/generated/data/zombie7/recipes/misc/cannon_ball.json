@@ -1,0 +1,24 @@
+{
+  "type": "minecraft:crafting_shaped",
+  "category": "equipment",
+  "key": {
+    "#": {
+      "item": "minecraft:iron_ingot"
+    },
+    ".": {
+      "item": "minecraft:iron_nugget"
+    },
+    "X": {
+      "item": "minecraft:iron_block"
+    }
+  },
+  "pattern": [
+    ".#.",
+    "#X#",
+    ".#."
+  ],
+  "result": {
+    "item": "zombie7:misc/cannon_ball"
+  },
+  "show_notification": true
+}

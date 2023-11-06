@@ -8,6 +8,7 @@ import dev.foltz.entity.grenade.FragGrenadeEntity;
 import dev.foltz.entity.grenade.MolotovGrenadeEntity;
 import dev.foltz.entity.grenade.StickyGrenadeEntity;
 import dev.foltz.entity.misc.BowlingBallGrenadeEntity;
+import dev.foltz.entity.misc.CannonBallEntity;
 import net.fabricmc.fabric.api.object.builder.v1.entity.FabricEntityTypeBuilder;
 import net.minecraft.entity.EntityDimensions;
 import net.minecraft.entity.EntityType;
@@ -46,6 +47,12 @@ public abstract class Z7Entities {
         Registries.ENTITY_TYPE,
         new Identifier(MODID, "grenade_bowling_ball"),
         FabricEntityTypeBuilder.create().entityFactory(BowlingBallGrenadeEntity::new).dimensions(EntityDimensions.fixed(0.8f, 0.8f)).build()
+    );
+
+    public static final EntityType<CannonBallEntity> CANNON_BALL_ENTITY = Registry.register(
+        Registries.ENTITY_TYPE,
+        new Identifier(MODID, "cannon_ball"),
+        FabricEntityTypeBuilder.create().entityFactory(CannonBallEntity::new).dimensions(EntityDimensions.fixed(0.8f, 0.8f)).build()
     );
 
     public static final EntityType<BulletBronzeEntity> BULLET_BRONZE_ENTITY = Registry.register(

@@ -89,6 +89,7 @@ public class HealingBandageItem extends Item {
         mutableText = Text.translatable("potion.withDuration", mutableText, StatusEffectUtil.getDurationText(EFFECT_HEALING.get(), 1));
         tooltip.add(mutableText.formatted(EFFECT_HEALING.get().getEffectType().getCategory().getFormatting()));
 
+        tooltip.add(Text.translatable("attribute.modifier.plus.0", ItemStack.MODIFIER_FORMAT.format(2), Text.translatable(net.minecraft.entity.effect.StatusEffects.INSTANT_HEALTH.getTranslationKey())).formatted(Formatting.BLUE));
         tooltip.add(Text.translatable("attribute.modifier.take.1", ItemStack.MODIFIER_FORMAT.format(100), Text.translatable(Z7StatusEffects.STATUS_EFFECT_BLEEDING.getTranslationKey())).formatted(Formatting.BLUE));
     }
 }

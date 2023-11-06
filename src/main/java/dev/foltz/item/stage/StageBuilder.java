@@ -5,7 +5,7 @@ import net.minecraft.item.ItemStack;
 import java.util.function.Consumer;
 import java.util.function.Function;
 
-public class StageBuilder<T extends StagedItem> {
+public class StageBuilder<T extends StagedItem<?>> {
     private int maxStageTicks;
     private StagedItemEventHandler<T> handleInit;
     private StagedItemEventHandler<T> handlePressShoot;

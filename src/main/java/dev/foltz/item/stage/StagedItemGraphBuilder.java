@@ -6,7 +6,7 @@ import java.util.List;
 import java.util.Map;
 import java.util.function.Function;
 
-public class StagedItemGraphBuilder<T extends StagedItem> {
+public class StagedItemGraphBuilder<T extends StagedItem<?>> {
 //    private Map<String, GunStageBuilder> stageBuilders;
     private final List<String> stageNames;
     private final List<StageBuilder<T>> stageBuilders;
