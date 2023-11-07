@@ -48,7 +48,7 @@ public class CannonBallEntityRenderer extends EntityRenderer<CannonBallEntity> {
 //        s *= 0.4;
         matrixStack.push();
         matrixStack.scale(s, s, s);
-        matrixStack.translate(0, 0.6f, 0);
+        matrixStack.translate(0, 0.4f, 0);
         matrixStack.multiply(this.dispatcher.getRotation());
         matrixStack.multiply(RotationAxis.POSITIVE_Y.rotationDegrees(180.0f));
         MatrixStack.Entry entry = matrixStack.peek();

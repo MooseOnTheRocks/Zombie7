@@ -81,7 +81,7 @@ public class CannonBallEntity extends Z7GrenadeEntity {
             this.setVelocity(this.getVelocity().subtract(0, 0.025, 0));
         }
         else {
-            this.setVelocity(this.getVelocity().multiply(0.9));
+            this.setVelocity(this.getVelocity().multiply(0.85));
             if (this.getVelocity().length() < 0.05 && this.isOnGround()) {
 //                System.out.println("Allowed to pickup");
                 if (this.getOwner() != null && this.getOwner() instanceof PlayerEntity player && player.getAbilities().creativeMode) {
@@ -134,7 +134,7 @@ public class CannonBallEntity extends Z7GrenadeEntity {
     @Override
     protected void onEntityHit(EntityHitResult entityHitResult) {
         if (!getWorld().isClient) {
-            this.setVelocity(this.getVelocity().multiply(0.90));
+            this.setVelocity(this.getVelocity().multiply(0.93));
             if (entityHitResult.getEntity() instanceof CannonBallEntity other) {
                 var diff = this.getPos().subtract(other.getPos()).normalize();
 //                this.addVelocity(diff.normalize().multiply(0.3).multiply(other.getVelocity()));
@@ -160,12 +160,12 @@ public class CannonBallEntity extends Z7GrenadeEntity {
                     }
 
                     float newDist = distanceTraveled + edist;
-                    Vec3d vec3d = this.getVelocity().multiply(1.0, 0.0, 1.0).normalize().multiply(MathHelper.map(getVelocity().length(), 0, 0.8, 8, 16));
+                    Vec3d vec3d = this.getVelocity().multiply(1.0, 0.0, 1.0).normalize().multiply(MathHelper.map(getVelocity().length() * 0.5, 0, 0.8, 8, 12));
                     if (vec3d.lengthSquared() > 0.0) {
-                        ((LivingEntity) entity).addVelocity(vec3d.x, 2.5, vec3d.z);
+                        ((LivingEntity) entity).addVelocity(vec3d.x, Math.min(getVelocity().length(), 2.0f) * 0.2, vec3d.z);
                         if (!this.getWorld().isClient) {
                             if (getVelocity().length() > 0.2) {
-                                float damage = (float) MathHelper.lerp(Math.min(getVelocity().length(), 1.0f), 8f, 20f);
+                                float damage = (float) MathHelper.lerp(Math.min(getVelocity().length(), 2.0f), 2f, 20f);
 
                                 if (entityHitResult.getEntity().damage(this.getDamageSources().create(Zombie7.BULLET_DAMAGE_TYPE, this, this.getOwner() instanceof LivingEntity e ? e : null), damage)) {
                                     System.out.println("Dealing ranged " + damage + " damage, baseDamage = " + damage + ", traveled = " + distanceTraveled);
