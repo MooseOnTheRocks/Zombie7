@@ -1,0 +1,19 @@
+{
+  "parent": "zombie7:item/gun/gun_flat_parent",
+  "textures": {
+    "layer0": "zombie7:item/gun/pistol_eoka/default"
+  },
+  "overrides": [
+    { "predicate": { "usage_stage": 0.0, "is_striking": 1.0 }, "model": "zombie7:item/gun/pistol_eoka/striking_0" },
+    { "predicate": { "usage_stage": 0.5, "is_striking": 1.0 }, "model": "zombie7:item/gun/pistol_eoka/striking_1" },
+
+    { "predicate": { "usage_stage": 0.0, "is_reloading": 1.0 }, "model": "zombie7:item/gun/pistol_eoka/default" },
+    { "predicate": { "usage_stage": 0.1, "is_reloading": 1.0 }, "model": "zombie7:item/gun/pistol_eoka/reloading" },
+
+    { "predicate": { "usage_stage": 0.0, "is_firing": 1.0 }, "model": "zombie7:item/gun/pistol_eoka/firing_0" },
+    { "predicate": { "usage_stage": 0.33, "is_firing": 1.0 }, "model": "zombie7:item/gun/pistol_eoka/firing_1" },
+    { "predicate": { "usage_stage": 0.66, "is_firing": 1.0 }, "model": "zombie7:item/gun/pistol_eoka/firing_2" },
+
+    { "predicate": { "is_broken": 1.0 }, "model": "zombie7:item/gun/pistol_eoka/broken" }
+  ]
+}
