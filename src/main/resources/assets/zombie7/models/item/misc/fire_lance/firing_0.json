@@ -1,6 +1,6 @@
 {
   "parent": "zombie7:item/gun/gun_parent",
   "textures": {
-    "layer0": "zombie7:item/gun/fire_lance/firing_0"
+    "layer0": "zombie7:item/misc/fire_lance/firing_0"
   }
 }

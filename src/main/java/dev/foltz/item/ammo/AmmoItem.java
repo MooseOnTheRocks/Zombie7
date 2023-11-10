@@ -11,6 +11,7 @@ import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.entity.player.PlayerInventory;
 import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
+import net.minecraft.item.Items;
 import net.minecraft.registry.RegistryKeys;
 import net.minecraft.registry.tag.TagKey;
 
@@ -24,6 +25,7 @@ public interface AmmoItem {
     TagKey<Item> AMMO_TYPE_MAGNUM_TAG = TagKey.of(RegistryKeys.ITEM, identifier("ammo_type_magnum"));
     TagKey<Item> AMMO_TYPE_SHOTGUN_TAG = TagKey.of(RegistryKeys.ITEM, identifier("ammo_type_shotgun"));
     TagKey<Item> AMMO_TYPE_CANNON_BALL_TAG = TagKey.of(RegistryKeys.ITEM, identifier("ammo_type_cannon_ball"));
+    TagKey<Item> AMMO_TYPE_GUNPOWDER_TAG = TagKey.of(RegistryKeys.ITEM, identifier("ammo_type_gunpowder"));
 
     float getBaseDamage(ItemStack itemStack);
 
@@ -77,7 +79,8 @@ public interface AmmoItem {
         PISTOL_AMMO(AMMO_TYPE_PISTOL_TAG, () -> Z7Items.ITEM_AMMO_PISTOL),
         MAGNUM_AMMO(AMMO_TYPE_MAGNUM_TAG, () -> Z7Items.ITEM_AMMO_MAGNUM),
         SHOTGUN_AMMO(AMMO_TYPE_SHOTGUN_TAG, () -> Z7Items.ITEM_AMMO_SHOTGUN),
-        CANNON_BALL_AMMO(AMMO_TYPE_CANNON_BALL_TAG, () -> Z7Items.ITEM_CANNON_BALL);
+        CANNON_BALL_AMMO(AMMO_TYPE_CANNON_BALL_TAG, () -> Z7Items.ITEM_CANNON_BALL),
+        GUNPOWDER_AMMO(AMMO_TYPE_GUNPOWDER_TAG, () -> Items.GUNPOWDER);
 
 
 

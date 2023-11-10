@@ -15,6 +15,7 @@ import dev.foltz.item.gun.shotgun.PumpShotgunItem;
 import dev.foltz.item.gun.shotgun.dblbrlShotgunItem;
 import dev.foltz.item.stage.StagedItem;
 import net.minecraft.client.item.ModelPredicateProviderRegistry;
+import net.minecraft.client.render.model.json.ModelTransformationMode;
 import net.minecraft.entity.LivingEntity;
 import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
@@ -24,8 +25,15 @@ import net.minecraft.world.World;
 import java.util.Arrays;
 import java.util.List;
 import java.util.function.Consumer;
+import java.util.stream.Stream;
 
 public abstract class Z7ModelPredicates {
+    private static final List<Integer> IN_HAND_ORDINALS = Stream.of(
+            ModelTransformationMode.FIRST_PERSON_LEFT_HAND,
+            ModelTransformationMode.FIRST_PERSON_RIGHT_HAND,
+            ModelTransformationMode.THIRD_PERSON_LEFT_HAND,
+            ModelTransformationMode.THIRD_PERSON_RIGHT_HAND)
+        .map(Enum::ordinal).toList();
     public static final Consumer<Item> STACK_COUNT = makePredicate("stack_count", (item, stack, livingEntity, world) -> stack.getCount() / (float) stack.getMaxCount());
 
     public static final Consumer<GunStagedItem> USAGE_TICKS = makePredicate("usage_stage", (gun, stack, livingEntity, world) -> {
@@ -33,6 +41,7 @@ public abstract class Z7ModelPredicates {
         return maxUse == 0 ? 0.0f : gun.getStageTicks(stack) / (float) maxUse;
     });
 
+    public static final Consumer<? extends Item> IN_GUI = item -> ModelPredicateProviderRegistry.register(item, new Identifier("in_gui"), (stack, world, entity, seed) -> entity != null && IN_HAND_ORDINALS.contains(seed - entity.getId()) ? 0 : 1);
 
     public static <T extends Item> Consumer<T> makePredicate(String name, Function4<T, ItemStack, LivingEntity, World, Float> predicate) {
         return item -> ModelPredicateProviderRegistry.register(item, new Identifier(name), (stack, world, entity, seed) -> entity == null ? 0.0f : predicate.apply(item, stack, entity, world));
@@ -90,7 +99,8 @@ public abstract class Z7ModelPredicates {
                 stagePredicate("is_ready_to_fire", FlintlockPistolItem.STAGE_COCKED),
                 stagePredicate("is_firing", FlintlockPistolItem.STAGE_FIRING),
                 stagePredicate("is_broken", FlintlockPistolItem.STAGE_BROKEN),
-                USAGE_TICKS));
+                USAGE_TICKS,
+                IN_GUI));
 
         registerItemWithPredicates(
             Z7Items.ITEM_PISTOL_EOKA,
@@ -99,7 +109,8 @@ public abstract class Z7ModelPredicates {
                 stagePredicate("is_reloading", EokaPistol.STAGE_RELOADING),
                 stagePredicate("is_firing", EokaPistol.STAGE_FIRING),
                 stagePredicate("is_broken", EokaPistol.STAGE_BROKEN),
-                USAGE_TICKS));
+                USAGE_TICKS,
+                IN_GUI));
 
         // -- Magnums
         registerItemsWithPredicates(
@@ -112,7 +123,8 @@ public abstract class Z7ModelPredicates {
                 stagePredicate("is_firing", DeaglePistolItem.STAGE_FIRING),
                 stagePredicate("is_broken", DeaglePistolItem.STAGE_BROKEN),
                 stagePredicate("is_readying", DeaglePistolItem.STAGE_READYING),
-                USAGE_TICKS));
+                USAGE_TICKS,
+                IN_GUI));
 
         // -- Shotguns
         registerItemWithPredicates(
@@ -123,7 +135,8 @@ public abstract class Z7ModelPredicates {
                 stagePredicate("is_ready_to_fire", PumpShotgunItem.STAGE_PUMPED),
                 stagePredicate("is_firing", PumpShotgunItem.STAGE_FIRING),
                 stagePredicate("is_broken", PumpShotgunItem.STAGE_BROKEN),
-                USAGE_TICKS));
+                USAGE_TICKS,
+                IN_GUI));
 
         registerItemWithPredicates(
             Z7Items.ITEM_SHOTGUN_AA12,
@@ -132,7 +145,8 @@ public abstract class Z7ModelPredicates {
                 stagePredicate("is_ready_to_fire", Aa12ShotgunItem.STAGE_DEFAULT),
                 stagePredicate("is_firing", Aa12ShotgunItem.STAGE_FIRING),
                 stagePredicate("is_broken", Aa12ShotgunItem.STAGE_BROKEN),
-                USAGE_TICKS));
+                USAGE_TICKS,
+                IN_GUI));
 
         registerItemWithPredicates(
             Z7Items.ITEM_SHOTGUN_DBLBRL,
@@ -141,7 +155,8 @@ public abstract class Z7ModelPredicates {
                 stagePredicate("is_ready_to_fire", dblbrlShotgunItem.STAGE_DEFAULT),
                 stagePredicate("is_firing", dblbrlShotgunItem.STAGE_FIRING),
                 stagePredicate("is_broken", dblbrlShotgunItem.STAGE_BROKEN),
-                USAGE_TICKS));
+                USAGE_TICKS,
+                IN_GUI));
 
         // -- Rifles
         registerItemWithPredicates(
@@ -152,7 +167,19 @@ public abstract class Z7ModelPredicates {
                 stagePredicate("is_ready_to_fire", AkRifleItem.STAGE_COCKED),
                 stagePredicate("is_firing", AkRifleItem.STAGE_FIRING),
                 stagePredicate("is_broken", AkRifleItem.STAGE_BROKEN),
-                USAGE_TICKS));
+                USAGE_TICKS,
+                IN_GUI));
+
+        // == Misc
+        registerItemWithPredicates(
+            Z7Items.ITEM_FIRE_LANCE,
+            List.of(
+                stagePredicate("is_reloading", AkRifleItem.STAGE_RELOADING),
+                stagePredicate("is_ready_to_fire", AkRifleItem.STAGE_COCKED),
+                stagePredicate("is_firing", AkRifleItem.STAGE_FIRING),
+                stagePredicate("is_broken", AkRifleItem.STAGE_BROKEN),
+                USAGE_TICKS,
+                IN_GUI));
 
         // -- "Numerous" items
         registerItemsWithPredicates(

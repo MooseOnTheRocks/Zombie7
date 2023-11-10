@@ -1,19 +1,33 @@
 {
-  "parent": "zombie7:item/gun/gun_flat_parent",
+  "parent": "zombie7:item/gun/gun_parent",
   "textures": {
-    "layer0": "zombie7:item/gun/fire_lance/default"
+    "layer0": "zombie7:item/misc/fire_lance/default"
   },
   "overrides": [
-    { "predicate": { "in_gui": 1.0 }, "model": "zombie7:item/gun/fire_lance/icon/default" },
+    { "predicate": { "in_gui": 0.0 }, "model": "zombie7:item/misc/fire_lance/default" },
 
-    { "predicate": { "usage_stage": 0.0, "is_reloading": 1.0 }, "model": "zombie7:item/gun/fire_lance/default" },
-    { "predicate": { "usage_stage": 0.1, "is_reloading": 1.0 }, "model": "zombie7:item/gun/fire_lance/reloading" },
+    { "predicate": { "usage_stage": 0.0, "is_reloading": 1.0, "in_gui": 0.0 }, "model": "zombie7:item/misc/fire_lance/default" },
+    { "predicate": { "usage_stage": 0.1, "is_reloading": 1.0, "in_gui": 0.0 }, "model": "zombie7:item/misc/fire_lance/reloading" },
 
-    { "predicate": { "usage_stage": 0.0, "is_firing": 1.0 }, "model": "zombie7:item/gun/fire_lance/firing_0" },
-    { "predicate": { "usage_stage": 0.1, "is_firing": 1.0 }, "model": "zombie7:item/gun/fire_lance/firing_1" },
-    { "predicate": { "usage_stage": 0.2, "is_firing": 1.0 }, "model": "zombie7:item/gun/fire_lance/firing_2" },
-    { "predicate": { "usage_stage": 0.3, "is_firing": 1.0 }, "model": "zombie7:item/gun/fire_lance/firing_3" },
+    { "predicate": { "usage_stage": 0.0, "is_firing": 1.0, "in_gui": 0.0 }, "model": "zombie7:item/misc/fire_lance/firing_0" },
+    { "predicate": { "usage_stage": 0.033, "is_firing": 1.0, "in_gui": 0.0 }, "model": "zombie7:item/misc/fire_lance/firing_1" },
+    { "predicate": { "usage_stage": 0.066, "is_firing": 1.0, "in_gui": 0.0 }, "model": "zombie7:item/misc/fire_lance/firing_2" },
+    { "predicate": { "usage_stage": 0.1, "is_firing": 1.0, "in_gui": 0.0 }, "model": "zombie7:item/misc/fire_lance/firing_3" },
 
-    { "predicate": { "is_broken": 1.0 }, "model": "zombie7:item/gun/fire_lance/broken" }
+    { "predicate": { "is_broken": 1.0, "in_gui": 0.0 }, "model": "zombie7:item/misc/fire_lance/broken" },
+
+
+
+    { "predicate": { "in_gui": 1.0 }, "model": "zombie7:item/misc/fire_lance/icon/default" },
+
+    { "predicate": { "usage_stage": 0.0, "is_reloading": 1.0, "in_gui": 1.0 }, "model": "zombie7:item/misc/fire_lance/icon/default" },
+    { "predicate": { "usage_stage": 0.1, "is_reloading": 1.0, "in_gui": 1.0 }, "model": "zombie7:item/misc/fire_lance/icon/reloading" },
+
+    { "predicate": { "usage_stage": 0.0, "is_firing": 1.0, "in_gui": 1.0 }, "model": "zombie7:item/misc/fire_lance/icon/firing_0" },
+    { "predicate": { "usage_stage": 0.033, "is_firing": 1.0, "in_gui": 1.0 }, "model": "zombie7:item/misc/fire_lance/icon/firing_1" },
+    { "predicate": { "usage_stage": 0.066, "is_firing": 1.0, "in_gui": 1.0 }, "model": "zombie7:item/misc/fire_lance/icon/firing_2" },
+    { "predicate": { "usage_stage": 0.1, "is_firing": 1.0, "in_gui": 1.0 }, "model": "zombie7:item/misc/fire_lance/icon/firing_3" },
+
+    { "predicate": { "is_broken": 1.0, "in_gui": 1.0 }, "model": "zombie7:item/misc/fire_lance/icon/broken" }
   ]
 }

@@ -1,4 +1,4 @@
-package dev.foltz.item.gun.misc;
+package dev.foltz.item.misc;
 
 import dev.foltz.Zombie7;
 import dev.foltz.item.ammo.AmmoItem;
@@ -50,7 +50,7 @@ public class FireLance extends GunStagedItem {
                 .onTick(tryReloadOneBullet(STAGE_DEFAULT))
                 .onUnselected(view -> STAGE_DEFAULT),
 
-            STAGE_FIRING, new GunStageBuilder(ticksFromSeconds(10f)).tickWhileUnselected()
+            STAGE_FIRING, new GunStageBuilder(ticksFromSeconds(8f)).tickWhileUnselected()
                 .barColor(stack -> RED)
                 .barProgress(stack -> stack.getItem() instanceof GunStagedItem gun ? (gun.getAmmoInGun(stack).size() + (1 - gun.getStageTicks(stack) / (float) (gun.getMaxStageTicks(stack) == 0 ? 1f : gun.getMaxStageTicks(stack)))) / (float) gun.getMaxAmmoCapacity(stack) : 0f)
                 .onInit(doFire())

@@ -13,6 +13,7 @@ import net.minecraft.stat.Stats;
 import net.minecraft.util.Hand;
 import net.minecraft.util.math.MathHelper;
 
+import java.util.List;
 import java.util.Map;
 
 import static dev.foltz.Z7Util.*;
@@ -46,6 +47,7 @@ public class EokaPistol extends GunStagedItem {
                 .onUnselected(view -> STAGE_DEFAULT),
 
             STAGE_STRIKING, new GunStageBuilder(ticksFromSeconds(0.4f))
+                .barColor(view -> ORANGE)
                 .onInit(view -> {
                     ((EokaPistol) view.item).playSoundStrike(view.stack, view.entity);
                     var roll = Math.random();

@@ -7,9 +7,8 @@
     { "predicate": { "usage_stage": 0.0, "is_striking": 1.0 }, "model": "zombie7:item/gun/pistol_eoka/striking_0" },
     { "predicate": { "usage_stage": 0.5, "is_striking": 1.0 }, "model": "zombie7:item/gun/pistol_eoka/striking_1" },
 
-    { "predicate": { "usage_stage": 0.0, "is_reloading": 1.0 }, "model": "zombie7:item/gun/pistol_eoka/reloading" },
-
-    { "predicate": { "is_ready_to_fire": 1.0}, "model": "zombie7:item/gun/pistol_eoka/cocked" },
+    { "predicate": { "usage_stage": 0.0, "is_reloading": 1.0 }, "model": "zombie7:item/gun/pistol_eoka/default" },
+    { "predicate": { "usage_stage": 0.1, "is_reloading": 1.0 }, "model": "zombie7:item/gun/pistol_eoka/reloading" },
 
     { "predicate": { "usage_stage": 0.0, "is_firing": 1.0 }, "model": "zombie7:item/gun/pistol_eoka/firing_0" },
     { "predicate": { "usage_stage": 0.33, "is_firing": 1.0 }, "model": "zombie7:item/gun/pistol_eoka/firing_1" },

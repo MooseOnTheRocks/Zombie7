@@ -4,6 +4,7 @@ import dev.foltz.Zombie7;
 import dev.foltz.item.ammo.*;
 import dev.foltz.item.consumable.*;
 import dev.foltz.item.grenade.*;
+import dev.foltz.item.misc.FireLance;
 import dev.foltz.item.gun.pistol.*;
 import dev.foltz.item.gun.rifle.AkRifleItem;
 import dev.foltz.item.gun.shotgun.Aa12ShotgunItem;
@@ -21,8 +22,6 @@ import net.minecraft.item.ItemGroup;
 import net.minecraft.item.ItemStack;
 import net.minecraft.registry.Registries;
 import net.minecraft.registry.Registry;
-import net.minecraft.registry.RegistryKey;
-import net.minecraft.registry.RegistryKeys;
 import net.minecraft.text.Text;
 import net.minecraft.util.Identifier;
 
@@ -65,11 +64,13 @@ public abstract class Z7Items {
 
 
     // Weapons
+    // Grenades
     public static final Item ITEM_FRAG_GRENADE = registerGrenadeItem("frag", new FragGrenadeItem());
     public static final Item ITEM_CONTACT_GRENADE = registerGrenadeItem("contact", new ContactGrenadeItem());
     public static final Item ITEM_MOLOTOV_GRENADE = registerGrenadeItem("molotov", new MolotovGrenadeItem());
     public static final Item ITEM_STICKY_GRENADE = registerGrenadeItem("sticky", new StickyGrenadeItem());
 
+    // Guns
     public static final Item ITEM_PISTOL_EOKA = registerGunItem("pistol_eoka", new EokaPistol());
     public static final Item ITEM_PISTOL_FLINTLOCK = registerGunItem("pistol_flintlock", new FlintlockPistolItem());
     public static final Item ITEM_PISTOL_BASIC = registerGunItem("pistol_basic", new BasicPistolItem());
@@ -80,6 +81,8 @@ public abstract class Z7Items {
     public static final Item ITEM_SHOTGUN_DBLBRL = registerGunItem("shotgun_dblbrl", new dblbrlShotgunItem());
     public static final Item ITEM_RIFLE_AK = registerGunItem("rifle_ak", new AkRifleItem());
 
+    // Misc
+    public static final Item ITEM_FIRE_LANCE = registerMiscWeaponItem("fire_lance", new FireLance());
     public static final Item ITEM_BOWLING_BALL = registerMiscWeaponItem("bowling_ball", new BowlingBallItem());
     public static final Item ITEM_CANNON_BALL = registerMiscWeaponItem("cannon_ball", new CannonBallItem());
 
@@ -90,7 +93,7 @@ public abstract class Z7Items {
     public static final Item ITEM_AMMO_SHOTGUN = registerAmmoItem("shotgun_basic", new ShotgunBasicAmmoItem());
     public static final Item ITEM_AMMO_RUBBER_SHOTGUN = registerAmmoItem("shotgun_rubber", new ShotgunRubberAmmoItem());
 
-    // Misc
+    // Debug
     public static final Item ITEM_BONK_STICK = registerItem("bonk_stick", new BonkStick());
     public static final Item ITEM_BONK_STICK_16 = registerItem("bonk_stick16", new BonkStick());
 

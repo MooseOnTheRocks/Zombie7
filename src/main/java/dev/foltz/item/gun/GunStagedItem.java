@@ -13,6 +13,7 @@ import net.minecraft.nbt.NbtCompound;
 import net.minecraft.nbt.NbtElement;
 import net.minecraft.nbt.NbtList;
 import net.minecraft.particle.ParticleTypes;
+import net.minecraft.server.world.ServerWorld;
 import net.minecraft.sound.SoundCategory;
 import net.minecraft.sound.SoundEvents;
 import net.minecraft.stat.Stats;
@@ -296,9 +297,11 @@ public class GunStagedItem extends StagedItem<GunStagedItem> {
             : List.of();
     }
 
-    public void spawnBulletParticles(PlayerEntity player, ItemStack gunStack, ItemStack ammoStack) {
+    public void spawnBulletParticlesFromServer(PlayerEntity player, ItemStack gunStack, ItemStack ammoStack) {
+        var world = (ServerWorld) player.getWorld();
+        System.out.println("SPAWNING BULLET PARTICLES");
         double x = player.getX();
-        double y = player.getY();
+        double y = player.getY() + player.getStandingEyeHeight();
         double z = player.getZ();
 
         double yaw = player.getYaw();
@@ -309,12 +312,14 @@ public class GunStagedItem extends StagedItem<GunStagedItem> {
         double di = 1;
         for (int i = 0; i < 5; ++i) {
             double g = 0.05 * (double)i;
-            player.getWorld().addParticle(ParticleTypes.SMOKE, x + di * d, y, z + di * f, d * g, 0.01f, f * g);
+            world.spawnParticles(ParticleTypes.SMOKE, x + di*d, y, z + di*f, 1, d, 0f, f, g);
+//            player.getWorld().addParticle(ParticleTypes.SMOKE, x + di * d, y, z + di * f, d * g, 0.01f, f * g);
         }
 
         for (int i = 0; i < 3; ++i) {
             double g = 0.01 * (double)i;
-            player.getWorld().addParticle(ParticleTypes.LARGE_SMOKE, x + di * d, y, z + di * f, d * g, 0.01f, f * g);
+            world.spawnParticles(ParticleTypes.LARGE_SMOKE, x + di*d, y, z + di*f, 1, d, 0.015f, f, g);
+//            player.getWorld().addParticle(ParticleTypes.LARGE_SMOKE, x + di * d, y, z + di * f, d * g, 0.01f, f * g);
         }
     }
 
@@ -335,6 +340,7 @@ public class GunStagedItem extends StagedItem<GunStagedItem> {
 
         if (!world.isClient) {
             createBulletEntities(player, itemStack, ammoStack).forEach(world::spawnEntity);
+            // spawnBulletParticlesFromServer(player, itemStack, ammoStack);
 
             if (!isCreative) {
                 int damage = itemStack.getDamage() + 1;
@@ -347,9 +353,6 @@ public class GunStagedItem extends StagedItem<GunStagedItem> {
                     player.sendToolBreakStatus(Hand.MAIN_HAND);
                 }
             }
-        }
-        else {
-            spawnBulletParticles(player, itemStack, ammoStack);
         }
 
         player.incrementStat(Stats.USED.getOrCreateStat(this));
