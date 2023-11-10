@@ -7,6 +7,7 @@ import dev.foltz.item.grenade.*;
 import dev.foltz.item.misc.FireLance;
 import dev.foltz.item.gun.pistol.*;
 import dev.foltz.item.gun.rifle.AkRifleItem;
+import dev.foltz.item.gun.rifle.MusketRifleItem;
 import dev.foltz.item.gun.shotgun.Aa12ShotgunItem;
 import dev.foltz.item.gun.shotgun.PumpShotgunItem;
 import dev.foltz.item.gun.shotgun.dblbrlShotgunItem;
@@ -80,6 +81,7 @@ public abstract class Z7Items {
     public static final Item ITEM_SHOTGUN_AA12 = registerGunItem("shotgun_aa12", new Aa12ShotgunItem());
     public static final Item ITEM_SHOTGUN_DBLBRL = registerGunItem("shotgun_dblbrl", new dblbrlShotgunItem());
     public static final Item ITEM_RIFLE_AK = registerGunItem("rifle_ak", new AkRifleItem());
+    public static final Item ITEM_RIFLE_MUSKET = registerGunItem("rifle_musket", new MusketRifleItem());
 
     // Misc
     public static final Item ITEM_FIRE_LANCE = registerMiscWeaponItem("fire_lance", new FireLance());

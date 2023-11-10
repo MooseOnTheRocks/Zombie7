@@ -25,8 +25,10 @@
   "item.zombie7.gun.pistol_glock": "Glock 17",
   "item.zombie7.gun.pistol_flintlock": "Flintlock Pistol",
   "item.zombie7.gun.shotgun_basic": "Basic Shotgun",
+  "item.zombie7.gun.shotgun_dblbrl": "Double Barrel Shotgun",
   "item.zombie7.gun.shotgun_aa12": "AA-12",
   "item.zombie7.gun.rifle_ak": "AK-47",
+  "item.zombie7.gun.rifle_musket": "Musket",
   "item.zombie7.gun.pistol_deagle": "Deagle",
 
   "item.zombie7.grenade.frag": "Frag Grenade",

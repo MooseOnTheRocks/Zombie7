@@ -10,6 +10,7 @@ import dev.foltz.item.gun.pistol.DeaglePistolItem;
 import dev.foltz.item.gun.pistol.EokaPistol;
 import dev.foltz.item.gun.pistol.FlintlockPistolItem;
 import dev.foltz.item.gun.rifle.AkRifleItem;
+import dev.foltz.item.gun.rifle.MusketRifleItem;
 import dev.foltz.item.gun.shotgun.Aa12ShotgunItem;
 import dev.foltz.item.gun.shotgun.PumpShotgunItem;
 import dev.foltz.item.gun.shotgun.dblbrlShotgunItem;
@@ -180,6 +181,16 @@ public abstract class Z7ModelPredicates {
                 stagePredicate("is_broken", AkRifleItem.STAGE_BROKEN),
                 USAGE_TICKS,
                 IN_GUI));
+
+        registerItemWithPredicates(
+            Z7Items.ITEM_RIFLE_MUSKET,
+            List.of(
+                stagePredicate("is_readying", MusketRifleItem.STAGE_COCKING),
+                stagePredicate("is_reloading", MusketRifleItem.STAGE_RELOADING),
+                stagePredicate("is_ready_to_fire", MusketRifleItem.STAGE_COCKED),
+                stagePredicate("is_firing", MusketRifleItem.STAGE_FIRING),
+                stagePredicate("is_broken", MusketRifleItem.STAGE_BROKEN),
+                USAGE_TICKS));
 
         // -- "Numerous" items
         registerItemsWithPredicates(
