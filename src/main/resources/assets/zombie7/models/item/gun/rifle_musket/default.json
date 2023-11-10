@@ -10,8 +10,13 @@
     { "predicate": { "usage_stage": 1.0, "is_readying": 1.0 }, "model": "zombie7:item/gun/rifle_musket/cocked" },
 
     { "predicate": { "usage_stage": 0.0, "is_reloading": 1.0 }, "model": "zombie7:item/gun/rifle_musket/default"},
-    { "predicate": { "usage_stage": 0.5, "is_reloading": 1.0 }, "model": "zombie7:item/gun/rifle_musket/reloading_0"},
-    { "predicate": { "usage_stage": 1.0, "is_reloading": 1.0 }, "model": "zombie7:item/gun/rifle_musket/reloading_1"},
+    { "predicate": { "usage_stage": 0.1, "is_reloading": 1.0 }, "model": "zombie7:item/gun/rifle_musket/reloading_0"},
+    { "predicate": { "usage_stage": 0.2, "is_reloading": 1.0 }, "model": "zombie7:item/gun/rifle_musket/reloading_1"},
+    { "predicate": { "usage_stage": 0.3, "is_reloading": 1.0 }, "model": "zombie7:item/gun/rifle_musket/reloading_2"},
+    { "predicate": { "usage_stage": 0.5, "is_reloading": 1.0 }, "model": "zombie7:item/gun/rifle_musket/reloading_1"},
+    { "predicate": { "usage_stage": 0.55, "is_reloading": 1.0 }, "model": "zombie7:item/gun/rifle_musket/reloading_3"},
+    { "predicate": { "usage_stage": 0.85, "is_reloading": 1.0 }, "model": "zombie7:item/gun/rifle_musket/reloading_1"},
+    { "predicate": { "usage_stage": 1.0, "is_reloading": 1.0 }, "model": "zombie7:item/gun/rifle_musket/reloading_0"},
 
     { "predicate": { "is_ready_to_fire": 1.0}, "model": "zombie7:item/gun/rifle_musket/cocked" },
 

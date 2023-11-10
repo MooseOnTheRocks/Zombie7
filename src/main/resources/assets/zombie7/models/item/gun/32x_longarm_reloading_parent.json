@@ -2,7 +2,7 @@
   "parent": "item/generated",
   "display": {
     "thirdperson_righthand": {
-      "rotation": [ -80, 260, -50 ],
+      "rotation": [ -80, 260, -40 ],
       "translation": [ -1, -0.5, -2 ],
       "scale": [ 1.2, 1.2, 1.2 ]
     },
@@ -12,8 +12,8 @@
       "scale": [ 0.9, 0.9, 0.9 ]
     },
     "firstperson_righthand": {
-      "rotation": [ 0, -100, 25 ],
-      "translation": [ -1.5, 4, -3],
+      "rotation": [ 0, -100, 44 ],
+      "translation": [ -1.5, 2, -3],
       "scale": [ 1.36, 1.36, 0.68 ]
     },
     "firstperson_lefthand": {
