@@ -1,12 +1,12 @@
 {
-  "parent": "zombie7:item/gun/32x_gun_flat_parent",
+  "parent": "zombie7:item/gun/32x_longarm_flat_parent",
   "textures": {
     "layer0": "zombie7:item/gun/rifle_musket/default"
   },
   "overrides": [
     { "predicate": { "usage_stage": 0.0, "is_readying": 1.0 }, "model": "zombie7:item/gun/rifle_musket/default" },
-    { "predicate": { "usage_stage": 0.33, "is_readying": 1.0 }, "model": "zombie7:item/gun/rifle_musket/cocking_0" },
-    { "predicate": { "usage_stage": 0.66, "is_readying": 1.0 }, "model": "zombie7:item/gun/rifle_musket/cocking_1" },
+    { "predicate": { "usage_stage": 0.25, "is_readying": 1.0 }, "model": "zombie7:item/gun/rifle_musket/cocking_0" },
+    { "predicate": { "usage_stage": 0.5, "is_readying": 1.0 }, "model": "zombie7:item/gun/rifle_musket/cocking_1" },
     { "predicate": { "usage_stage": 1.0, "is_readying": 1.0 }, "model": "zombie7:item/gun/rifle_musket/cocked" },
 
     { "predicate": { "usage_stage": 0.0, "is_reloading": 1.0 }, "model": "zombie7:item/gun/rifle_musket/default"},
@@ -15,7 +15,7 @@
 
     { "predicate": { "is_ready_to_fire": 1.0}, "model": "zombie7:item/gun/rifle_musket/cocked" },
 
-    { "predicate": { "usage_stage": 0.0, "is_firing": 1.0 }, "model": "zombie7:item/gun/rifle_musket/default" },
+    { "predicate": { "usage_stage": 0.0, "is_firing": 1.0 }, "model": "zombie7:item/gun/rifle_musket/firing_0" },
     { "predicate": { "usage_stage": 1.0, "is_firing": 1.0 }, "model": "zombie7:item/gun/rifle_musket/firing_0" },
 
     { "predicate": { "is_broken": 1.0 }, "model": "zombie7:item/gun/rifle_musket/broken" }

@@ -1,5 +1,5 @@
 {
-  "parent": "zombie7:item/gun/32x_gun_flat_parent",
+  "parent": "zombie7:item/gun/32x_longarm_flat_parent",
   "textures": {
     "layer0": "zombie7:item/gun/rifle_musket/broken"
   }
