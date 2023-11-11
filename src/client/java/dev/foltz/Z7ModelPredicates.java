@@ -190,7 +190,8 @@ public abstract class Z7ModelPredicates {
                 stagePredicate("is_ready_to_fire", MusketRifleItem.STAGE_COCKED),
                 stagePredicate("is_firing", MusketRifleItem.STAGE_FIRING),
                 stagePredicate("is_broken", MusketRifleItem.STAGE_BROKEN),
-                USAGE_TICKS));
+                USAGE_TICKS,
+                IN_GUI));
 
         // -- "Numerous" items
         registerItemsWithPredicates(
