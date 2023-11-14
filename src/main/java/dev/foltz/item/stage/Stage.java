@@ -3,7 +3,7 @@ package dev.foltz.item.stage;
 import dev.foltz.Z7Util;
 import net.minecraft.item.ItemStack;
 
-public class Stage<T extends StagedItem> {
+public class Stage<T extends StagedItem<?>> {
     public final int maxStageTicks;
     public final boolean tickWhileUnselected;
 

@@ -389,7 +389,7 @@ public class GunStagedItem extends StagedItem<GunStagedItem> {
 
     @Override
     public boolean isItemBarVisible(ItemStack stack) {
-        return !(getStageName(stack).equals("default") && getAmmoInGun(stack).size() == 0);
+        return !(getStageName(stack).equals("default") && getAmmoInGun(stack).isEmpty());
     }
 
     @Override

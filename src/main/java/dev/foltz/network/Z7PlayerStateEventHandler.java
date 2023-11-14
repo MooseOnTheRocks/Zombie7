@@ -1,5 +1,6 @@
 package dev.foltz.network;
 
+import dev.foltz.item.gun.GunStagedItem;
 import dev.foltz.item.stage.StagedItem;
 import dev.foltz.item.stage.StagedItemView;
 import dev.foltz.network.Z7PlayerState;

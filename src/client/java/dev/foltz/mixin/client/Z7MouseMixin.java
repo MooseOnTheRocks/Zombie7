@@ -32,7 +32,7 @@ public class Z7MouseMixin {
                 // Left mouse pressed
                 ClientPlayNetworking.send(Z7Networking.SHOOT_PRESS_PACKET_ID, PacketByteBufs.empty());
             }
-            else {
+            else if (action == GLFW.GLFW_RELEASE) {
                 // Left mouse released
                 ClientPlayNetworking.send(Z7Networking.SHOOT_RELEASE_PACKET_ID, PacketByteBufs.empty());
             }
@@ -40,11 +40,11 @@ public class Z7MouseMixin {
         else if (button == GLFW.GLFW_MOUSE_BUTTON_RIGHT) {
             if (action == GLFW.GLFW_PRESS) {
                 // Right mouse pressed
-//                ClientPlayNetworking.send(Z7Networking.ZOOM_PRESS_PACKET_ID, PacketByteBufs.empty());
+                ClientPlayNetworking.send(Z7Networking.AIM_PRESS_PACKET_ID, PacketByteBufs.empty());
             }
-            else {
+            else if (action == GLFW.GLFW_RELEASE) {
                 // Right mouse released
-//                ClientPlayNetworking.send(Z7Networking.ZOOM_RELEASE_PACKET_ID, PacketByteBufs.empty());
+                ClientPlayNetworking.send(Z7Networking.AIM_RELEASE_PACKET_ID, PacketByteBufs.empty());
             }
         }
     }

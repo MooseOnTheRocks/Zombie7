@@ -13,6 +13,7 @@ public class Z7PlayerState {
     protected ItemStack lastHeldItemStack;
     protected boolean isPressingShoot;
     protected boolean isPressingReload;
+    protected boolean isPressingAim;
 
     public Z7PlayerState(LivingEntity player) {
         this.player = player;
@@ -24,6 +25,7 @@ public class Z7PlayerState {
         this.lastHeldItemStack = ItemStack.EMPTY;
         this.isPressingShoot = false;
         this.isPressingReload = false;
+        this.isPressingAim = false;
     }
 
     public boolean isPressingShoot() {
@@ -40,6 +42,14 @@ public class Z7PlayerState {
 
     public void setPressingReload(boolean pressing) {
         serverState.setPressingReload(player, pressing);
+    }
+
+    public boolean isPressingAim() {
+        return isPressingAim;
+    }
+
+    public void setPressingAim(boolean pressing) {
+        serverState.setPressingShoot(player, pressing);
     }
 
     public boolean isShooting() {

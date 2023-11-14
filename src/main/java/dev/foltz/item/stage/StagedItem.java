@@ -8,7 +8,7 @@ import net.minecraft.item.ItemStack;
 import net.minecraft.nbt.NbtCompound;
 import net.minecraft.world.World;
 
-public class StagedItem<T extends StagedItem<?>> extends CompositeResourceItem {
+public abstract class StagedItem<T extends StagedItem<?>> extends CompositeResourceItem {
     public static final String STAGE_ID = "StageId";
     public static final String STAGE_TICKS = "StageTicks";
     public final StagedItemGraph<T> stagesGraph;
@@ -43,31 +43,31 @@ public class StagedItem<T extends StagedItem<?>> extends CompositeResourceItem {
 
     public void handleInit(StagedItemView<T> view) {
 //        System.out.println("init: " + view.stageId + " :: " + view.stageTicks + " / " + view.maxStageTicks);
-        String newStage = stagesGraph.gunStages.get(view.stageId).handleInit(view);
+        String newStage = stagesGraph.stages.get(view.stageId).handleInit(view);
         updateStageGraph(newStage, view);
     }
 
     public void handlePressShoot(StagedItemView<T> view) {
 //        System.out.println("pressShoot: " + view.stageId + " :: " + view.stageTicks + " / " + view.maxStageTicks);
-        String newStage = stagesGraph.gunStages.get(view.stageId).handlePressShoot(view);
+        String newStage = stagesGraph.stages.get(view.stageId).handlePressShoot(view);
         updateStageGraph(newStage, view);
     }
 
     public void handleReleaseShoot(StagedItemView<T> view) {
 //        System.out.println("releaseShoot: " + view.stageId + " :: " + view.stageTicks + " / " + view.maxStageTicks);
-        String newStage = stagesGraph.gunStages.get(view.stageId).handleReleaseShoot(view);
+        String newStage = stagesGraph.stages.get(view.stageId).handleReleaseShoot(view);
         updateStageGraph(newStage, view);
     }
 
     public void handlePressReload(StagedItemView<T> view) {
 //        System.out.println("pressReload: " + view.stageId + " :: " + view.stageTicks + " / " + view.maxStageTicks);
-        String newStage = stagesGraph.gunStages.get(view.stageId).handlePressReload(view);
+        String newStage = stagesGraph.stages.get(view.stageId).handlePressReload(view);
         updateStageGraph(newStage, view);
     }
 
     public void handleReleaseReload(StagedItemView<T> view) {
 //        System.out.println("releaseReload: " + view.stageId + " :: " + view.stageTicks + " / " + view.maxStageTicks);
-        String newStage = stagesGraph.gunStages.get(view.stageId).handleReleaseReload(view);
+        String newStage = stagesGraph.stages.get(view.stageId).handleReleaseReload(view);
         updateStageGraph(newStage, view);
     }
 
@@ -81,7 +81,7 @@ public class StagedItem<T extends StagedItem<?>> extends CompositeResourceItem {
 //            System.out.println("handleTick: " + view.stageId + " :: " + view.stageTicks + " / " + view.maxStageTicks);
         }
 
-        String newStage = stagesGraph.gunStages.get(view.stageId).handleTick(view);
+        String newStage = stagesGraph.stages.get(view.stageId).handleTick(view);
         var stageTicks = getStageTicks(view.stack);
         if (!newStage.equals(view.stageId)) {
             updateStageGraph(newStage, view);
@@ -99,13 +99,13 @@ public class StagedItem<T extends StagedItem<?>> extends CompositeResourceItem {
 
     public void handleLastTick(StagedItemView<T> view) {
 //        System.out.println("handleLastTick: " + view.stageId + " :: " + view.stageTicks + " / " + view.maxStageTicks);
-        String newStage = stagesGraph.gunStages.get(view.stageId).handleLastTick(view);
+        String newStage = stagesGraph.stages.get(view.stageId).handleLastTick(view);
         updateStageGraph(newStage, view);
     }
 
     public void handleUnselected(StagedItemView<T> view) {
 //        System.out.println("unselected: " + view.stageId + " :: " + view.stageTicks + " / " + view.maxStageTicks);
-        String newStage = stagesGraph.gunStages.get(view.stageId).handleUnselected(view);
+        String newStage = stagesGraph.stages.get(view.stageId).handleUnselected(view);
         updateStageGraph(newStage, view);
     }
 
@@ -155,11 +155,11 @@ public class StagedItem<T extends StagedItem<?>> extends CompositeResourceItem {
     public void inventoryTick(ItemStack stack, World world, Entity entity, int slot, boolean selected) {
         if (!selected && !world.isClient && getStage(stack) != null && getStage(stack).tickWhileUnselected && entity instanceof PlayerEntity player) {
             var playerState = Z7ServerState.getPlayerState(player);
-            T gun = (T) stack.getItem();
+            T item = (T) stack.getItem();
             handleTickInventory(new StagedItemView<>(
-                getStageName(stack), gun.getStageTicks(stack), gun.getMaxStageTicks(stack),
+                getStageName(stack), item.getStageTicks(stack), item.getMaxStageTicks(stack),
                 playerState,
-                gun, stack, entity, world
+                item, stack, entity, world
             ));
         }
     }

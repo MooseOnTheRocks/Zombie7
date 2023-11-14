@@ -5,15 +5,15 @@ import java.util.Map;
 
 public class StagedItemGraph<T extends StagedItem<?>> {
     public final List<String> nameOrder;
-    public final Map<String, Stage<T>> gunStages;
+    public final Map<String, Stage<T>> stages;
 
-    public StagedItemGraph(List<String> nameOrder, Map<String, Stage<T>> gunStages) {
+    public StagedItemGraph(List<String> nameOrder, Map<String, Stage<T>> stages) {
         this.nameOrder = List.copyOf(nameOrder);
-        this.gunStages = Map.copyOf(gunStages);
+        this.stages = Map.copyOf(stages);
     }
 
     public Stage<T> stageFromId(int id) {
-        return gunStages.get(nameFromId(id));
+        return stages.get(nameFromId(id));
     }
 
     public int idFromName(String name) {
