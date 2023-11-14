@@ -20,34 +20,34 @@ public class Stage<T extends StagedItem<?>> {
         return Z7Util.GREEN;
     }
 
-    public String handleInit(StagedItemView<T> view) {
+    public String handleInit(StagedItemView<? extends T> view) {
         return view.stageId;
     }
 
-    public String handlePressShoot(StagedItemView<T> view) {
+    public String handlePressShoot(StagedItemView<? extends T> view) {
         return view.stageId;
     }
 
-    public String handleReleaseShoot(StagedItemView<T> view) {
+    public String handleReleaseShoot(StagedItemView<? extends T> view) {
         return view.stageId;
     }
 
-    public String handlePressReload(StagedItemView<T> view) {
+    public String handlePressReload(StagedItemView<? extends T> view) {
         return view.stageId;
     }
 
-    public String handleReleaseReload(StagedItemView<T> view) {
+    public String handleReleaseReload(StagedItemView<? extends T> view) {
         return view.stageId;
     }
 
-    public String handleTick(StagedItemView<T> view) {
+    public String handleTick(StagedItemView<? extends T> view) {
         return view.stageId;
     }
-    public String handleLastTick(StagedItemView<T> view) {
+    public String handleLastTick(StagedItemView<? extends T> view) {
         return view.stageId;
     }
 
-    public String handleUnselected(StagedItemView<T> view) {
+    public String handleUnselected(StagedItemView<? extends T> view) {
         return view.stageId;
     }
 }

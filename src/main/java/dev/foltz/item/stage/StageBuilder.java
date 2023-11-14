@@ -46,7 +46,7 @@ public class StageBuilder<T extends StagedItem<?>> {
         return this;
     }
 
-    public StageBuilder<T> onInitDo(Consumer<StagedItemView<T>> handleInit) {
+    public StageBuilder<T> onInitDo(Consumer<StagedItemView<? extends T>> handleInit) {
         this.handleInit = view -> { handleInit.accept(view); return view.stageId; };
         return this;
     }
@@ -56,7 +56,7 @@ public class StageBuilder<T extends StagedItem<?>> {
         return this;
     }
 
-    public StageBuilder<T> onPressShootDo(Consumer<StagedItemView<T>> handlePressShoot) {
+    public StageBuilder<T> onPressShootDo(Consumer<StagedItemView<? extends T>> handlePressShoot) {
         this.handlePressShoot = view -> { handlePressShoot.accept(view); return view.stageId; };
         return this;
     }
@@ -66,7 +66,7 @@ public class StageBuilder<T extends StagedItem<?>> {
         return this;
     }
 
-    public StageBuilder<T> onReleaseShootDo(Consumer<StagedItemView<T>> handleReleaseShoot) {
+    public StageBuilder<T> onReleaseShootDo(Consumer<StagedItemView<? extends T>> handleReleaseShoot) {
         this.handleReleaseShoot = view -> { handleReleaseShoot.accept(view); return view.stageId; };
         return this;
     }
@@ -76,7 +76,7 @@ public class StageBuilder<T extends StagedItem<?>> {
         return this;
     }
 
-    public StageBuilder<T> onPressReloadDo(Consumer<StagedItemView<T>> handlePressReload) {
+    public StageBuilder<T> onPressReloadDo(Consumer<StagedItemView<? extends T>> handlePressReload) {
         this.handlePressReload = view -> { handlePressReload.accept(view); return view.stageId; };
         return this;
     }
@@ -86,7 +86,7 @@ public class StageBuilder<T extends StagedItem<?>> {
         return this;
     }
 
-    public StageBuilder<T> onReleaseReloadDo(Consumer<StagedItemView<T>> handleReleaseReload) {
+    public StageBuilder<T> onReleaseReloadDo(Consumer<StagedItemView<? extends T>> handleReleaseReload) {
         this.handleReleaseReload = view -> { handleReleaseReload.accept(view); return view.stageId; };
         return this;
     }
@@ -96,7 +96,7 @@ public class StageBuilder<T extends StagedItem<?>> {
         return this;
     }
 
-    public StageBuilder<T> onTickDo(Consumer<StagedItemView<T>> handleTick) {
+    public StageBuilder<T> onTickDo(Consumer<StagedItemView<? extends T>> handleTick) {
         this.handleTick = view -> { handleTick.accept(view); return view.stageId; };
         return this;
     }
@@ -106,7 +106,7 @@ public class StageBuilder<T extends StagedItem<?>> {
         return this;
     }
 
-    public StageBuilder<T> onLastTickDo(Consumer<StagedItemView<T>> handleLastTick) {
+    public StageBuilder<T> onLastTickDo(Consumer<StagedItemView<? extends T>> handleLastTick) {
         this.handleLastTick = view -> { handleLastTick.accept(view); return view.stageId; };
         return this;
     }
@@ -116,7 +116,7 @@ public class StageBuilder<T extends StagedItem<?>> {
         return this;
     }
 
-    public StageBuilder<T> onUnselectedDo(Consumer<StagedItemView<T>> handleUnselected) {
+    public StageBuilder<T> onUnselectedDo(Consumer<StagedItemView<? extends T>> handleUnselected) {
         this.handleUnselected = view -> { handleUnselected.accept(view); return view.stageId; };
         return this;
     }
@@ -140,42 +140,42 @@ public class StageBuilder<T extends StagedItem<?>> {
             }
 
             @Override
-            public String handleInit(StagedItemView<T> view) {
+            public String handleInit(StagedItemView<? extends T> view) {
                 return handleInit == null ? super.handleInit(view) : handleInit.handleEvent(view);
             }
 
             @Override
-            public String handlePressShoot(StagedItemView<T> view) {
+            public String handlePressShoot(StagedItemView<? extends T> view) {
                 return handlePressShoot == null ? super.handlePressShoot(view) : handlePressShoot.handleEvent(view);
             }
 
             @Override
-            public String handleReleaseShoot(StagedItemView<T> view) {
+            public String handleReleaseShoot(StagedItemView<? extends T> view) {
                 return handleReleaseShoot == null ? super.handleReleaseShoot(view) : handleReleaseShoot.handleEvent(view);
             }
 
             @Override
-            public String handlePressReload(StagedItemView<T> view) {
+            public String handlePressReload(StagedItemView<? extends T> view) {
                 return handlePressReload == null ? super.handlePressReload(view) : handlePressReload.handleEvent(view);
             }
 
             @Override
-            public String handleReleaseReload(StagedItemView<T> view) {
+            public String handleReleaseReload(StagedItemView<? extends T> view) {
                 return handleReleaseReload == null ? super.handleReleaseReload(view) : handleReleaseReload.handleEvent(view);
             }
 
             @Override
-            public String handleTick(StagedItemView<T> view) {
+            public String handleTick(StagedItemView<? extends T> view) {
                 return handleTick == null ? super.handleTick(view) : handleTick.handleEvent(view);
             }
 
             @Override
-            public String handleLastTick(StagedItemView<T> view) {
+            public String handleLastTick(StagedItemView<? extends T> view) {
                 return handleLastTick == null ? super.handleLastTick(view) : handleLastTick.handleEvent(view);
             }
 
             @Override
-            public String handleUnselected(StagedItemView<T> view) {
+            public String handleUnselected(StagedItemView<? extends T> view) {
                 return handleUnselected == null ? super.handleUnselected(view) : handleUnselected.handleEvent(view);
             }
         };

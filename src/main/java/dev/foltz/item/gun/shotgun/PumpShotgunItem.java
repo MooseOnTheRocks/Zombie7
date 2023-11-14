@@ -10,7 +10,7 @@ import java.util.Map;
 
 import static dev.foltz.Z7Util.*;
 
-public class PumpShotgunItem extends GunStagedItem {
+public class PumpShotgunItem extends GunStagedItem<PumpShotgunItem> {
     public static final String STAGE_DEFAULT = "default";
     public static final String STAGE_BROKEN = "broken";
     public static final String STAGE_RELOADING = "reloading";
@@ -22,12 +22,12 @@ public class PumpShotgunItem extends GunStagedItem {
 
     public PumpShotgunItem() {
         super(80, AmmoItem.AmmoCategory.SHOTGUN_AMMO, 4, Map.of(
-            STAGE_DEFAULT, new GunStageBuilder()
+            STAGE_DEFAULT, new GunStageBuilder<>()
                 .onInit(tryShootOrReloadInit(STAGE_PUMPING_DOWN, STAGE_RELOADING))
                 .onPressShoot(tryShootOrReload(STAGE_PUMPING_DOWN, STAGE_RELOADING))
                 .onPressReload(tryReload(STAGE_RELOADING)),
 
-            STAGE_RELOADING, new GunStageBuilder(ticksFromSeconds(2.5f))
+            STAGE_RELOADING, new GunStageBuilder<>(ticksFromSeconds(2.5f))
                 .barColor(stack -> YELLOW)
                 .barProgress(stack -> ((GunStagedItem) stack.getItem()).getStageTicks(stack) / (float) ((GunStagedItem) stack.getItem()).getMaxStageTicks(stack))
                 .onInitDo(view -> {
@@ -40,35 +40,35 @@ public class PumpShotgunItem extends GunStagedItem {
                 .onTick(tryReloadOneBullet(STAGE_DEFAULT))
                 .onUnselected(view -> STAGE_DEFAULT),
 
-            STAGE_PUMPING_DOWN, new GunStageBuilder(ticksFromSeconds(0.25f))
+            STAGE_PUMPING_DOWN, new GunStageBuilder<>(ticksFromSeconds(0.25f))
                 .onReleaseShoot(doCancel(STAGE_DEFAULT))
                 .onPressReload(doCancel(STAGE_DEFAULT))
                 .onLastTick(doReady(STAGE_PUMPING_UP))
                 .onUnselected(view -> STAGE_DEFAULT),
 
-            STAGE_PUMPED_DOWN, new GunStageBuilder()
+            STAGE_PUMPED_DOWN, new GunStageBuilder<>()
                 .onPressReload(doCancel(STAGE_DEFAULT))
                 .onPressShoot(view -> STAGE_PUMPING_UP),
 
-            STAGE_PUMPING_UP, new GunStageBuilder(ticksFromSeconds(0.4f))
+            STAGE_PUMPING_UP, new GunStageBuilder<>(ticksFromSeconds(0.4f))
                 .onInit(doReady(STAGE_PUMPING_UP))
                 .onReleaseShoot(doCancel(STAGE_PUMPED_DOWN))
                 .onPressReload(doCancel(STAGE_DEFAULT))
                 .onLastTick(doReady(STAGE_PUMPED))
                 .onUnselected(view -> STAGE_PUMPED_DOWN),
 
-            STAGE_PUMPED, new GunStageBuilder()
+            STAGE_PUMPED, new GunStageBuilder<>()
                 .barColor(stack -> ORANGE)
                 .onPressShoot(view -> STAGE_FIRING)
                 .onPressReload(doCancel(STAGE_DEFAULT)),
 
-            STAGE_FIRING, new GunStageBuilder(ticksFromSeconds(0.33f)).tickWhileUnselected()
+            STAGE_FIRING, new GunStageBuilder<>(ticksFromSeconds(0.33f)).tickWhileUnselected()
                 .barColor(stack -> RED)
                 .barProgress(stack -> stack.getItem() instanceof GunStagedItem gun ? (gun.getAmmoInGun(stack).size() + (1 - gun.getStageTicks(stack) / (float) (gun.getMaxStageTicks(stack) == 0 ? 1f : gun.getMaxStageTicks(stack)))) / (float) gun.getMaxAmmoCapacity(stack) : 0f)
                 .onInit(doFire())
                 .onLastTick(view -> view.item.isBroken(view.stack) ? STAGE_BROKEN : STAGE_DEFAULT),
 
-            STAGE_BROKEN, new GunStageBuilder()
+            STAGE_BROKEN, new GunStageBuilder<>()
                 .barColor(stack -> RED)
                 .barProgress(stack -> 1.0f)));
     }

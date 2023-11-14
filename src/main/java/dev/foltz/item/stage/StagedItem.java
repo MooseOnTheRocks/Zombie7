@@ -13,9 +13,9 @@ public abstract class StagedItem<T extends StagedItem<?>> extends CompositeResou
     public static final String STAGE_TICKS = "StageTicks";
     public final StagedItemGraph<T> stagesGraph;
 
-    public StagedItem(Settings settings, StagedItemGraph<T> graph) {
+    public StagedItem(Settings settings, StagedItemGraph<? extends StagedItem<?>> graph) {
         super(settings);
-        this.stagesGraph = graph;
+        this.stagesGraph = (StagedItemGraph<T>) graph;
     }
 
     @Override

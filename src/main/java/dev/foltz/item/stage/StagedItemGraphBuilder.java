@@ -11,11 +11,11 @@ public class StagedItemGraphBuilder<T extends StagedItem<?>> {
     private final List<String> stageNames;
     private final List<StageBuilder<T>> stageBuilders;
 
-    public StagedItemGraphBuilder(Map<String, StageBuilder<T>> stages) {
+    public StagedItemGraphBuilder(Map<String, StageBuilder<? extends StagedItem<?>>> stages) {
         this();
         stages.forEach((s, gunStageBuilder) -> {
             stageNames.add(s);
-            stageBuilders.add(gunStageBuilder);
+            stageBuilders.add((StageBuilder<T>) gunStageBuilder);
         });
     }
 

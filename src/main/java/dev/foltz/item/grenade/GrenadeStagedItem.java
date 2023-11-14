@@ -30,7 +30,7 @@ import java.util.List;
 import java.util.Map;
 
 public abstract class GrenadeStagedItem extends StagedItem<GrenadeStagedItem> {
-    public GrenadeStagedItem(int maxStackCount, Map<String, StageBuilder<GrenadeStagedItem>> stagesMap) {
+    public GrenadeStagedItem(int maxStackCount, Map<String, StageBuilder<? extends StagedItem<?>>> stagesMap) {
         super(new FabricItemSettings().maxCount(maxStackCount), new StagedItemGraphBuilder<>(stagesMap).build());
     }
 

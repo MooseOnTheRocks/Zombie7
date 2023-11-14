@@ -5,7 +5,7 @@ import net.minecraft.entity.Entity;
 import net.minecraft.item.ItemStack;
 import net.minecraft.world.World;
 
-public class StagedItemView<T extends StagedItem> {
+public class StagedItemView<T extends StagedItem<?>> {
     public final String stageId;
     public final int stageTicks;
     public final int maxStageTicks;

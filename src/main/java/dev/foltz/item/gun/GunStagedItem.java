@@ -29,25 +29,25 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
 
-public class GunStagedItem extends StagedItem<GunStagedItem> {
+public class GunStagedItem<T extends GunStagedItem<?>> extends StagedItem<T> {
     public static final String AMMO_LIST = "AmmoList";
 
     public final AmmoItem.AmmoCategory ammoCategory;
     public final int maxAmmoCapacity;
 
-    public GunStagedItem(int maxDurability, AmmoItem.AmmoCategory ammoCategory, int maxAmmoCapacity, Map<String, StageBuilder<GunStagedItem>> stagesMap) {
+    public GunStagedItem(int maxDurability, AmmoItem.AmmoCategory ammoCategory, int maxAmmoCapacity, Map<String, StageBuilder<? extends StagedItem<?>>> stagesMap) {
         super(new FabricItemSettings().maxDamage(maxDurability), new StagedItemGraphBuilder<>(stagesMap).build());
         this.ammoCategory = ammoCategory;
         this.maxAmmoCapacity = maxAmmoCapacity;
     }
 
-    public GunStagedItem(int maxDurability, AmmoItem.AmmoCategory ammoCategory, int maxAmmoCapacity, StagedItemGraph<GunStagedItem> graph) {
+    public GunStagedItem(int maxDurability, AmmoItem.AmmoCategory ammoCategory, int maxAmmoCapacity, StagedItemGraph<T> graph) {
         super(new FabricItemSettings().maxDamage(maxDurability), graph);
         this.ammoCategory = ammoCategory;
         this.maxAmmoCapacity = maxAmmoCapacity;
     }
 
-    public static StagedItemEventHandler<GunStagedItem> tryFireReset(String stageShooting) {
+    public static StagedItemEventHandler<GunStagedItem<?>> tryFireReset(String stageShooting) {
         return view -> {
             if (view.isPressingShoot() && view.item.hasAmmoInGun(view.stack)) {
                 view.item.setStageTicks(view.stack, 0);
@@ -57,7 +57,7 @@ public class GunStagedItem extends StagedItem<GunStagedItem> {
         };
     }
 
-    public static StagedItemEventHandler<GunStagedItem> tryShootOrReloadInit(String stageShooting, String stageReloading) {
+    public static StagedItemEventHandler<GunStagedItem<?>> tryShootOrReloadInit(String stageShooting, String stageReloading) {
         return view -> {
 //            System.out.println("tryShootOrReloadInit: " + view.isPressingShoot() + " | " + view.isPressingReload());
             if (view.isPressingShoot() || view.isPressingReload()) {
@@ -70,7 +70,7 @@ public class GunStagedItem extends StagedItem<GunStagedItem> {
     }
 
 
-    public static StagedItemEventHandler<GunStagedItem> tryShootOrReload(String stageShooting, String stageReloading) {
+    public static StagedItemEventHandler<GunStagedItem<?>> tryShootOrReload(String stageShooting, String stageReloading) {
         return view -> {
             if (view.isPressingShoot() && view.item.hasAmmoInGun(view.stack)) {
                 return stageShooting;
@@ -81,7 +81,7 @@ public class GunStagedItem extends StagedItem<GunStagedItem> {
         };
     }
 
-    public static StagedItemEventHandler<GunStagedItem> tryReloadInit(String stageReloading) {
+    public static StagedItemEventHandler<GunStagedItem<?>> tryReloadInit(String stageReloading) {
         return view -> {
             if ((view.isPressingShoot() || view.isPressingReload()) && view.item.hasRoomInGun(view.stack) && view.item.hasAmmoInInventory(view.entity)) {
                 return stageReloading;
@@ -92,7 +92,7 @@ public class GunStagedItem extends StagedItem<GunStagedItem> {
         };
     }
 
-    public static StagedItemEventHandler<GunStagedItem> tryReload(String stageReloading) {
+    public static StagedItemEventHandler<GunStagedItem<?>> tryReload(String stageReloading) {
         return view -> {
             if ((view.isPressingShoot() || view.isPressingReload()) && view.item.hasRoomInGun(view.stack) && view.item.hasAmmoInInventory(view.entity)) {
                 return stageReloading;
@@ -103,7 +103,7 @@ public class GunStagedItem extends StagedItem<GunStagedItem> {
         };
     }
 
-    public static StagedItemEventHandler<GunStagedItem> tryReloadWholeClip(String stageDefault) {
+    public static StagedItemEventHandler<GunStagedItem<?>> tryReloadWholeClip(String stageDefault) {
         return view -> {
             var stack = view.stack;
 
@@ -128,7 +128,7 @@ public class GunStagedItem extends StagedItem<GunStagedItem> {
         };
     }
 
-    public static StagedItemEventHandler<GunStagedItem> tryReloadOneBullet(String stageDefault) {
+    public static StagedItemEventHandler<GunStagedItem<?>> tryReloadOneBullet(String stageDefault) {
         return view -> {
             var stack = view.stack;
 
@@ -164,7 +164,7 @@ public class GunStagedItem extends StagedItem<GunStagedItem> {
         };
     }
 
-    public static StagedItemEventHandler<GunStagedItem> doFire() {
+    public static StagedItemEventHandler<GunStagedItem<?>> doFire() {
         return view -> {
             view.item.shootGun(view.stack, view.world, view.entity);
             view.item.playSoundFireBegin(view.stack, view.entity);
@@ -172,7 +172,7 @@ public class GunStagedItem extends StagedItem<GunStagedItem> {
         };
     }
 
-    public static StagedItemEventHandler<GunStagedItem> doCancel(String stageDefault) {
+    public static StagedItemEventHandler<GunStagedItem<?>> doCancel(String stageDefault) {
         return view -> {
             view.item.playSoundReloadCancel(view.stack, view.entity);
             // Note: Could cancel pressingShoot as well.
@@ -182,7 +182,7 @@ public class GunStagedItem extends StagedItem<GunStagedItem> {
     }
 
 
-    public static StagedItemEventHandler<GunStagedItem> doReady(String stageReady) {
+    public static StagedItemEventHandler<GunStagedItem<?>> doReady(String stageReady) {
         return view -> {
             view.item.playSoundReadyToFire(view.stack, view.entity);
             return stageReady;
