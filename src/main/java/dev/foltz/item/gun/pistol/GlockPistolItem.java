@@ -61,7 +61,7 @@ public class GlockPistolItem extends GunStagedItem<GlockPistolItem> {
                     }
                     return tryFireReset(STAGE_FIRING).handleEvent(view);
                 })
-                .onLastTick(view -> view.item.isBroken(view.stack) ? STAGE_BROKEN : STAGE_READY),
+                .onLastTick(view -> view.item.isBroken(view.stack) ? STAGE_BROKEN : (view.item.getAmmoInGun(view.stack).isEmpty() ? STAGE_DEFAULT : STAGE_READY)),
 
             STAGE_BROKEN, new GunStageBuilder<>()
                 .barColor(stack -> RED)
@@ -71,5 +71,15 @@ public class GlockPistolItem extends GunStagedItem<GlockPistolItem> {
     @Override
     public float getModifiedBulletAccuracy(ItemStack gunStack, ItemStack bulletStack, float accuracy) {
         return accuracy * 0.7f;
+    }
+
+    @Override
+    public float getAimingTimeModifier() {
+        return 10f;
+    }
+
+    @Override
+    public float getAimingZoomModifier() {
+        return 0.2f;
     }
 }

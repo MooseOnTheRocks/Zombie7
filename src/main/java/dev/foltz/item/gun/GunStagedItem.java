@@ -7,6 +7,7 @@ import net.fabricmc.fabric.api.item.v1.FabricItemSettings;
 import net.minecraft.block.BlockState;
 import net.minecraft.client.item.TooltipContext;
 import net.minecraft.entity.Entity;
+import net.minecraft.entity.LivingEntity;
 import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.item.ItemStack;
 import net.minecraft.nbt.NbtCompound;
@@ -19,8 +20,7 @@ import net.minecraft.sound.SoundEvents;
 import net.minecraft.stat.Stats;
 import net.minecraft.text.MutableText;
 import net.minecraft.text.Text;
-import net.minecraft.util.Formatting;
-import net.minecraft.util.Hand;
+import net.minecraft.util.*;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.world.World;
 import org.jetbrains.annotations.Nullable;
@@ -364,6 +364,14 @@ public class GunStagedItem<T extends GunStagedItem<?>> extends StagedItem<T> {
         return stack.getDamage() >= stack.getMaxDamage();
     }
 
+    public float getAimingZoomModifier() {
+        return 0.15f;
+    }
+
+    public float getAimingTimeModifier() {
+        return 20.0f;
+    }
+
     public float getModifiedBulletDamage(ItemStack gunStack, ItemStack bulletStack, float damage) {
         return damage;
     }
@@ -380,8 +388,7 @@ public class GunStagedItem<T extends GunStagedItem<?>> extends StagedItem<T> {
         return accuracy;
     }
 
-    public <T extends Z7BulletEntity> T modifyBulletEntity(T bullet) {
-
+    public <B extends Z7BulletEntity> B modifyBulletEntity(B bullet) {
         return bullet;
     }
 
@@ -455,5 +462,28 @@ public class GunStagedItem<T extends GunStagedItem<?>> extends StagedItem<T> {
     @Override
     public boolean allowNbtUpdateAnimation(PlayerEntity player, Hand hand, ItemStack oldStack, ItemStack newStack) {
         return oldStack.getItem() != newStack.getItem();
+    }
+
+    @Override
+    public int getMaxUseTime(ItemStack stack) {
+        return 72000;
+    }
+
+    @Override
+    public UseAction getUseAction(ItemStack stack) {
+        return UseAction.NONE;
+    }
+
+    @Override
+    public TypedActionResult<ItemStack> use(World world, PlayerEntity user, Hand hand) {
+        user.setCurrentHand(hand);
+        System.out.println("Used!");
+        return new TypedActionResult<>(ActionResult.CONSUME_PARTIAL, user.getStackInHand(hand));
+    }
+
+    @Override
+    public void usageTick(World world, LivingEntity user, ItemStack stack, int remainingUseTicks) {
+        System.out.println("Using a gun!");
+        super.usageTick(world, user, stack, remainingUseTicks);
     }
 }

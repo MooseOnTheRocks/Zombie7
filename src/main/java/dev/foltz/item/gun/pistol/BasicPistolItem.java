@@ -63,6 +63,16 @@ public class BasicPistolItem extends GunStagedItem<BasicPistolItem> {
 
     @Override
     public float getModifiedBulletAccuracy(ItemStack gunStack, ItemStack bulletStack, float accuracy) {
-        return accuracy * 0.8f;
+        return accuracy * 0.9f;
+    }
+
+    @Override
+    public float getAimingTimeModifier() {
+        return 1f;
+    }
+
+    @Override
+    public float getAimingZoomModifier() {
+        return 0.2f;
     }
 }

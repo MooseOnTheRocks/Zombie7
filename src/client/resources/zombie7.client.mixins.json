@@ -3,6 +3,7 @@
   "package": "dev.foltz.mixin.client",
   "compatibilityLevel": "JAVA_17",
   "client": [
+    "Z7AimingZoomMixin",
     "Z7ClientPlayNetworkHandlerMixin",
     "Z7FogModifierMixin",
     "Z7MouseMixin",

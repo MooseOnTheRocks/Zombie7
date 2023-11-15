@@ -66,4 +66,14 @@ public class MusketRifleItem extends GunStagedItem<MusketRifleItem> {
     public float getModifiedBulletAccuracy(ItemStack gunStack, ItemStack bulletStack, float accuracy) {
         return accuracy * 0.9f;
     }
+
+    @Override
+    public float getAimingTimeModifier() {
+        return 15f;
+    }
+
+    @Override
+    public float getAimingZoomModifier() {
+        return 0.4f;
+    }
 }
