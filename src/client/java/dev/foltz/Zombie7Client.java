@@ -6,6 +6,7 @@ import dev.foltz.entity.misc.CannonBallEntity;
 import dev.foltz.entity.model.BulletBronzeEntityModel;
 import dev.foltz.entity.model.BulletLeadEntityModel;
 import dev.foltz.entity.model.BulletRubberEntityModel;
+import dev.foltz.item.gun.GunStagedItem;
 import dev.foltz.item.stage.StagedItem;
 import dev.foltz.network.Z7Networking;
 import dev.foltz.render.ConcussionFogModifier;
@@ -19,8 +20,10 @@ import net.fabricmc.fabric.api.client.model.ModelLoadingRegistry;
 import net.fabricmc.fabric.api.client.networking.v1.ClientPlayNetworking;
 import net.fabricmc.fabric.api.client.rendering.v1.EntityModelLayerRegistry;
 import net.fabricmc.fabric.api.client.rendering.v1.EntityRendererRegistry;
+import net.fabricmc.fabric.api.client.rendering.v1.HudRenderCallback;
 import net.fabricmc.fabric.api.event.client.player.ClientPreAttackCallback;
 import net.fabricmc.fabric.api.networking.v1.PacketByteBufs;
+import net.minecraft.client.MinecraftClient;
 import net.minecraft.client.option.KeyBinding;
 import net.minecraft.client.render.entity.model.EntityModelLayer;
 import net.minecraft.client.util.InputUtil;
@@ -30,6 +33,7 @@ import org.lwjgl.glfw.GLFW;
 
 @Environment(EnvType.CLIENT)
 public class Zombie7Client implements ClientModInitializer {
+    public static final Identifier GUN_CROSSHAIR = new Identifier(Zombie7.MODID, "textures/crosshair/gun_crosshair.png");
     public static final ConcussionFogModifier FOG_MODIFIER = new ConcussionFogModifier();
     public static final ConcussionLongFogModifier FOG_MODIFIER_LONG = new ConcussionLongFogModifier();
 
@@ -53,6 +57,15 @@ public class Zombie7Client implements ClientModInitializer {
 
         Z7ModelPredicates.registerAllModelPredicates();
 
+        HudRenderCallback.EVENT.register((drawContext, tickDelta) -> {
+            // TODO: Render custom HUD elements for guns here.
+            var client = MinecraftClient.getInstance();
+            if (client.player == null || !(client.player.getMainHandStack().getItem() instanceof GunStagedItem<?> gun)) {
+                return;
+            }
+//            System.out.println("Custom gun HUD elements?");
+        });
+
         EntityRendererRegistry.register(Z7Entities.FRAG_GRENADE_ENTITY, FragGrenadeEntityRenderer::new);
         EntityRendererRegistry.register(Z7Entities.CONTACT_GRENADE_ENTITY, ContactGrenadeEntityRenderer::new);
         EntityRendererRegistry.register(Z7Entities.MOLOTOV_GRENADE_ENTITY, MolotovGrenadeEntityRenderer::new);
@@ -70,15 +83,7 @@ public class Zombie7Client implements ClientModInitializer {
         EntityRendererRegistry.register(Z7Entities.BULLET_RUBBER_ENTITY, BulletRubberEntityRenderer::new);
         EntityModelLayerRegistry.registerModelLayer(MODEL_BULLET_RUBBER_LAYER, BulletRubberEntityModel::getTexturedModelData);
 
-        ClientPreAttackCallback.EVENT.register((client, player, clickCount) -> {
-            Item item = player.getMainHandStack().getItem();
-            if (item instanceof StagedItem) {
-                return true;
-            }
-            else {
-                return false;
-            }
-        });
+        ClientPreAttackCallback.EVENT.register((client, player, clickCount) -> player.getMainHandStack().getItem() instanceof StagedItem);
 
         ClientTickEvents.START_CLIENT_TICK.register(client -> {
             if (client.world == null) {

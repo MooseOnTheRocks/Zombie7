@@ -6,6 +6,8 @@
     "Z7AimingZoomMixin",
     "Z7ClientPlayNetworkHandlerMixin",
     "Z7FogModifierMixin",
+    "Z7HeldItemRendererMixin",
+    "Z7InGameHudMixin",
     "Z7MouseMixin",
     "Z7StatusEffectDescriptionMixin",
     "Z7WorldRendererFogMixin"

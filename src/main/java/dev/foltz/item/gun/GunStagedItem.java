@@ -477,13 +477,11 @@ public class GunStagedItem<T extends GunStagedItem<?>> extends StagedItem<T> {
     @Override
     public TypedActionResult<ItemStack> use(World world, PlayerEntity user, Hand hand) {
         user.setCurrentHand(hand);
-        System.out.println("Used!");
-        return new TypedActionResult<>(ActionResult.CONSUME_PARTIAL, user.getStackInHand(hand));
+        return TypedActionResult.success(user.getStackInHand(hand), false);
     }
 
     @Override
     public void usageTick(World world, LivingEntity user, ItemStack stack, int remainingUseTicks) {
-        System.out.println("Using a gun!");
         super.usageTick(world, user, stack, remainingUseTicks);
     }
 }

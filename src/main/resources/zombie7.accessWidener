@@ -8,3 +8,5 @@ accessible field net/minecraft/screen/ForgingScreenHandler input Lnet/minecraft/
 accessible field net/minecraft/item/Item translationKey Ljava/lang/String;
 accessible field net/minecraft/entity/projectile/PersistentProjectileEntity inBlockState Lnet/minecraft/block/BlockState;
 accessible field net/minecraft/entity/mob/MobEntity goalSelector Lnet/minecraft/entity/ai/goal/GoalSelector;
+accessible method net/minecraft/client/render/item/HeldItemRenderer renderFirstPersonItem (Lnet/minecraft/client/network/AbstractClientPlayerEntity;FFLnet/minecraft/util/Hand;FLnet/minecraft/item/ItemStack;FLnet/minecraft/client/util/math/MatrixStack;Lnet/minecraft/client/render/VertexConsumerProvider;I)V
+accessible class net/minecraft/client/render/item/HeldItemRenderer$HandRenderType

@@ -14,11 +14,11 @@ import org.jetbrains.annotations.Nullable;
 public class Z7ModelResourceProvider implements ModelResourceProvider {
     public static final Identifier PISTOL_DEAGLE = new Identifier(Zombie7.MODID, "item/gun/deagle/default");
 
+    // TODO: Use ModelLoadingPlugin instead: https://github.com/FabricMC/fabric/tree/1.20.2/fabric-model-loading-api-v1/src/testmodClient/java/net/fabricmc/fabric/test/model/loading
     @Override
     public @Nullable UnbakedModel loadModelResource(Identifier resourceId, ModelProviderContext context) throws ModelProviderException {
         if (resourceId.getNamespace().equals(Zombie7.MODID)) {
             System.out.println("loadModelResource for " + resourceId);
-
         }
 
         return null;
