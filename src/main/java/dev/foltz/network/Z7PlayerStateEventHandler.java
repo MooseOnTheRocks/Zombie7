@@ -84,12 +84,13 @@ public abstract class Z7PlayerStateEventHandler {
         }
     }
 
+    // TODO: Remove onAimPress/onAimRelease, using item right click "using" behavior for zooming.
     public static void onAimPress(PlayerEntity player) {
-        System.out.println("On zoom press!");
+//        System.out.println("On zoom press!");
     }
 
     public static void onAimRelease(PlayerEntity player) {
-        System.out.println("On zoom release!");
+//        System.out.println("On zoom release!");
     }
 
     public static void onHeldItemChange(PlayerEntity player) {

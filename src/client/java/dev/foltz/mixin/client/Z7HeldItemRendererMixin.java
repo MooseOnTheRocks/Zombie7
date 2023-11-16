@@ -52,7 +52,7 @@ public abstract class Z7HeldItemRendererMixin {
             var stack = player.getMainHandStack();
 //            self.renderFirstPersonItem(player, tickDelta, g, Hand.MAIN_HAND, 0.0f, getMainHand(), 0.0f, matrices, vertexConsumers, light);
             // == renderFirstPersonItem
-            System.out.println("Proper rendering");
+//            System.out.println("Proper rendering");
             boolean bl = hand == Hand.MAIN_HAND;
             Arm arm = bl ? player.getMainArm() : player.getMainArm().getOpposite();
             boolean bl2;

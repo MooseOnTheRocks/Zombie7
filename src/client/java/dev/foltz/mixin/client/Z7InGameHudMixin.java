@@ -16,6 +16,7 @@ import net.minecraft.client.util.math.MatrixStack;
 import net.minecraft.item.ItemStack;
 import net.minecraft.util.Hand;
 import net.minecraft.util.Identifier;
+import net.minecraft.util.math.MathHelper;
 import org.spongepowered.asm.mixin.Final;
 import org.spongepowered.asm.mixin.Mixin;
 import org.spongepowered.asm.mixin.Shadow;
@@ -41,7 +42,7 @@ public abstract class Z7InGameHudMixin {
             locals = LocalCapture.CAPTURE_FAILHARD,
             cancellable = true)
     protected void doRenderGunCrosshair(DrawContext context, CallbackInfo ci, GameOptions gameOptions) {
-        if (client.player == null || !(client.player.getMainHandStack().getItem() instanceof GunStagedItem<?>)) {
+        if (client.player == null || !(client.player.getMainHandStack().getItem() instanceof GunStagedItem<?> gun)) {
             return;
         }
 //        System.out.println("Custom crosshair!");
@@ -51,15 +52,26 @@ public abstract class Z7InGameHudMixin {
         int windowHeight = context.getScaledWindowHeight();
         int textureWidth = 512;
         int textureHeight = 512;
-        int frameCount = 10;
+        int frameCount = 16;
 //        context.drawTexture(Zombie7Client.GUN_CROSSHAIR, (windowWidth - 15) / 2, (windowHeight - 15) / 2, 0, 0, 15, 15);
 //        context.drawTexture(ICONS, (windowWidth - size) / 2, (windowHeight - size) / 2, 0, 0, size, size);
 //        context.drawTexture(Zombie7Client.GUN_CROSSHAIR, (windowWidth - size) / 2, (windowHeight - size) / 2, 0, 0, size, size, textureWidth, textureHeight);
 //        int index = (int) (System.currentTimeMillis() / 1000) % 8;
 //        System.out.println("index = " + (index + 1) + "/8");
-        float acc = AccuracyCalculator.calculateAccuracy(null, client.player);
-        int index = (int) Math.ceil(acc * (frameCount - 1));
-        System.out.println("index = " + (index + 1) + "/" + frameCount);
+        float wantedAccuracy = AccuracyCalculator.calculateAccuracy(client.player.getMainHandStack(), client.player);
+        float diff = wantedAccuracy - Zombie7Client.currentAccuracyValue;
+        boolean isFiring = gun.getStageName(client.player.getMainHandStack()).equals("firing");
+        diff *= 0.2f;
+        Zombie7Client.currentAccuracyValue += diff;
+        if (isFiring || Math.abs(Zombie7Client.currentAccuracyValue - wantedAccuracy) <= 0.001f) {
+            Zombie7Client.currentAccuracyValue = wantedAccuracy;
+        }
+        Zombie7Client.currentAccuracyValue = MathHelper.clamp(Zombie7Client.currentAccuracyValue, 0f, 1f);
+//        float continuousIndex = (float) Math.pow(Zombie7Client.currentAccuracyValue, 0.8);
+        float continuousIndex = (float) Math.pow(Zombie7Client.currentAccuracyValue, 1.0);
+        int index = (int) Math.ceil(continuousIndex * (frameCount - 1));
+//        System.out.println("diff=" + diff + "|wanted=" + wantedAccuracy + " | " + "actual=" + Zombie7Client.currentAccuracyValue);
+//        System.out.println("index = " + (index + 1) + "/" + frameCount);
         int u = stride * index;
         int v = 0;
         context.drawTexture(Zombie7Client.GUN_CROSSHAIR, (windowWidth - size) / 2, (windowHeight - size) / 2, u, v, size, size, textureWidth, textureHeight);

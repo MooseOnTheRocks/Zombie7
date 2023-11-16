@@ -46,6 +46,7 @@ public class Zombie7Client implements ClientModInitializer {
 
     private boolean isPressingReload = false;
     private boolean hasOpenScreen = false;
+    public static float currentAccuracyValue = 0;
 
     public static final EntityModelLayer MODEL_BULLET_BRONZE_LAYER = new EntityModelLayer(new Identifier(Zombie7.MODID, "bullet_bronze"), "main");
     public static final EntityModelLayer MODEL_BULLET_LEAD_LAYER = new EntityModelLayer(new Identifier(Zombie7.MODID, "bullet_lead"), "main");
