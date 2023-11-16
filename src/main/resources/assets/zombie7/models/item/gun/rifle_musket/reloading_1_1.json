@@ -1,0 +1,6 @@
+{
+  "parent": "zombie7:item/gun/64x_longarm_reloading_parent",
+  "textures": {
+    "layer0": "zombie7:item/gun/rifle_musket/reloading_1_64_1"
+  }
+}
