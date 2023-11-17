@@ -25,7 +25,7 @@ public class MusketRifleItem extends GunStagedItem<MusketRifleItem> {
                         .onPressShoot(tryShootOrReload(STAGE_COCKING, STAGE_RELOADING))
                         .onPressReload(tryReload(STAGE_RELOADING)),
 
-                STAGE_RELOADING, new GunStageBuilder<>(ticksFromSeconds(5f))
+                STAGE_RELOADING, new GunStageBuilder<>(ticksFromSeconds(5.0f))
                         .barColor(stack -> YELLOW)
                         .barProgress(stack -> ((GunStagedItem<?>) stack.getItem()).getStageTicks(stack) / (float) ((GunStagedItem<?>) stack.getItem()).getMaxStageTicks(stack))
                         .onInitDo(view -> {
