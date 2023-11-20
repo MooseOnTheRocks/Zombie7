@@ -22,6 +22,7 @@ import net.minecraft.text.MutableText;
 import net.minecraft.text.Text;
 import net.minecraft.util.*;
 import net.minecraft.util.math.BlockPos;
+import net.minecraft.util.math.MathHelper;
 import net.minecraft.world.World;
 import org.jetbrains.annotations.Nullable;
 
@@ -119,7 +120,7 @@ public class GunStagedItem<T extends GunStagedItem<?>> extends StagedItem<T> {
             }
             else {
                 for (int i = view.item.getAmmoInGun(stack).size(); i < view.item.getMaxAmmoCapacity(stack); i++) {
-                    view.item.loadOneBullet(stack, view.item.ammoCategory.defaultItem.get().getDefaultStack(), false);
+                    view.item.loadOneBullet(stack, view.item.ammoCategory.defaultItem.get(), false);
                 }
             }
 
@@ -386,6 +387,37 @@ public class GunStagedItem<T extends GunStagedItem<?>> extends StagedItem<T> {
 
     public float getModifiedBulletAccuracy(ItemStack gunStack, ItemStack bulletStack, float accuracy) {
         return accuracy;
+    }
+
+    public float getGunRecoil(ItemStack stack, PlayerEntity player) {
+        float maxVelocity = 0.6f;
+        float dx = (float) (player.getX() - player.prevX);
+        float dy = (float) (player.getX() - player.prevX);
+        float dz = (float) (player.getX() - player.prevX);
+        float playerSpeed = (float) Math.sqrt(dx*dx + dy*dy + dz*dz);
+        float normalizedSpeed = Math.min(playerSpeed, maxVelocity) / maxVelocity;
+        float speedWeight = 2.0f;
+        float speedFactor = speedWeight * (1 - normalizedSpeed);
+
+        float groundWeight = 0.5f;
+        float groundFactor = groundWeight * (player.isOnGround() ? 1f : 0f);
+
+        float crouchWeight = 0.5f;
+        float crouchFactor = crouchWeight * (player.isSneaking() ? 1f : 0f);
+
+        float aimWeight = 1.5f;
+        float aimFactor = aimWeight * (player.isUsingItem() ? 1f : 0f);
+
+        boolean isFiring = getStageName(stack).equals("firing");
+        float recoilFactor = 0.0f;
+        if (isFiring && getMaxStageTicks(stack) > 0) {
+            float p = getStageTicks(stack) / (float) getMaxStageTicks(stack);
+            recoilFactor = -2.0f * (float) Math.pow(1 - p, 0.5);
+        }
+
+        float sumOfFactors = speedFactor + groundFactor + crouchFactor + aimFactor + recoilFactor;
+        float sumOfWeights = speedWeight + groundWeight + crouchWeight + aimWeight;
+        return 1 - MathHelper.clamp(sumOfFactors / sumOfWeights, 0, 1);
     }
 
     public <B extends Z7BulletEntity> B modifyBulletEntity(B bullet) {
