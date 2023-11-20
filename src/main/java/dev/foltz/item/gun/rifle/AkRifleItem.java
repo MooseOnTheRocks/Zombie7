@@ -1,6 +1,6 @@
 package dev.foltz.item.gun.rifle;
 
-import dev.foltz.item.ammo.AmmoItem;
+import dev.foltz.item.ammo.category.AmmoCategories;
 import dev.foltz.item.gun.GunStagedItem;
 import dev.foltz.item.gun.GunStageBuilder;
 import net.minecraft.item.ItemStack;
@@ -18,7 +18,7 @@ public class AkRifleItem extends GunStagedItem<AkRifleItem> {
     public static final String STAGE_FIRING = "firing";
 
     public AkRifleItem() {
-        super(420, AmmoItem.AmmoCategory.PISTOL_AMMO, 30, Map.of(
+        super(420, AmmoCategories.AMMO_CATEGORY_RIFLE, 30, Map.of(
             STAGE_DEFAULT, new GunStageBuilder<>()
                 .onInit(tryShootOrReloadInit(STAGE_COCKING, STAGE_RELOADING))
                 .onPressShoot(tryShootOrReload(STAGE_COCKING, STAGE_RELOADING))

@@ -2,7 +2,6 @@ package dev.foltz;
 
 import com.mojang.datafixers.util.Function4;
 import dev.foltz.item.grenade.MolotovGrenadeItem;
-import dev.foltz.item.grenade.StickyGrenadeItem;
 import dev.foltz.item.gun.GunStagedItem;
 import dev.foltz.item.grenade.FragGrenadeItem;
 import dev.foltz.item.Z7Items;
@@ -23,7 +22,6 @@ import net.minecraft.item.ItemStack;
 import net.minecraft.util.Identifier;
 import net.minecraft.world.World;
 
-import java.util.Arrays;
 import java.util.List;
 import java.util.function.Consumer;
 import java.util.stream.Stream;
@@ -198,7 +196,7 @@ public abstract class Z7ModelPredicates {
             List.of(
                 Z7Items.ITEM_AMMO_PISTOL,
                 Z7Items.ITEM_AMMO_SHOTGUN,
-                Z7Items.ITEM_AMMO_RUBBER_SHOTGUN,
+                Z7Items.ITEM_AMMO_SHOTGUN_RUBBER,
                 Z7Items.ITEM_AMMO_MAGNUM,
                 Z7Items.ITEM_ANTIBIOTICS,
                 Z7Items.ITEM_PAINKILLERS),

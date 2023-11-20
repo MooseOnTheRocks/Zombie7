@@ -1,7 +1,8 @@
 package dev.foltz.item.gun;
 
 import dev.foltz.entity.bullet.Z7BulletEntity;
-import dev.foltz.item.ammo.AmmoItem;
+import dev.foltz.item.ammo.category.AmmoCategory;
+import dev.foltz.item.ammo.type.AmmoType;
 import dev.foltz.item.stage.*;
 import net.fabricmc.fabric.api.item.v1.FabricItemSettings;
 import net.minecraft.block.BlockState;
@@ -33,17 +34,11 @@ import java.util.Map;
 public class GunStagedItem<T extends GunStagedItem<?>> extends StagedItem<T> {
     public static final String AMMO_LIST = "AmmoList";
 
-    public final AmmoItem.AmmoCategory ammoCategory;
+    public final AmmoCategory ammoCategory;
     public final int maxAmmoCapacity;
 
-    public GunStagedItem(int maxDurability, AmmoItem.AmmoCategory ammoCategory, int maxAmmoCapacity, Map<String, StageBuilder<? extends StagedItem<?>>> stagesMap) {
+    public GunStagedItem(int maxDurability, AmmoCategory ammoCategory, int maxAmmoCapacity, Map<String, StageBuilder<? extends StagedItem<?>>> stagesMap) {
         super(new FabricItemSettings().maxDamage(maxDurability), new StagedItemGraphBuilder<>(stagesMap).build());
-        this.ammoCategory = ammoCategory;
-        this.maxAmmoCapacity = maxAmmoCapacity;
-    }
-
-    public GunStagedItem(int maxDurability, AmmoItem.AmmoCategory ammoCategory, int maxAmmoCapacity, StagedItemGraph<T> graph) {
-        super(new FabricItemSettings().maxDamage(maxDurability), graph);
         this.ammoCategory = ammoCategory;
         this.maxAmmoCapacity = maxAmmoCapacity;
     }
@@ -120,7 +115,7 @@ public class GunStagedItem<T extends GunStagedItem<?>> extends StagedItem<T> {
             }
             else {
                 for (int i = view.item.getAmmoInGun(stack).size(); i < view.item.getMaxAmmoCapacity(stack); i++) {
-                    view.item.loadOneBullet(stack, view.item.ammoCategory.defaultItem.get(), false);
+                    view.item.loadOneBullet(stack, view.item.ammoCategory.getDefaultItemStack(), false);
                 }
             }
 
@@ -293,9 +288,12 @@ public class GunStagedItem<T extends GunStagedItem<?>> extends StagedItem<T> {
     }
 
     public List<? extends Entity> createBulletEntities(PlayerEntity player, ItemStack gunStack, ItemStack ammoStack) {
-        return ammoStack.getItem() instanceof AmmoItem ammoItem
-            ? ammoItem.createBulletEntities(player, gunStack, ammoStack)
-            : List.of();
+        var ammoType = ammoCategory.getAmmoTypeOf(ammoStack);
+        return ammoType.isEmpty() ? List.of() : ammoType.get().createBulletEntities(player, gunStack, ammoStack);
+//        return ammoType == null ? List.of() : ammoType.createBulletEntities(player, gunStack, ammoStack);
+//        return ammoStack.getItem() instanceof AmmoType ammoType
+//            ? ammoType.createBulletEntities(player, gunStack, ammoStack)
+//            : List.of();
     }
 
     public void spawnBulletParticlesFromServer(PlayerEntity player, ItemStack gunStack, ItemStack ammoStack) {

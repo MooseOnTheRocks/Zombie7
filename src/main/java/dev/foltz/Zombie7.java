@@ -33,6 +33,7 @@ public class Zombie7 implements ModInitializer {
         Z7Blocks.registerAllBlocks();
         Z7Items.registerAllItems();
         Z7Items.registerAllItemGroups();
+
         Z7Entities.registerAllEntities();
         Z7StatusEffects.registerAllStatusEffects();
         Z7Networking.registerAllEvents();

@@ -1,6 +1,6 @@
 package dev.foltz.item.gun.pistol;
 
-import dev.foltz.item.ammo.AmmoItem;
+import dev.foltz.item.ammo.category.AmmoCategories;
 import dev.foltz.item.gun.GunStagedItem;
 import dev.foltz.item.gun.GunStageBuilder;
 import net.minecraft.item.ItemStack;
@@ -19,7 +19,7 @@ public class DeaglePistolItem extends GunStagedItem<DeaglePistolItem> {
     public static final String STAGE_FIRING = "firing";
 
     public DeaglePistolItem() {
-        super(250, AmmoItem.AmmoCategory.MAGNUM_AMMO, 8, Map.of(
+        super(250, AmmoCategories.AMMO_CATEGORY_MAGNUM, 8, Map.of(
             STAGE_DEFAULT, new GunStageBuilder<>()
                 .onInit(tryShootOrReloadInit(STAGE_READYING, STAGE_RELOADING))
                 .onPressShoot(tryShootOrReload(STAGE_READYING, STAGE_RELOADING))

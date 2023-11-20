@@ -1,9 +1,8 @@
 package dev.foltz.item.gun.pistol;
 
-import dev.foltz.item.ammo.AmmoItem;
+import dev.foltz.item.ammo.category.AmmoCategories;
 import dev.foltz.item.gun.GunStageBuilder;
 import dev.foltz.item.gun.GunStagedItem;
-import dev.foltz.item.stage.StageBuilder;
 import net.minecraft.entity.Entity;
 import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.item.ItemStack;
@@ -13,7 +12,6 @@ import net.minecraft.stat.Stats;
 import net.minecraft.util.Hand;
 import net.minecraft.util.math.MathHelper;
 
-import java.util.List;
 import java.util.Map;
 
 import static dev.foltz.Z7Util.*;
@@ -26,7 +24,7 @@ public class EokaPistol extends GunStagedItem<EokaPistol> {
     public static final String STAGE_FIRING = "firing";
 
     public EokaPistol() {
-        super(50, AmmoItem.AmmoCategory.CANNON_BALL_AMMO, 1, Map.of(
+        super(50, AmmoCategories.AMMO_CATEGORY_CANNON_BALL, 1, Map.of(
             STAGE_DEFAULT, new GunStageBuilder<>()
                 .barColor(stack -> ORANGE)
                 .onInit(tryReloadInit(STAGE_RELOADING))

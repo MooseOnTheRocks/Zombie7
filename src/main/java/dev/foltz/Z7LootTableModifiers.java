@@ -2,23 +2,15 @@ package dev.foltz;
 
 import dev.foltz.item.Z7Items;
 import net.fabricmc.fabric.api.loot.v2.LootTableEvents;
-import net.minecraft.entity.mob.ZombieEntity;
 import net.minecraft.loot.LootPool;
 import net.minecraft.loot.condition.KilledByPlayerLootCondition;
-import net.minecraft.loot.condition.RandomChanceLootCondition;
 import net.minecraft.loot.condition.RandomChanceWithLootingLootCondition;
 import net.minecraft.loot.entry.ItemEntry;
-import net.minecraft.loot.function.LootFunction;
 import net.minecraft.loot.function.SetCountLootFunction;
 import net.minecraft.loot.function.SetDamageLootFunction;
-import net.minecraft.loot.function.SetNbtLootFunction;
 import net.minecraft.loot.provider.number.ConstantLootNumberProvider;
 import net.minecraft.loot.provider.number.UniformLootNumberProvider;
-import net.minecraft.nbt.NbtCompound;
 import net.minecraft.util.Identifier;
-import net.minecraft.util.Util;
-
-import java.util.List;
 
 public class Z7LootTableModifiers {
     private static final Identifier ZOMBIE_ID = new Identifier("minecraft", "entities/zombie");
@@ -58,7 +50,7 @@ public class Z7LootTableModifiers {
 
                 LootPool.Builder poolShotgunRubberAmmo = LootPool.builder()
                     .rolls(ConstantLootNumberProvider.create(1))
-                    .with(ItemEntry.builder(Z7Items.ITEM_AMMO_RUBBER_SHOTGUN))
+                    .with(ItemEntry.builder(Z7Items.ITEM_AMMO_SHOTGUN_RUBBER))
                     .conditionally(RandomChanceWithLootingLootCondition.builder(0.1f, 0.02f))
                     .apply(SetCountLootFunction.builder(UniformLootNumberProvider.create(1.0f, 6.0f)));
                 tableBuilder.pool(poolShotgunRubberAmmo);

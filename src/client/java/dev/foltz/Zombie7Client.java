@@ -82,7 +82,7 @@ public class Zombie7Client implements ClientModInitializer {
 
 
         EntityRendererRegistry.register(Z7Entities.BULLET_RUBBER_ENTITY, BulletRubberEntityRenderer::new);
-        EntityModelLayerRegistry.registerModelLayer(MODEL_BULLET_RUBBER_LAYER, BulletRubberEntityModel::getTexturedModelData);
+//        EntityModelLayerRegistry.registerModelLayer(MODEL_BULLET_RUBBER_LAYER, BulletRubberEntityModel::getTexturedModelData);
 
         ClientPreAttackCallback.EVENT.register((client, player, clickCount) -> player.getMainHandStack().getItem() instanceof StagedItem);
 

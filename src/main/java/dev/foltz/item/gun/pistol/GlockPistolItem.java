@@ -1,6 +1,6 @@
 package dev.foltz.item.gun.pistol;
 
-import dev.foltz.item.ammo.AmmoItem;
+import dev.foltz.item.ammo.category.AmmoCategories;
 import dev.foltz.item.gun.GunStageBuilder;
 import dev.foltz.item.gun.GunStagedItem;
 import net.minecraft.item.ItemStack;
@@ -10,7 +10,7 @@ import java.util.Map;
 import static dev.foltz.Z7Util.*;
 
 public class GlockPistolItem extends GunStagedItem<GlockPistolItem> {
-    public static final int FIRE_WAIT_TICKS = ticksFromSeconds(0.2f);
+    public static final int FIRE_WAIT_TICKS = ticksFromSeconds(0.15f);
     public static final String STAGE_DEFAULT = "default";
     public static final String STAGE_BROKEN = "broken";
     public static final String STAGE_RELOADING = "reloading";
@@ -19,7 +19,7 @@ public class GlockPistolItem extends GunStagedItem<GlockPistolItem> {
     public static final String STAGE_FIRING = "firing";
 
     public GlockPistolItem() {
-        super(100, AmmoItem.AmmoCategory.PISTOL_AMMO, 17, Map.of(
+        super(100, AmmoCategories.AMMO_CATEGORY_PISTOL, 17, Map.of(
             STAGE_DEFAULT, new GunStageBuilder<>()
                 .onInit(tryShootOrReloadInit(STAGE_READYING, STAGE_RELOADING))
                 .onPressShoot(tryShootOrReload(STAGE_READYING, STAGE_RELOADING))

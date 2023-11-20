@@ -1,26 +1,17 @@
 package dev.foltz.mixin.client;
 
 import com.mojang.blaze3d.systems.RenderSystem;
-import dev.foltz.AccuracyCalculator;
 import dev.foltz.Zombie7Client;
 import dev.foltz.item.gun.GunStagedItem;
-import dev.foltz.item.stage.StagedItem;
 import net.minecraft.client.MinecraftClient;
 import net.minecraft.client.gui.DrawContext;
 import net.minecraft.client.gui.hud.InGameHud;
-import net.minecraft.client.network.ClientPlayerEntity;
 import net.minecraft.client.option.GameOptions;
-import net.minecraft.client.render.VertexConsumerProvider;
-import net.minecraft.client.render.item.HeldItemRenderer;
-import net.minecraft.client.util.math.MatrixStack;
-import net.minecraft.item.ItemStack;
-import net.minecraft.util.Hand;
 import net.minecraft.util.Identifier;
 import net.minecraft.util.math.MathHelper;
 import org.spongepowered.asm.mixin.Final;
 import org.spongepowered.asm.mixin.Mixin;
 import org.spongepowered.asm.mixin.Shadow;
-import org.spongepowered.asm.mixin.gen.Accessor;
 import org.spongepowered.asm.mixin.injection.At;
 import org.spongepowered.asm.mixin.injection.Inject;
 import org.spongepowered.asm.mixin.injection.callback.CallbackInfo;
@@ -58,7 +49,8 @@ public abstract class Z7InGameHudMixin {
 //        context.drawTexture(Zombie7Client.GUN_CROSSHAIR, (windowWidth - size) / 2, (windowHeight - size) / 2, 0, 0, size, size, textureWidth, textureHeight);
 //        int index = (int) (System.currentTimeMillis() / 1000) % 8;
 //        System.out.println("index = " + (index + 1) + "/8");
-        float wantedAccuracy = AccuracyCalculator.calculateAccuracy(client.player.getMainHandStack(), client.player);
+        float wantedAccuracy = gun.getGunRecoil(client.player.getMainHandStack(), client.player);
+//        float wantedAccuracy = AccuracyCalculator.calculateAccuracy(client.player.getMainHandStack(), client.player);
         float diff = wantedAccuracy - Zombie7Client.currentAccuracyValue;
         boolean isFiring = gun.getStageName(client.player.getMainHandStack()).equals("firing");
         diff *= 0.2f;

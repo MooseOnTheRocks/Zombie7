@@ -1,9 +1,6 @@
-package dev.foltz.item.ammo;
+package dev.foltz.item.ammo.type;
 
-import dev.foltz.entity.Z7Entities;
-import dev.foltz.entity.bullet.BulletBronzeEntity;
 import dev.foltz.entity.bullet.Z7BulletEntity;
-import dev.foltz.item.CompositeResourceItem;
 import dev.foltz.item.Z7Items;
 import dev.foltz.item.gun.GunStagedItem;
 import net.minecraft.entity.Entity;
@@ -20,20 +17,22 @@ import java.util.function.Supplier;
 
 import static dev.foltz.Z7Util.identifier;
 
-public interface AmmoItem {
-    TagKey<Item> AMMO_TYPE_PISTOL_TAG = TagKey.of(RegistryKeys.ITEM, identifier("ammo_type_pistol"));
-    TagKey<Item> AMMO_TYPE_MAGNUM_TAG = TagKey.of(RegistryKeys.ITEM, identifier("ammo_type_magnum"));
-    TagKey<Item> AMMO_TYPE_SHOTGUN_TAG = TagKey.of(RegistryKeys.ITEM, identifier("ammo_type_shotgun"));
-    TagKey<Item> AMMO_TYPE_CANNON_BALL_TAG = TagKey.of(RegistryKeys.ITEM, identifier("ammo_type_cannon_ball"));
-    TagKey<Item> AMMO_TYPE_GUNPOWDER_TAG = TagKey.of(RegistryKeys.ITEM, identifier("ammo_type_gunpowder"));
+public interface AmmoType {
+    TagKey<Item> getTypeKey();
+
+    ItemStack getDefaultItemStack();
 
     float getBaseDamage(ItemStack itemStack);
 
     float getBaseSpeed(ItemStack itemStack);
 
-    float getBaseRange(ItemStack itemStack);
+    float getBasePreferredRange(ItemStack itemStack);
 
     float getBaseAccuracy(ItemStack itemStack);
+
+    float getBaseRecoilMagnitude(ItemStack itemStack);
+
+    float getBaseRecoilDuration(ItemStack itemStack);
 
     List<? extends Entity> createBulletEntities(PlayerEntity player, ItemStack gunStack, ItemStack ammoStack);
 
@@ -43,9 +42,9 @@ public interface AmmoItem {
 
         float totalDamage = getBaseDamage(ammoStack);
         float totalSpeed = getBaseSpeed(ammoStack);
-        float baseDistance = getBaseRange(ammoStack);
+        float baseDistance = getBasePreferredRange(ammoStack);
         float totalAccuracy = getBaseAccuracy(ammoStack);
-        if (gunStack.getItem() instanceof GunStagedItem gun) {
+        if (gunStack.getItem() instanceof GunStagedItem<?> gun) {
             totalDamage = gun.getModifiedBulletDamage(gunStack, ammoStack, totalDamage);
             totalSpeed = gun.getModifiedBulletSpeed(gunStack, ammoStack, totalSpeed);
             baseDistance = gun.getModifiedBulletBaseRange(gunStack, ammoStack, baseDistance);
@@ -58,6 +57,25 @@ public interface AmmoItem {
         bullet.setBaseDistance(baseDistance);
 
         return bullet;
+    }
+
+    default int findAmmoSlot(PlayerEntity player) {
+        var tag = getTypeKey();
+        if (player.getMainHandStack().isIn(tag)) {
+            return player.getInventory().selectedSlot;
+        }
+        else if (player.getOffHandStack().isIn(tag)) {
+            return PlayerInventory.OFF_HAND_SLOT;
+        }
+        else {
+            for (int slot = 0; slot < player.getInventory().main.size(); slot++) {
+                ItemStack stack = player.getInventory().getStack(slot);
+                if (stack.isIn(tag)) {
+                    return slot;
+                }
+            }
+        }
+        return -1;
     }
 
     public static float determineDivergence(float totalAccuracy) {
@@ -73,41 +91,5 @@ public interface AmmoItem {
         else if (totalAccuracy >= 0.20f) return 20f;
         else if (totalAccuracy >= 0.10f) return 25f;
         else                             return 50f;
-    }
-
-    public enum AmmoCategory {
-        PISTOL_AMMO(AMMO_TYPE_PISTOL_TAG, () -> Z7Items.ITEM_AMMO_PISTOL),
-        MAGNUM_AMMO(AMMO_TYPE_MAGNUM_TAG, () -> Z7Items.ITEM_AMMO_MAGNUM),
-        SHOTGUN_AMMO(AMMO_TYPE_SHOTGUN_TAG, () -> Z7Items.ITEM_AMMO_SHOTGUN),
-        CANNON_BALL_AMMO(AMMO_TYPE_CANNON_BALL_TAG, () -> Z7Items.ITEM_CANNON_BALL),
-        GUNPOWDER_AMMO(AMMO_TYPE_GUNPOWDER_TAG, () -> Items.GUNPOWDER);
-
-
-
-        public final TagKey<Item> tag;
-        public final Supplier<Item> defaultItem;
-
-        AmmoCategory(TagKey<Item> ammoCategory, Supplier<Item> defaultItem) {
-            this.tag = ammoCategory;
-            this.defaultItem = defaultItem;
-        }
-
-        public int findAmmoSlot(PlayerEntity player) {
-            if (player.getMainHandStack().isIn(tag)) {
-                return player.getInventory().selectedSlot;
-            }
-            else if (player.getOffHandStack().isIn(tag)) {
-                return PlayerInventory.OFF_HAND_SLOT;
-            }
-            else {
-                for (int slot = 0; slot < player.getInventory().main.size(); slot++) {
-                    ItemStack stack = player.getInventory().getStack(slot);
-                    if (stack.isIn(tag)) {
-                        return slot;
-                    }
-                }
-            }
-            return -1;
-        }
     }
 }

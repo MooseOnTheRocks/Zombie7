@@ -1,6 +1,6 @@
 package dev.foltz.item.gun.rifle;
 
-import dev.foltz.item.ammo.AmmoItem;
+import dev.foltz.item.ammo.category.AmmoCategories;
 import dev.foltz.item.gun.GunStageBuilder;
 import dev.foltz.item.gun.GunStagedItem;
 import net.minecraft.item.ItemStack;
@@ -19,7 +19,7 @@ public class MusketRifleItem extends GunStagedItem<MusketRifleItem> {
     public static final String STAGE_FIRING = "firing";
 
     public MusketRifleItem() {
-        super(5, AmmoItem.AmmoCategory.PISTOL_AMMO, 1, Map.of(
+        super(5, AmmoCategories.AMMO_CATEGORY_RIFLE, 1, Map.of(
                 STAGE_DEFAULT, new GunStageBuilder<>()
                         .onInit(tryShootOrReloadInit(STAGE_COCKING, STAGE_RELOADING))
                         .onPressShoot(tryShootOrReload(STAGE_COCKING, STAGE_RELOADING))

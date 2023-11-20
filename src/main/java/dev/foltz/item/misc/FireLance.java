@@ -1,14 +1,10 @@
 package dev.foltz.item.misc;
 
 import dev.foltz.Zombie7;
-import dev.foltz.item.ammo.AmmoItem;
+import dev.foltz.item.ammo.category.AmmoCategories;
 import dev.foltz.item.gun.GunStageBuilder;
 import dev.foltz.item.gun.GunStagedItem;
-import dev.foltz.item.gun.pistol.EokaPistol;
-import dev.foltz.item.stage.StageBuilder;
-import net.minecraft.block.TntBlock;
 import net.minecraft.entity.Entity;
-import net.minecraft.entity.mob.GhastEntity;
 import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.item.ItemStack;
 import net.minecraft.sound.SoundCategory;
@@ -30,7 +26,7 @@ public class FireLance extends GunStagedItem<FireLance> {
     public static final String STAGE_FIRING = "firing";
 
     public FireLance() {
-        super(20, AmmoItem.AmmoCategory.GUNPOWDER_AMMO, 1, Map.of(
+        super(20, AmmoCategories.AMMO_CATEGORY_GUNPOWDER, 1, Map.of(
             STAGE_DEFAULT, new GunStageBuilder<>()
                 .barColor(stack -> ORANGE)
                 .onInit(tryReloadInit(STAGE_RELOADING))

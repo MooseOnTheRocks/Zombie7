@@ -1,9 +1,8 @@
 package dev.foltz.item.gun.pistol;
 
+import dev.foltz.item.ammo.category.AmmoCategories;
 import dev.foltz.item.gun.GunStagedItem;
-import dev.foltz.item.ammo.AmmoItem;
 import dev.foltz.item.gun.GunStageBuilder;
-import dev.foltz.item.stage.StageBuilder;
 import net.minecraft.item.ItemStack;
 import net.minecraft.util.math.MathHelper;
 
@@ -20,7 +19,7 @@ public class BasicPistolItem extends GunStagedItem<BasicPistolItem> {
     public static final String STAGE_FIRING = "firing";
 
     public BasicPistolItem() {
-        super(80, AmmoItem.AmmoCategory.PISTOL_AMMO, 6, Map.of(
+        super(80, AmmoCategories.AMMO_CATEGORY_PISTOL, 6, Map.of(
             STAGE_DEFAULT, new GunStageBuilder<>()
                 .onInit(tryShootOrReloadInit(STAGE_COCKING, STAGE_RELOADING))
                 .onPressShoot(tryShootOrReload(STAGE_COCKING, STAGE_RELOADING))
