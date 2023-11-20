@@ -37,7 +37,7 @@
     { "predicate": { "usage_stage": 0.8, "is_reloading": 1.0, "in_gui": 0.0  }, "model": "zombie7:item/gun/rifle_musket/reloading_5"},
     { "predicate": { "usage_stage": 0.85, "is_reloading": 1.0, "in_gui": 0.0  }, "model": "zombie7:item/gun/rifle_musket/reloading_6"},
     { "predicate": { "usage_stage": 0.9, "is_reloading": 1.0, "in_gui": 0.0  }, "model": "zombie7:item/gun/rifle_musket/reloading_1"},
-    { "predicate": { "usage_stage": 0.95, "is_reloading": 1.0, "in_gui": 0.0  }, "model": "zombie7:item/gun/rifle_musket/reloading_0_1"},
+    { "predicate": { "usage_stage": 0.95m, "is_reloading": 1.0, "in_gui": 0.0  }, "model": "zombie7:item/gun/rifle_musket/reloading_0_1"},
     { "predicate": { "usage_stage": 1.0, "is_reloading": 1.0, "in_gui": 0.0  }, "model": "zombie7:item/gun/rifle_musket/reloading_0"},
 
     { "predicate": { "is_ready_to_fire": 1.0, "in_gui": 0.0 }, "model": "zombie7:item/gun/rifle_musket/cocked" },
