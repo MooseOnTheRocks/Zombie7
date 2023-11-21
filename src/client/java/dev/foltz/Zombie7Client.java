@@ -1,11 +1,8 @@
 package dev.foltz;
 
 import dev.foltz.entity.*;
-import dev.foltz.entity.misc.BowlingBallGrenadeEntity;
-import dev.foltz.entity.misc.CannonBallEntity;
 import dev.foltz.entity.model.BulletBronzeEntityModel;
 import dev.foltz.entity.model.BulletLeadEntityModel;
-import dev.foltz.entity.model.BulletRubberEntityModel;
 import dev.foltz.item.gun.GunStagedItem;
 import dev.foltz.item.stage.StagedItem;
 import dev.foltz.network.Z7Networking;
@@ -27,7 +24,6 @@ import net.minecraft.client.MinecraftClient;
 import net.minecraft.client.option.KeyBinding;
 import net.minecraft.client.render.entity.model.EntityModelLayer;
 import net.minecraft.client.util.InputUtil;
-import net.minecraft.item.Item;
 import net.minecraft.util.Identifier;
 import org.lwjgl.glfw.GLFW;
 
@@ -72,7 +68,6 @@ public class Zombie7Client implements ClientModInitializer {
         EntityRendererRegistry.register(Z7Entities.MOLOTOV_GRENADE_ENTITY, MolotovGrenadeEntityRenderer::new);
         EntityRendererRegistry.register(Z7Entities.STICKY_GRENADE_ENTITY, StickyGrenadeEntityRenderer::new);
         EntityRendererRegistry.register(Z7Entities.BOWLING_BALL_GRENADE_ENTITY, BowlingBallGrenadeEntityRenderer::new);
-        EntityRendererRegistry.register(Z7Entities.CANNON_BALL_ENTITY, CannonBallEntityRenderer::new);
 
         EntityRendererRegistry.register(Z7Entities.BULLET_BRONZE_ENTITY, BulletBronzeEntityRenderer::new);
         EntityModelLayerRegistry.registerModelLayer(MODEL_BULLET_BRONZE_LAYER, BulletBronzeEntityModel::getTexturedModelData);
@@ -81,7 +76,9 @@ public class Zombie7Client implements ClientModInitializer {
         EntityModelLayerRegistry.registerModelLayer(MODEL_BULLET_LEAD_LAYER, BulletLeadEntityModel::getTexturedModelData);
 
 
+        EntityRendererRegistry.register(Z7Entities.CANNON_BALL_ENTITY, CannonBallEntityRenderer::new);
         EntityRendererRegistry.register(Z7Entities.BULLET_RUBBER_ENTITY, BulletRubberEntityRenderer::new);
+        EntityRendererRegistry.register(Z7Entities.BULLET_GRAPESHOT_ENTITY, BulletGrapeshotEntityRenderer::new);
 //        EntityModelLayerRegistry.registerModelLayer(MODEL_BULLET_RUBBER_LAYER, BulletRubberEntityModel::getTexturedModelData);
 
         ClientPreAttackCallback.EVENT.register((client, player, clickCount) -> player.getMainHandStack().getItem() instanceof StagedItem);

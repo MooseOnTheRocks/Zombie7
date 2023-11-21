@@ -55,6 +55,13 @@ public class Z7LootTableModifiers {
                     .apply(SetCountLootFunction.builder(UniformLootNumberProvider.create(1.0f, 6.0f)));
                 tableBuilder.pool(poolShotgunRubberAmmo);
 
+                LootPool.Builder poolGrapeshotAmmo = LootPool.builder()
+                    .rolls(ConstantLootNumberProvider.create(1))
+                    .with(ItemEntry.builder(Z7Items.ITEM_AMMO_GRAPESHOT))
+                    .conditionally(RandomChanceWithLootingLootCondition.builder(0.1f, 0.02f))
+                    .apply(SetCountLootFunction.builder(UniformLootNumberProvider.create(1.0f, 6.0f)));
+                tableBuilder.pool(poolGrapeshotAmmo);
+
                 LootPool.Builder poolMagnumAmmo = LootPool.builder()
                     .rolls(ConstantLootNumberProvider.create(1))
                     .with(ItemEntry.builder(Z7Items.ITEM_AMMO_MAGNUM))

@@ -8,5 +8,6 @@ public abstract class AmmoTypes {
     public static final AmmoType AMMO_TYPE_SHOTGUN_BASIC = new ShotgunBasicAmmoType();
     public static final AmmoType AMMO_TYPE_SHOTGUN_RUBBER = new ShotgunRubberAmmoType();
     public static final AmmoType AMMO_TYPE_CANNON_BALL = new CannonBallAmmoType();
+    public static final AmmoType AMMO_TYPE_GRAPESHOT = new GrapeshotAmmoType();
     public static final AmmoType AMMO_TYPE_GUNPOWDER = new GunpowderAmmoType();
 }

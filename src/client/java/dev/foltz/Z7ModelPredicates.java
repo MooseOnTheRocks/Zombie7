@@ -5,6 +5,7 @@ import dev.foltz.item.grenade.MolotovGrenadeItem;
 import dev.foltz.item.gun.GunStagedItem;
 import dev.foltz.item.grenade.FragGrenadeItem;
 import dev.foltz.item.Z7Items;
+import dev.foltz.item.gun.HandCannonItem;
 import dev.foltz.item.gun.pistol.DeaglePistolItem;
 import dev.foltz.item.gun.pistol.EokaPistol;
 import dev.foltz.item.gun.pistol.FlintlockPistolItem;
@@ -191,12 +192,23 @@ public abstract class Z7ModelPredicates {
                 USAGE_TICKS,
                 IN_GUI));
 
+        registerItemWithPredicates(
+            Z7Items.ITEM_HAND_CANNON,
+            List.of(
+                stagePredicate("is_reloading", HandCannonItem.STAGE_RELOADING),
+                stagePredicate("is_firing", HandCannonItem.STAGE_FIRING),
+                stagePredicate("is_broken", HandCannonItem.STAGE_BROKEN),
+                stagePredicate("is_fuse_lit", HandCannonItem.STAGE_FUSE_LIT),
+                USAGE_TICKS,
+                IN_GUI));
+
         // -- "Numerous" items
         registerItemsWithPredicates(
             List.of(
                 Z7Items.ITEM_AMMO_PISTOL,
                 Z7Items.ITEM_AMMO_SHOTGUN,
                 Z7Items.ITEM_AMMO_SHOTGUN_RUBBER,
+                Z7Items.ITEM_AMMO_GRAPESHOT,
                 Z7Items.ITEM_AMMO_MAGNUM,
                 Z7Items.ITEM_ANTIBIOTICS,
                 Z7Items.ITEM_PAINKILLERS),

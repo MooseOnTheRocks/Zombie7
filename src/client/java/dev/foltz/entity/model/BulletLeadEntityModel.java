@@ -16,12 +16,12 @@ public class BulletLeadEntityModel extends SinglePartEntityModel<BulletLeadEntit
         ModelPartData modelPartData = modelData.getRoot();
         modelPartData.addChild("main",
             ModelPartBuilder.create()
-                    .uv(0, 0)
-                    // Small bullet model
-                    .cuboid(-2f, 0.5f, -0.5f, 4f, 1.0f, 1.0f),
-                    // Big bullet model
+                .uv(0, 0)
+                // Small bullet model
+                .cuboid(-2f, 0.5f, -0.5f, 4f, 1.0f, 1.0f),
+                // Big bullet model
 //                    .cuboid(-3f, 1.0f, -1.0f, 6f, 2.0f, 2.0f),
-                ModelTransform.NONE);
+            ModelTransform.NONE);
         return TexturedModelData.of(modelData, 64, 32);
     }
 

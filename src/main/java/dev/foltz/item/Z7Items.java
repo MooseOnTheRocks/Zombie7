@@ -1,16 +1,14 @@
 package dev.foltz.item;
 
 import dev.foltz.Zombie7;
-import dev.foltz.item.ammo.AmmoMagnumBasicItem;
-import dev.foltz.item.ammo.AmmoPistolBasicItem;
-import dev.foltz.item.ammo.AmmoShotgunBasicItem;
-import dev.foltz.item.ammo.AmmoShotgunRubberItem;
+import dev.foltz.item.ammo.*;
 import dev.foltz.item.ammo.type.MagnumBasicAmmoType;
 import dev.foltz.item.ammo.type.PistolBasicAmmoType;
 import dev.foltz.item.ammo.type.ShotgunBasicAmmoType;
 import dev.foltz.item.ammo.type.ShotgunRubberAmmoType;
 import dev.foltz.item.consumable.*;
 import dev.foltz.item.grenade.*;
+import dev.foltz.item.gun.HandCannonItem;
 import dev.foltz.item.misc.FireLance;
 import dev.foltz.item.gun.pistol.*;
 import dev.foltz.item.gun.rifle.AkRifleItem;
@@ -89,6 +87,7 @@ public abstract class Z7Items {
     public static final Item ITEM_SHOTGUN_DBLBRL = registerGunItem("shotgun_dblbrl", new dblbrlShotgunItem());
     public static final Item ITEM_RIFLE_AK = registerGunItem("rifle_ak", new AkRifleItem());
     public static final Item ITEM_RIFLE_MUSKET = registerGunItem("rifle_musket", new MusketRifleItem());
+    public static final Item ITEM_HAND_CANNON = registerGunItem("hand_cannon", new HandCannonItem());
 
     // Misc
     public static final Item ITEM_FIRE_LANCE = registerMiscWeaponItem("fire_lance", new FireLance());
@@ -101,6 +100,7 @@ public abstract class Z7Items {
     public static final Item ITEM_AMMO_MAGNUM = registerAmmoItem("magnum_basic", new AmmoMagnumBasicItem());
     public static final Item ITEM_AMMO_SHOTGUN = registerAmmoItem("shotgun_basic", new AmmoShotgunBasicItem());
     public static final Item ITEM_AMMO_SHOTGUN_RUBBER = registerAmmoItem("shotgun_rubber", new AmmoShotgunRubberItem());
+    public static final Item ITEM_AMMO_GRAPESHOT = registerAmmoItem("grapeshot", new AmmoGrapeshotItem());
 
     // Debug
     public static final Item ITEM_BONK_STICK = registerItem("bonk_stick", new BonkStick());
