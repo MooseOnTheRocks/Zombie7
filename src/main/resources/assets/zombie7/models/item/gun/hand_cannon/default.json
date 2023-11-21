@@ -1,5 +1,5 @@
 {
-  "parent": "zombie7:item/gun/32x_longarm_flat_parent",
+  "parent": "zombie7:item/gun/32x_cannon_flat_parent",
   "textures": {
     "layer0": "zombie7:item/gun/hand_cannon/default"
   },
@@ -7,6 +7,8 @@
     { "predicate": { "in_gui": 0.0 }, "model": "zombie7:item/gun/hand_cannon/default" },
 
     { "predicate": { "is_broken": 1.0, "in_gui": 0.0  }, "model": "zombie7:item/gun/hand_cannon/broken" },
+
+    { "predicate": { "is_reloading": 1.0, "in_gui": 0.0  }, "model": "zombie7:item/gun/hand_cannon/reloading_1" },
 
     { "predicate": { "usage_stage": 0.04, "is_fuse_lit": 1.0, "in_gui": 0.0  }, "model": "zombie7:item/gun/hand_cannon/fuse_1" },
     { "predicate": { "usage_stage": 0.066, "is_fuse_lit": 1.0, "in_gui": 0.0  }, "model": "zombie7:item/gun/hand_cannon/fuse_2" },
