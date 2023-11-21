@@ -1,0 +1,35 @@
+{
+  "parent": "zombie7:item/gun/32x_longarm_flat_parent",
+  "textures": {
+    "layer0": "zombie7:item/gun/hand_cannon/default"
+  },
+  "overrides": [
+    { "predicate": { "in_gui": 0.0 }, "model": "zombie7:item/gun/hand_cannon/default" },
+
+    { "predicate": { "is_broken": 1.0, "in_gui": 0.0  }, "model": "zombie7:item/gun/hand_cannon/broken" },
+
+    { "predicate": { "usage_stage": 0.1, "is_fuse_lit": 1.0, "in_gui": 0.0  }, "model": "zombie7:item/gun/hand_cannon/fuse_1" },
+    { "predicate": { "usage_stage": 0.2, "is_fuse_lit": 1.0, "in_gui": 0.0  }, "model": "zombie7:item/gun/hand_cannon/fuse_2" },
+    { "predicate": { "usage_stage": 0.3, "is_fuse_lit": 1.0, "in_gui": 0.0  }, "model": "zombie7:item/gun/hand_cannon/fuse_3" },
+    { "predicate": { "usage_stage": 0.4, "is_fuse_lit": 1.0, "in_gui": 0.0  }, "model": "zombie7:item/gun/hand_cannon/fuse_4" },
+    { "predicate": { "usage_stage": 0.5, "is_fuse_lit": 1.0, "in_gui": 0.0  }, "model": "zombie7:item/gun/hand_cannon/fuse_5" },
+    { "predicate": { "usage_stage": 0.6, "is_fuse_lit": 1.0, "in_gui": 0.0  }, "model": "zombie7:item/gun/hand_cannon/fuse_6" },
+    { "predicate": { "usage_stage": 0.7, "is_fuse_lit": 1.0, "in_gui": 0.0  }, "model": "zombie7:item/gun/hand_cannon/fuse_7" },
+    { "predicate": { "usage_stage": 0.8, "is_fuse_lit": 1.0, "in_gui": 0.0  }, "model": "zombie7:item/gun/hand_cannon/fuse_8" },
+    { "predicate": { "usage_stage": 0.9, "is_fuse_lit": 1.0, "in_gui": 0.0  }, "model": "zombie7:item/gun/hand_cannon/fuse_9" },
+    { "predicate": { "usage_stage": 1.0, "is_fuse_lit": 1.0, "in_gui": 0.0  }, "model": "zombie7:item/gun/hand_cannon/fuse_10" },
+
+    { "predicate": { "in_gui": 1.0 }, "model": "zombie7:item/gun/hand_cannon/icon/default" },
+
+    { "predicate": { "usage_stage": 0.1, "is_fuse_lit": 1.0, "in_gui": 1.0  }, "model": "zombie7:item/gun/hand_cannon/fuse_1" },
+    { "predicate": { "usage_stage": 0.2, "is_fuse_lit": 1.0, "in_gui": 1.0  }, "model": "zombie7:item/gun/hand_cannon/fuse_2" },
+    { "predicate": { "usage_stage": 0.3, "is_fuse_lit": 1.0, "in_gui": 1.0  }, "model": "zombie7:item/gun/hand_cannon/fuse_3" },
+    { "predicate": { "usage_stage": 0.4, "is_fuse_lit": 1.0, "in_gui": 1.0  }, "model": "zombie7:item/gun/hand_cannon/fuse_4" },
+    { "predicate": { "usage_stage": 0.5, "is_fuse_lit": 1.0, "in_gui": 1.0  }, "model": "zombie7:item/gun/hand_cannon/fuse_5" },
+    { "predicate": { "usage_stage": 0.6, "is_fuse_lit": 1.0, "in_gui": 1.0  }, "model": "zombie7:item/gun/hand_cannon/fuse_6" },
+    { "predicate": { "usage_stage": 0.7, "is_fuse_lit": 1.0, "in_gui": 1.0  }, "model": "zombie7:item/gun/hand_cannon/fuse_7" },
+    { "predicate": { "usage_stage": 0.8, "is_fuse_lit": 1.0, "in_gui": 1.0  }, "model": "zombie7:item/gun/hand_cannon/fuse_8" },
+    { "predicate": { "usage_stage": 0.9, "is_fuse_lit": 1.0, "in_gui": 1.0  }, "model": "zombie7:item/gun/hand_cannon/fuse_9" },
+    { "predicate": { "usage_stage": 1.0, "is_fuse_lit": 1.0, "in_gui": 1.0  }, "model": "zombie7:item/gun/hand_cannon/fuse_10" }
+  ]
+}
