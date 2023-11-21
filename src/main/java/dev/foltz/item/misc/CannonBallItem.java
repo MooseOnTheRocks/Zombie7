@@ -45,8 +45,8 @@ public class CannonBallItem extends Item {
         CannonBallEntity g = new CannonBallEntity(Z7Entities.CANNON_BALL_ENTITY, entity.getWorld());
         var grenades = List.of(g);
         for (var grenade : grenades) {
-            ItemStack throwStack = new ItemStack(stack.getItem());
-            grenade.setItemStack(throwStack);
+//            ItemStack throwStack = new ItemStack(stack.getItem());
+            grenade.setItemStack(stack.copyWithCount(1));
             grenade.setOwner(entity);
             grenade.setPosition(entity.getX(), entity.getEyeY() - grenade.getHeight() / 2f, entity.getZ());
             grenade.setVelocity(entity, entity.getPitch(), entity.getYaw(), 0.0f, speed);

@@ -65,6 +65,7 @@ public class CannonBallAmmoType implements AmmoType {
 //        bullet = modifyBulletEntity(bullet, player, gunStack, ammoStack);
         bullet.setPosition(player.getX(), player.getEyeY() - bullet.getHeight() / 2f, player.getZ());
         bullet.setOwner(player);
+        bullet.setItemStack(ammoStack.copyWithCount(1));
 
         float totalDamage = getBaseDamage(ammoStack);
         float totalSpeed = getBaseSpeed(ammoStack);

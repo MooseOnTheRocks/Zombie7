@@ -10,3 +10,5 @@ accessible field net/minecraft/entity/projectile/PersistentProjectileEntity inBl
 accessible field net/minecraft/entity/mob/MobEntity goalSelector Lnet/minecraft/entity/ai/goal/GoalSelector;
 accessible method net/minecraft/client/render/item/HeldItemRenderer renderFirstPersonItem (Lnet/minecraft/client/network/AbstractClientPlayerEntity;FFLnet/minecraft/util/Hand;FLnet/minecraft/item/ItemStack;FLnet/minecraft/client/util/math/MatrixStack;Lnet/minecraft/client/render/VertexConsumerProvider;I)V
 accessible class net/minecraft/client/render/item/HeldItemRenderer$HandRenderType
+accessible field net/minecraft/entity/projectile/ProjectileEntity leftOwner Z
+accessible method net/minecraft/entity/projectile/ProjectileEntity shouldLeaveOwner ()Z

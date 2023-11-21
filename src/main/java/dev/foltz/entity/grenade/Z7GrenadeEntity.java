@@ -31,19 +31,20 @@ public abstract class Z7GrenadeEntity extends PersistentProjectileEntity {
 
     @Override
     protected boolean tryPickup(PlayerEntity player) {
-        if (isActive()) {
-            return false;
-        }
-
-        switch (this.pickupType) {
-            case ALLOWED: {
-                return player.getInventory().insertStack(this.asItemStack());
-            }
-            case CREATIVE_ONLY: {
-                return player.getAbilities().creativeMode;
-            }
-        }
-        return false;
+        return super.tryPickup(player);
+//        if (isActive()) {
+//            return false;
+//        }
+//
+//        switch (this.pickupType) {
+//            case ALLOWED: {
+//                return player.getInventory().insertStack(this.asItemStack());
+//            }
+//            case CREATIVE_ONLY: {
+//                return player.getAbilities().creativeMode;
+//            }
+//        }
+//        return false;
     }
 
     public void setItemStack(ItemStack itemStack) {
