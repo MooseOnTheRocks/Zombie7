@@ -82,10 +82,13 @@ public class CannonBallEntity extends Z7GrenadeEntity {
 
         this.move(MovementType.SELF, this.getVelocity());
         if (!this.isOnGround()) {
-            this.setVelocity(this.getVelocity().subtract(0, 0.0225, 0));
+            if (this.getVelocity().length() >= 1.8f) {
+                this.setVelocity(this.getVelocity().subtract(0, 0.0075, 0));
+            }
+            this.setVelocity(this.getVelocity().subtract(0, 0.025, 0));
         }
         else {
-            this.setVelocity(this.getVelocity().multiply(0.7));
+            this.setVelocity(this.getVelocity().multiply(0.8));
 //            System.out.println("On ground: " + this.isOnGround());
 //            System.out.println("Velocity: " + this.getVelocity().length());
             if (this.getVelocity().length() < 0.05 && this.isOnGround()) {
@@ -139,7 +142,7 @@ public class CannonBallEntity extends Z7GrenadeEntity {
     @Override
     protected void onEntityHit(EntityHitResult entityHitResult) {
         if (!getWorld().isClient) {
-            this.setVelocity(this.getVelocity().multiply(0.93));
+            this.setVelocity(this.getVelocity().multiply(0.75));
             if (entityHitResult.getEntity() instanceof CannonBallEntity other) {
                 var diff = this.getPos().subtract(other.getPos()).normalize();
 //                this.addVelocity(diff.normalize().multiply(0.3).multiply(other.getVelocity()));
@@ -151,35 +154,18 @@ public class CannonBallEntity extends Z7GrenadeEntity {
                         Entity::isLiving);
 //                        e -> e.isLiving() && !e.getUuid().equals(this.getOwner() != null ? this.getOwner().getUuid() : null));
 
-                if (!entities.isEmpty()) {
-                    System.out.println("Hit some entities: " + entities.size());
-                }
+//                if (!entities.isEmpty()) {
+//                    System.out.println("Hit some entities: " + entities.size());
+//                }
 
                 for (var entity : entities) {
-//                double d = Math.max(0.1, 1.0 - ((LivingEntity) entity).getAttributeValue(EntityAttributes.GENERIC_KNOCKBACK_RESISTANCE));
-                    float edist = (float) entityHitResult.getEntity().getPos().subtract(this.getPos()).length();
-                    float boundingBoxSize = (float) (this.getBoundingBox().getAverageSideLength() + entityHitResult.getEntity().getBoundingBox().getAverageSideLength());
-
-                    edist -= boundingBoxSize;
-                    if (edist <= boundingBoxSize) {
-                        edist = 0;
-                    }
-
-                    System.out.println("Vel = " + getVelocity().length());
-
-                    float newDist = distanceTraveled + edist;
-//                    Vec3d vec3d = this.getVelocity().multiply(1.0, 0.0, 1.0).normalize().multiply(MathHelper.map(getVelocity().length() * 0.5, 0, 0.8, 8, 12));
                     Vec3d vec3d = this.getVelocity();
-                    System.out.println("Vec3d = " + vec3d.length());
                     if (vec3d.lengthSquared() > 0.0) {
-                        System.out.println("Okay...");
-                        float push = 3.0f;
-                        ((LivingEntity) entity).addVelocity(push * vec3d.x, Math.min(getVelocity().length(), 2.0f) * 0.2, push * vec3d.z);
+                        float push = 5.0f;
+                        ((LivingEntity) entity).addVelocity(push * vec3d.x, Math.min(getVelocity().length(), 2.0f) * 0.5, push * vec3d.z);
                         if (!this.getWorld().isClient) {
-                            System.out.println("VELOCITY = " + getVelocity().length());
                             if (getVelocity().length() > 0.1) {
                                 float damage = (float) MathHelper.lerp(Math.min(getVelocity().length(), 2.0f), 2f, 20f);
-                                System.out.println("DAMAGE = " + damage);
                                 if (entityHitResult.getEntity().damage(this.getDamageSources().create(Zombie7.BULLET_DAMAGE_TYPE, this, this.getOwner() instanceof LivingEntity e ? e : null), damage)) {
                                     System.out.println("Dealing ranged " + damage + " damage, baseDamage = " + damage + ", traveled = " + distanceTraveled);
                                 }
