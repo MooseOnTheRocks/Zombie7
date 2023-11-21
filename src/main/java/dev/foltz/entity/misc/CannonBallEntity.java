@@ -27,6 +27,10 @@ public class CannonBallEntity extends Z7GrenadeEntity {
 
     @Override
     public void tick() {
+        if (!this.leftOwner) {
+            this.leftOwner = this.shouldLeaveOwner();
+        }
+
         this.baseTick();
         var prevPos = this.getPos();
 
@@ -78,18 +82,14 @@ public class CannonBallEntity extends Z7GrenadeEntity {
 
         this.move(MovementType.SELF, this.getVelocity());
         if (!this.isOnGround()) {
-            this.setVelocity(this.getVelocity().subtract(0, 0.025, 0));
+            this.setVelocity(this.getVelocity().subtract(0, 0.0225, 0));
         }
         else {
-            this.setVelocity(this.getVelocity().multiply(0.85));
+            this.setVelocity(this.getVelocity().multiply(0.7));
+//            System.out.println("On ground: " + this.isOnGround());
+//            System.out.println("Velocity: " + this.getVelocity().length());
             if (this.getVelocity().length() < 0.05 && this.isOnGround()) {
-//                System.out.println("Allowed to pickup");
-                if (this.getOwner() != null && this.getOwner() instanceof PlayerEntity player && player.getAbilities().creativeMode) {
-                    this.pickupType = PickupPermission.CREATIVE_ONLY;
-                }
-                else {
-                    this.pickupType = PickupPermission.ALLOWED;
-                }
+                this.pickupType = PickupPermission.ALLOWED;
             }
             else {
                 this.pickupType = PickupPermission.DISALLOWED;
@@ -104,15 +104,22 @@ public class CannonBallEntity extends Z7GrenadeEntity {
 
     @Override
     protected boolean canHit(Entity entity) {
-        return super.canHit(entity) || entity instanceof CannonBallEntity;
+        if (!entity.canBeHitByProjectile()) {
+            return false;
+        }
+        Entity entity2 = this.getOwner();
+        boolean b1 = entity2 == null || this.leftOwner;
+
+        return b1 || entity instanceof CannonBallEntity;
     }
 
     @Override
     public void onPlayerCollision(PlayerEntity player) {
-        if (this.getWorld().isClient || !this.isOnGround() && !this.isNoClip()) {
+        if (this.getWorld().isClient || (!this.isOnGround() && !this.isNoClip())) {
             return;
         }
         if (this.tryPickup(player)) {
+//            System.out.println("HELLO: " + this.tryPickup(player));
             player.sendPickup(this, 1);
             this.discard();
         }
@@ -120,15 +127,13 @@ public class CannonBallEntity extends Z7GrenadeEntity {
 
     @Override
     protected boolean tryPickup(PlayerEntity player) {
-        switch (this.pickupType) {
-            case ALLOWED: {
-                return player.getInventory().insertStack(this.asItemStack());
-            }
-            case CREATIVE_ONLY: {
-                return player.getAbilities().creativeMode;
-            }
-        }
-        return false;
+        return super.tryPickup(player);
+//        return player.getInventory().insertStack(this.asItemStack());
+//        return switch (this.pickupType) {
+//            case ALLOWED -> player.getInventory().insertStack(this.asItemStack());
+//            case CREATIVE_ONLY -> player.getAbilities().creativeMode;
+//            case DISALLOWED -> false;
+//        };
     }
 
     @Override
@@ -143,11 +148,12 @@ public class CannonBallEntity extends Z7GrenadeEntity {
             }
             else if (entityHitResult.getEntity() instanceof LivingEntity livingEntity) {
                 var entities = getWorld().getOtherEntities(this, this.getBoundingBox().expand(1d),
-                        e -> e.isLiving() && !e.getUuid().equals(this.getOwner() != null ? this.getOwner().getUuid() : null));
+                        Entity::isLiving);
+//                        e -> e.isLiving() && !e.getUuid().equals(this.getOwner() != null ? this.getOwner().getUuid() : null));
 
-//                if (entities.size() > 0) {
-//                    System.out.println("Hit some entities: " + entities.size());
-//                }
+                if (!entities.isEmpty()) {
+                    System.out.println("Hit some entities: " + entities.size());
+                }
 
                 for (var entity : entities) {
 //                double d = Math.max(0.1, 1.0 - ((LivingEntity) entity).getAttributeValue(EntityAttributes.GENERIC_KNOCKBACK_RESISTANCE));
@@ -159,14 +165,21 @@ public class CannonBallEntity extends Z7GrenadeEntity {
                         edist = 0;
                     }
 
-                    float newDist = distanceTraveled + edist;
-                    Vec3d vec3d = this.getVelocity().multiply(1.0, 0.0, 1.0).normalize().multiply(MathHelper.map(getVelocity().length() * 0.5, 0, 0.8, 8, 12));
-                    if (vec3d.lengthSquared() > 0.0) {
-                        ((LivingEntity) entity).addVelocity(vec3d.x, Math.min(getVelocity().length(), 2.0f) * 0.2, vec3d.z);
-                        if (!this.getWorld().isClient) {
-                            if (getVelocity().length() > 0.2) {
-                                float damage = (float) MathHelper.lerp(Math.min(getVelocity().length(), 2.0f), 2f, 20f);
+                    System.out.println("Vel = " + getVelocity().length());
 
+                    float newDist = distanceTraveled + edist;
+//                    Vec3d vec3d = this.getVelocity().multiply(1.0, 0.0, 1.0).normalize().multiply(MathHelper.map(getVelocity().length() * 0.5, 0, 0.8, 8, 12));
+                    Vec3d vec3d = this.getVelocity();
+                    System.out.println("Vec3d = " + vec3d.length());
+                    if (vec3d.lengthSquared() > 0.0) {
+                        System.out.println("Okay...");
+                        float push = 3.0f;
+                        ((LivingEntity) entity).addVelocity(push * vec3d.x, Math.min(getVelocity().length(), 2.0f) * 0.2, push * vec3d.z);
+                        if (!this.getWorld().isClient) {
+                            System.out.println("VELOCITY = " + getVelocity().length());
+                            if (getVelocity().length() > 0.1) {
+                                float damage = (float) MathHelper.lerp(Math.min(getVelocity().length(), 2.0f), 2f, 20f);
+                                System.out.println("DAMAGE = " + damage);
                                 if (entityHitResult.getEntity().damage(this.getDamageSources().create(Zombie7.BULLET_DAMAGE_TYPE, this, this.getOwner() instanceof LivingEntity e ? e : null), damage)) {
                                     System.out.println("Dealing ranged " + damage + " damage, baseDamage = " + damage + ", traveled = " + distanceTraveled);
                                 }
