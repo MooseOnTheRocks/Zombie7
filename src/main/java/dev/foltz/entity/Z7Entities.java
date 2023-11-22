@@ -53,7 +53,7 @@ public abstract class Z7Entities {
     public static final EntityType<CannonBallEntity> CANNON_BALL_ENTITY = Registry.register(
         Registries.ENTITY_TYPE,
         new Identifier(MODID, "cannon_ball"),
-        FabricEntityTypeBuilder.create().entityFactory(CannonBallEntity::new).dimensions(EntityDimensions.fixed(0.8f, 0.8f)).build()
+        FabricEntityTypeBuilder.create().entityFactory(CannonBallEntity::new).dimensions(EntityDimensions.fixed(0.4f, 0.4f)).build()
     );
 
     public static final EntityType<BulletBronzeEntity> BULLET_BRONZE_ENTITY = Registry.register(

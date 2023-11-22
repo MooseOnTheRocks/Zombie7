@@ -21,7 +21,7 @@ public class AmmoCategory {
     }
 
     public ItemStack getDefaultItemStack() {
-        return ammoTypes.get(0).getDefaultItemStack();
+        return ammoTypes.isEmpty() ? ItemStack.EMPTY : ammoTypes.get(0).getDefaultItemStack();
     }
 
     public int findAmmoSlot(PlayerEntity player) {

@@ -3,6 +3,7 @@ package dev.foltz.item.ammo.category;
 import static dev.foltz.item.ammo.type.AmmoTypes.*;
 
 public abstract class AmmoCategories {
+    public static final AmmoCategory AMMO_CATEGORY_NONE = new AmmoCategory();
     public static final AmmoCategory AMMO_CATEGORY_PISTOL = new AmmoCategory(AMMO_TYPE_PISTOL_BASIC);
     public static final AmmoCategory AMMO_CATEGORY_MAGNUM = new AmmoCategory(AMMO_TYPE_MAGNUM_BASIC);
     public static final AmmoCategory AMMO_CATEGORY_RIFLE = new AmmoCategory(AMMO_TYPE_PISTOL_BASIC);

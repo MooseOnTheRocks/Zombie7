@@ -1,16 +1,21 @@
 package dev.foltz.item.gun;
 
+import com.mojang.authlib.minecraft.client.MinecraftClient;
 import dev.foltz.entity.bullet.Z7BulletEntity;
 import dev.foltz.item.ammo.category.AmmoCategory;
 import dev.foltz.item.ammo.type.AmmoType;
 import dev.foltz.item.stage.*;
 import net.fabricmc.fabric.api.item.v1.FabricItemSettings;
 import net.minecraft.block.BlockState;
+import net.minecraft.client.item.BundleTooltipData;
 import net.minecraft.client.item.TooltipContext;
+import net.minecraft.client.item.TooltipData;
 import net.minecraft.entity.Entity;
 import net.minecraft.entity.LivingEntity;
 import net.minecraft.entity.player.PlayerEntity;
+import net.minecraft.item.BundleItem;
 import net.minecraft.item.ItemStack;
+import net.minecraft.item.Items;
 import net.minecraft.nbt.NbtCompound;
 import net.minecraft.nbt.NbtElement;
 import net.minecraft.nbt.NbtList;
@@ -22,6 +27,7 @@ import net.minecraft.stat.Stats;
 import net.minecraft.text.MutableText;
 import net.minecraft.text.Text;
 import net.minecraft.util.*;
+import net.minecraft.util.collection.DefaultedList;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.util.math.MathHelper;
 import net.minecraft.world.World;
@@ -30,8 +36,12 @@ import org.jetbrains.annotations.Nullable;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
+import java.util.Optional;
+
+import static dev.foltz.Z7Util.identifier;
 
 public class GunStagedItem<T extends GunStagedItem<?>> extends StagedItem<T> {
+    public static final Identifier DEFAULT_CROSSHAIR_TEXTURE = identifier("textures/gui/gun_crosshair.png");
     public static final String AMMO_LIST = "AmmoList";
 
     public final AmmoCategory ammoCategory;
@@ -160,7 +170,7 @@ public class GunStagedItem<T extends GunStagedItem<?>> extends StagedItem<T> {
         };
     }
 
-    public static StagedItemEventHandler<GunStagedItem<?>> doFire() {
+    public static <T extends GunStagedItem<?>> StagedItemEventHandler<T> doFire() {
         return view -> {
             view.item.shootGun(view.stack, view.world, view.entity);
             view.item.playSoundFireBegin(view.stack, view.entity);
@@ -241,6 +251,25 @@ public class GunStagedItem<T extends GunStagedItem<?>> extends StagedItem<T> {
         }
     }
 
+    public List<ItemStack> getCompactAmmoList(ItemStack stack) {
+        var compactList = new ArrayList<ItemStack>();
+        for (ItemStack ammoStack : getAmmoInGun(stack)) {
+            if (compactList.isEmpty()) {
+                compactList.add(ammoStack);
+                continue;
+            }
+
+            var top = compactList.get(compactList.size() - 1);
+            if (ItemStack.canCombine(top, ammoStack)) {
+                top = top.copyWithCount(top.getCount() + ammoStack.getCount());
+                compactList.set(compactList.size() - 1, top);
+            }
+            else {
+                compactList.add(ammoStack);
+            }
+        }
+        return compactList;
+    }
 
 
     public int getMaxAmmoCapacity(ItemStack stack) {
@@ -393,24 +422,31 @@ public class GunStagedItem<T extends GunStagedItem<?>> extends StagedItem<T> {
         float dy = (float) (player.getX() - player.prevX);
         float dz = (float) (player.getX() - player.prevX);
         float playerSpeed = (float) Math.sqrt(dx*dx + dy*dy + dz*dz);
+        if (playerSpeed > 0) {
+            playerSpeed += 0.08f;
+        }
         float normalizedSpeed = Math.min(playerSpeed, maxVelocity) / maxVelocity;
-        float speedWeight = 2.0f;
+        float speedWeight = 2.5f;
+//        float speedFactor = speedWeight * (float) Math.pow(1 - normalizedSpeed, 2);
         float speedFactor = speedWeight * (1 - normalizedSpeed);
 
-        float groundWeight = 0.5f;
+        float groundWeight = 1.0f;
         float groundFactor = groundWeight * (player.isOnGround() ? 1f : 0f);
 
         float crouchWeight = 0.5f;
         float crouchFactor = crouchWeight * (player.isSneaking() ? 1f : 0f);
 
-        float aimWeight = 1.5f;
-        float aimFactor = aimWeight * (player.isUsingItem() ? 1f : 0f);
+        float aimWeight = 1.0f;
+        float aimRatio = MathHelper.clamp(player.getItemUseTime() / getAimingTimeModifier(), 0f, 1f);
+//        float aimFactor = aimWeight * (player.isUsingItem() ? 1f : 0f);
+        float aimFactor = aimWeight * aimRatio;
 
         boolean isFiring = getStageName(stack).equals("firing");
         float recoilFactor = 0.0f;
         if (isFiring && getMaxStageTicks(stack) > 0) {
             float p = getStageTicks(stack) / (float) getMaxStageTicks(stack);
-            recoilFactor = -2.0f * (float) Math.pow(1 - p, 0.5);
+//            recoilFactor = -2.0f * (float) Math.pow(1 - p, 0.5);
+            recoilFactor = -2.0f * (1 - p);
         }
 
         float sumOfFactors = speedFactor + groundFactor + crouchFactor + aimFactor + recoilFactor;
@@ -420,6 +456,16 @@ public class GunStagedItem<T extends GunStagedItem<?>> extends StagedItem<T> {
 
     public <B extends Z7BulletEntity> B modifyBulletEntity(B bullet) {
         return bullet;
+    }
+
+    public Identifier getCrosshairTexture() {
+        return DEFAULT_CROSSHAIR_TEXTURE;
+    }
+
+    public int getCrosshairFrameIndex(float currentAccuracyValue, PlayerEntity player) {
+        final int frameCount = 40;
+        float continuousIndex = MathHelper.clamp(currentAccuracyValue, 0f, 1f);
+        return (int) Math.ceil(continuousIndex * (frameCount - 1));
     }
 
     // -- Vanilla
@@ -458,30 +504,25 @@ public class GunStagedItem<T extends GunStagedItem<?>> extends StagedItem<T> {
     }
 
     @Override
+    public Optional<TooltipData> getTooltipData(ItemStack stack) {
+        DefaultedList<ItemStack> defaultedList = DefaultedList.of();
+        defaultedList.addAll(getCompactAmmoList(stack));
+        return Optional.of(new BundleTooltipData(defaultedList, (int) MathHelper.map(getAmmoInGun(stack).size(), 0, getMaxAmmoCapacity(stack), 0, 64)));
+    }
+
+    @Override
     public void appendTooltip(ItemStack stack, @Nullable World world, List<Text> tooltip, TooltipContext context) {
 //        tooltip.add(MutableText.of(Text.of("Gun Stage (" + getStageId(stack) + ") = " + stagesGraph.nameFromId(getStageId(stack))).getContent()));
-
         if (getMaxAmmoCapacity(stack) > 0) {
             var ammoList = getAmmoInGun(stack);
-            tooltip.add(MutableText.of(Text.of("Ammo " + ammoList.size() + "/" + getMaxAmmoCapacity(stack) + ":").getContent()).formatted(Formatting.GRAY));
-            var compactList = new ArrayList<ItemStack>();
-            for (ItemStack ammoStack : ammoList) {
-                if (compactList.isEmpty()) {
-                    compactList.add(ammoStack);
-                    continue;
-                }
-
-                var top = compactList.get(compactList.size() - 1);
-                if (ItemStack.canCombine(top, ammoStack)) {
-                    top = top.copyWithCount(top.getCount() + ammoStack.getCount());
-                    compactList.set(compactList.size() - 1, top);
-                }
-                else {
-                    compactList.add(ammoStack);
-                }
+            if (ammoList.isEmpty()) {
+                tooltip.add(MutableText.of(Text.of("Ammo 0/" + getMaxAmmoCapacity(stack)).getContent()).formatted(Formatting.GRAY));
             }
-
-            compactList.forEach(a -> tooltip.add(MutableText.of(Text.of("  " + a.getCount() + "x ").getContent()).append(Text.translatable(a.getTranslationKey())).formatted(Formatting.DARK_GRAY)));
+            else {
+                tooltip.add(MutableText.of(Text.of("Ammo " + ammoList.size() + "/" + getMaxAmmoCapacity(stack) + ":").getContent()).formatted(Formatting.GRAY));
+                var compactList = getCompactAmmoList(stack);
+                compactList.forEach(a -> tooltip.add(MutableText.of(Text.of("  " + a.getCount() + "x ").getContent()).append(Text.translatable(a.getTranslationKey())).formatted(Formatting.DARK_GRAY)));
+            }
         }
 
         if (stack.getDamage() > 0){

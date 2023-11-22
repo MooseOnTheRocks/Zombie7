@@ -2,6 +2,7 @@ package dev.foltz;
 
 import com.mojang.datafixers.util.Function4;
 import dev.foltz.item.grenade.MolotovGrenadeItem;
+import dev.foltz.item.gun.ChargerItem;
 import dev.foltz.item.gun.GunStagedItem;
 import dev.foltz.item.grenade.FragGrenadeItem;
 import dev.foltz.item.Z7Items;
@@ -199,6 +200,15 @@ public abstract class Z7ModelPredicates {
                 stagePredicate("is_firing", HandCannonItem.STAGE_FIRING),
                 stagePredicate("is_broken", HandCannonItem.STAGE_BROKEN),
                 stagePredicate("is_fuse_lit", HandCannonItem.STAGE_FUSE_LIT),
+                USAGE_TICKS,
+                IN_GUI));
+
+        registerItemWithPredicates(
+            Z7Items.ITEM_CHARGER,
+            List.of(
+                stagePredicate("is_firing", ChargerItem.STAGE_FIRING),
+                stagePredicate("is_broken", ChargerItem.STAGE_BROKEN),
+                stagePredicate("is_charging", ChargerItem.STAGE_CHARGING),
                 USAGE_TICKS,
                 IN_GUI));
 

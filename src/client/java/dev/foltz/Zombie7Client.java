@@ -21,15 +21,18 @@ import net.fabricmc.fabric.api.client.rendering.v1.HudRenderCallback;
 import net.fabricmc.fabric.api.event.client.player.ClientPreAttackCallback;
 import net.fabricmc.fabric.api.networking.v1.PacketByteBufs;
 import net.minecraft.client.MinecraftClient;
+import net.minecraft.client.font.TextRenderer;
+import net.minecraft.client.gui.DrawContext;
 import net.minecraft.client.option.KeyBinding;
 import net.minecraft.client.render.entity.model.EntityModelLayer;
 import net.minecraft.client.util.InputUtil;
+import net.minecraft.item.ItemStack;
 import net.minecraft.util.Identifier;
 import org.lwjgl.glfw.GLFW;
 
 @Environment(EnvType.CLIENT)
 public class Zombie7Client implements ClientModInitializer {
-    public static final Identifier GUN_CROSSHAIR = new Identifier(Zombie7.MODID, "textures/crosshair/gun_crosshair.png");
+    public static final Identifier GUI_AMMO_SLOTS = new Identifier(Zombie7.MODID, "textures/gui/ammo_slots.png");
     public static final ConcussionFogModifier FOG_MODIFIER = new ConcussionFogModifier();
     public static final ConcussionLongFogModifier FOG_MODIFIER_LONG = new ConcussionLongFogModifier();
 
@@ -111,4 +114,25 @@ public class Zombie7Client implements ClientModInitializer {
             }
         });
 	}
+
+    // TODO: Fix these "scaled" functions!
+    public static void drawScaledItemWithCount(DrawContext context, TextRenderer textRenderer, float scale, ItemStack stack, int x, int y) {
+        context.getMatrices().push();
+        context.getMatrices().translate(x / scale, y / scale, 0);
+        context.getMatrices().scale(scale, scale, scale);
+        context.drawItem(MinecraftClient.getInstance().player, stack, 0, 0, 0);
+        context.drawItemInSlot(textRenderer, stack, 0, 0);
+        context.getMatrices().pop();
+    }
+
+    public static void drawScaledTexture(DrawContext context, float scale, Identifier identifier, int x, int y, int u, int v, int width, int height, int textureWidth, int textureHeight) {
+//        int xx = (int) (x / scale);
+//        int yy = (int) (y / scale);
+//        context.drawTexture(identifier, xx, yy, u, v, width, height, textureWidth, textureHeight);
+        context.getMatrices().push();
+        context.getMatrices().translate(x / scale, y / scale, 0);
+        context.getMatrices().scale(scale, scale, scale);
+        context.drawTexture(identifier, 0, 0, u, v, width, height, textureWidth, textureHeight);
+        context.getMatrices().pop();
+    }
 }
